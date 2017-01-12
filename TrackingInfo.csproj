@@ -406,6 +406,9 @@
     <Content Include="app\view\MainMenu.js" />
     <Content Include="app\view\MainPage.js" />
     <Content Include="app\view\mapsendcommands.js" />
+    <Content Include="app\view\MultiPleTracking\CustomePanel\SettingMultipleMapTracking.js" />
+    <Content Include="app\view\MultiPleTracking\multiTrackingItemsList.js" />
+    <Content Include="app\view\MultiPleTracking\multiTrackingMap.js" />
     <Content Include="app\view\MyAccount\listgeofTrackingitems.js" />
     <Content Include="app\view\MyAccount\ResponderAlertList.js" />
     <Content Include="app\view\MyAccount\singlesummary.js" />
@@ -420,6 +423,7 @@
     <Content Include="app\view\SettingFence\holdersettinggeofence.js" />
     <Content Include="app\view\SettingFence\listgeofenceitemsettinggeofence.js" />
     <Content Include="app\view\SettingFence\SettingFenceDrawMap.js" />
+    <Content Include="app\view\SettingFence\SettingFencePanelSettingInfo.js" />
     <Content Include="app\view\SettingFence\Settinggeofence.js" />
     <Content Include="app\view\Setting\MainSetting.js" />
     <Content Include="app\view\Setting\MilageCountSetting.js" />
@@ -797,6 +801,7 @@
     <Content Include="app\view\Readme.md" />
     <Content Include="bin\TrackingInfo.dll.config" />
     <Content Include="index.html" />
+    <Content Include="location.html" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\TrackingInfo.csprojResolveAssemblyReference.cache" />
@@ -4158,7 +4163,6 @@
     <Folder Include="app\store\gpsSendCommand\" />
     <Folder Include="app\store\gpsTrackingHistory\" />
     <Folder Include="app\store\gpsTracking\" />
-    <Folder Include="app\view\MultiPleTracking\" />
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="touch\resources\icons\" />

@@ -42,6 +42,42 @@ var uniqueIdgeoLocationMarker = 1;
 
 var geoLocationArr = [];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var buttonAlertstateSettinggeofence;
+var mapgeofenceSettinggeofence;
+var boundaryColorSettinggeofence = '#ED1B24'; // initialize color of polyline
+var countSettinggeofence = 0;
+var markerGeofenceSettinggeofence;
+var drawingManagerSettinggeofence;
+var oriShapeSettinggeofence;
+var countshapeSettinggeofence;
+var radiuseSettinggeofence;
+var polygonpathsSettinggeofence;
+var polylinespathsSettinggeofence;
+var circlecenterYSettinggeofence;
+var circlecenterXSettinggeofence;
+var shapetypeSettinggeofence;
+var coorshapeSettinggeofence;
+var geofencepolyLengthInMetersSettinggeofence;
+var geofencetravellengthSettinggeofence;
+var geofencetravellengthkmSettinggeofence;
+var geofenceLengthSettinggeofence;
+var alertisplaySettinggeofence;
+var geoFenceDateSettinggeofence;
+
 Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
@@ -50,67 +86,47 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
     requires: ['Ext.Map', 'Ext.dataview.List',
         'Ext.data.Store', 'Ext.field.Select',
         'Ext.field.Hidden', 'Ext.form.FieldSet', ],
-
-
-    xtype: 'MultiTrackingMap',
-
-
+    xtype: 'MultiTrackingMap',    
     config: {
 
         layout: 'fit',
         // layout: 'card',
         styleHtmlContent: true,
         items: [
-
-
+            
                {
 
                    xtype: 'toolbar',
-
                    docked: 'bottom',
                    id: 'toolbarMultiTrackingBottom',
-                   //  hidden:true,
                    items:
                           [
      {
-         //docked: 'right',
-         // width: 50,
          ui: 'plain',
          xtype: 'button',
          id: 'btnMultiCountLiveTracking',
-
          handler: function () {
 
          }
      },
-
                        {
                            xtype: 'spacer',
                        },
 
                            {
                                xtype: 'button',
-
                                id: 'btnMultiTrackingbacktoList',
                                text: 'Back',
-                             //  iconCls: 'home',
-                               // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
                                ui: 'action',
                                handler: function () {
                                    DeselectMultipleTrackingList();
-                                   MultipleGeocodeAdd.length = 0;
-                             
+                                   MultipleGeocodeAdd.length = 0;                             
                                    stopClockmultiTrackingMaps();
                                    Ext.getCmp('mainView').setActiveItem(7);
                                }
-
-
-
                            },
 
                           ]
-
-
                },
                {
 
@@ -122,140 +138,45 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                    items:
                           [
 
-
                               {
                                   xtype: 'button',
-
                                   id: 'btnMultiTrackingOverViewHome',
-                                  //  text: 'Show',
                                   iconCls: 'home',
-                                  // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
                                   ui: 'plain',
                                   handler: function () {
                                       MultipleGeocodeAdd.length = 0;
-                                    
                                       stopClockmultiTrackingMaps();
                                       Ext.getCmp('mainView').setActiveItem(1);
                                   }
-
-
-
                               },
                               {
                                   xtype: 'spacer'
                               },
                               {
                                   xtype: 'button',
-                                  //right: -7,
-                                  //top: 1,
                                   id: 'btnMultiTrackingTopAccInfo',
                                   html: '<div ><img src="resources/icons/MainMenuPictureProfile.png" width="45" height="45" alt="Company Name"></div>',
-                                //  html: '<div ><img src="resources/icons/hideGeofence.png" width="30" height="20" alt="Company Name"></div>',
                                   ui: 'plain',
                                   handler: function () {
-
-                                     
-
                                   }
                               },
 
-                            
                           ]
-
                },
-
-           {
-               //xtype: 'titlebar',
-               xtype: 'container',
-               margin: '-22 -5 -5 -5',
-                  hidden: true,
-               // draggable: true,
-               layout: {
-
-                   type: 'vbox',
-                   pack: 'left',
-                   //  align: 'end'
-               },
-
-               items: [
-
-                     {
-                         xtype: 'button',
-                         ui: 'plain',
-                         // style: 'background-color: #0042BA;border-radius: 0px;border-color: white;margin: .5em;color:white',
-                         height: 24,
-                         width: 45,
-                         //iconCls: 'download',
-                         html: '<div ><img src="resources/icons/download.png" width="25" height="18" alt="Company Name"></div>',
-                         //ui:'round'
-
-                         id: 'btnpanelMultipleTrackingMapShowHideInfo',
-
-                         handler: function (btnpanelsingleTrackingMapShowHideInfo) {
-                             // btn.setHidden(true);
-
-                             if (btnpanelsingleTrackingMapShowHideInfo.hasDisabled) {
-
-                                 btnpanelsingleTrackingMapShowHideInfo.setHtml('<div ><img src="resources/icons/download.png" width="25" height="18"></div>')
-                                 btnpanelsingleTrackingMapShowHideInfo.hasDisabled = false;
-                                 //_GeofenceInfopanel.hide();
-
-                                 _GeofenceInfopanel.hide();
-
-
-                             } else {
-
-
-                                 if (!this.overlay) {
-                                     this.overlay = Ext.Viewport.add(_GeofenceInfopanel
-                                 );
-
-
-                                 }
-                                 btnpanelsingleTrackingMapShowHideInfo.setHtml('<div ><img src="resources/icons/download_screen.png" width="25" height="18"></div>')
-                                 this.overlay.show();
-
-                                 btnpanelsingleTrackingMapShowHideInfo.hasDisabled = true;
-
-
-
-
-                             }
-
-                         }
-
-                     }
-
-               ]
-
-
-           },
-
         ]
     },
-
-
-
-
-
-
 
     initialize: function () {
 
         this.callParent();
         map = this.add({
-            xtype: 'map',
-            //useCurrentLocation: true,
+            xtype: 'map',           
             mapOptions: {
-
                 center: new google.maps.LatLng(5.4445234, 101.91246603),
                 zoom: 6,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 panControl: false,
                 scaleControl: false,
-                //overviewMapControl: true,
-                //overviewMapControlOptions: {opened: true},
-
                 mapTypeControl: false,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DEFAULT,
@@ -270,35 +191,278 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.LEFT_TOP
                 },
-
-
             },
 
 
 
-
+            fn: 'initialize',
+            event: 'painted',
 
 
             listeners: {
                 maprender: function (comp, map) {
                     multiTrackingMap = map;
                     var me = this;
-                    me.map = map;
-                   
-                  
-                 
+                    me.map = map;  
                     geocoderMultiLiveTracking = new google.maps.Geocoder();
 
+
+
+
+                    //initialized DrawingManager
+                    countshapeSettinggeofence = 0;
+                    radiuseSettinggeofence = 0;
+                    shapetypeSettinggeofence = "none";
+                    drawingManagerSettinggeofence = new google.maps.drawing.DrawingManager({
+                        drawingControl: false,
+                        drawingControlOptions: {
+                            position: google.maps.ControlPosition.TOP_LEFT,
+                            drawingModes: [
+                               google.maps.drawing.OverlayType.POLYGON,
+                              google.maps.drawing.OverlayType.CIRCLE
+                            ]
+                        },
+                        polygonOptions: {
+                            strokeColor: "#000000",
+                            // strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#FFFFFF",
+                            fillOpacity: 0.5
+                        },
+                       
+                        circleOptions: {
+                            fillColor: '#000000',
+                            fillOpacity: 0.5,
+                            strokeWeight: 2,
+                            clickable: false,
+                            editable: true,
+                            zIndex: 1
+                        }
+                    });
+                    ///////////
+
+                    /////////////////////// DRAWING INIT////////////////////////////////////////////////////////////////////////////////////////////////////
+                    drawingManagerSettinggeofence.setMap(multiTrackingMap);
+                    google.maps.event.addListener(drawingManagerSettinggeofence, 'polygoncomplete', function (polygon) {
+                        //  resetMenuDrawButton();
+                        if (countshapeSettinggeofence <= 0) {
+                            var coordinatespolygon = (polygon.getPath().getArray());
+                            polygonpathsSettinggeofence = new google.maps.Polygon({
+                                paths: coordinatespolygon
+                            });
+
+                            Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
+                            var task = Ext.create('Ext.util.DelayedTask', function () {
+                                coorshapeSettinggeofence = '';
+                                coorshapeSettinggeofence += coordinatespolygon;
+                                var tempkm;
+                                // alert(coorshapeSettinggeofence);
+                                geofencepolyLengthInMetersSettinggeofence = google.maps.geometry.spherical.computeLength(polygon.getPath().getArray());
+                                ///////////    Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
+                                geofencetravellengthSettinggeofence = +Math.floor(geofencepolyLengthInMetersSettinggeofence);
+                                tempkm = geofencetravellengthSettinggeofence / 1000;
+                                ////////Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
+                                ////////Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
+                               
+
+                                shapetypeSettinggeofence = "polygon";
+                                Ext.Viewport.unmask();
+                            });
+                            task.delay(1000);
+                        }
+
+                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
+
+
+                        //if (countshapeSettinggeofence > 1) {
+
+                        //    detectedmoreshapeSettinggeofence();
+                        //}
+
+                    });
+
+
+                    google.maps.event.addListener(drawingManagerSettinggeofence, 'polylinecomplete', function (polyline) {
+
+                        var coordinatespolyline = (polyline.getPath().getArray());
+                        polylinespathsSettinggeofence = new google.maps.polyline({
+                            paths: coordinatespolyline
+                        });
+                        shapetypeSettinggeofence = "polyline";
+                        coorshapeSettinggeofence = coordinatespolyline;
+
+                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
+                        if (countshapeSettinggeofence >= 2) {
+
+                            detectedmoreshapeSettinggeofence();
+                        }
+                    });
+
+
+                    google.maps.event.addListener(drawingManagerSettinggeofence, 'rectanglecomplete', function (rectangle) {
+
+                        var coordinates = (rectangle.getBounds());
+                        alert(coordinates);
+
+
+                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
+                        if (countshapeSettinggeofence >= 2) {
+
+                            detectedmoreshapeSettinggeofence();
+                        }
+                    });
+
+                    google.maps.event.addListener(drawingManagerSettinggeofence, 'circlecomplete', function (circle) {
+                        //   resetMenuDrawButton();
+                        if (countshapeSettinggeofence <= 0) {
+
+
+                            Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
+                            var task = Ext.create('Ext.util.DelayedTask', function () {
+
+                                //   InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, circle.getRadius(), circle.getCenter().lat() + ',' + circle.getCenter().lng(), "circle", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea, FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
+
+                                ////Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
+                                ////Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
+                                ////Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
+                                radiuseSettinggeofence = circle.getRadius();
+                                geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
+                                geofenceLengthSettinggeofence = +Math.floor(radiuseSettinggeofence);
+                                circlecenterYSettinggeofence = circle.getCenter().lat();
+                                circlecenterXSettinggeofence = circle.getCenter().lng();
+                                shapetypeSettinggeofence = "circle";
+                                Ext.Viewport.unmask();
+                            });
+                            task.delay(1000);
+
+                            google.maps.event.addListener(circle, 'radius_changed', function () {
+                                Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..Processing geofence..' });
+                                var task = Ext.create('Ext.util.DelayedTask', function () {
+
+
+                                    //Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
+                                    //Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
+                                    //Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
+                                    radiuseSettinggeofence = circle.getRadius();
+                                    geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
+                                    geofenceLengthSettinggeofence = geofencetravellengthkmSettinggeofence + '(radius)';
+                                    circlecenterYSettinggeofence = circle.getCenter().lat();
+                                    circlecenterXSettinggeofence = circle.getCenter().lng();
+                                    shapetypeSettinggeofence = "circle";
+                                    Ext.Viewport.unmask();
+                                });
+                                task.delay(1000);
+                                console.log('radius changed');
+                                radiuseSettinggeofence = circle.getRadius();
+                                geofencetravellengthkmSettinggeofence = radiuseSettinggeofence + '(radius)';
+
+                            });
+
+
+
+                        }
+                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
+                        if (countshapeSettinggeofence > 1) {
+                            // stopClockGeoFence();
+                            detectedmoreshapeSettinggeofence();
+                        }
+
+                    });
+
+                    google.maps.event.addListener(drawingManagerSettinggeofence, 'overlaycomplete', function (e) {
+                        if (e.type == google.maps.drawing.OverlayType.POLYGON) {
+                            // Switch back to non-drawing mode after drawing a shape.
+                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            // resetMenuDrawButton();
+                            if (countshapeSettinggeofence == 0) {
+                                oriShapeSettinggeofence = e.overlay;
+                                oriShapeSettinggeofence.type = e.type;
+                                // alert(oriShape);
+
+                            }
+
+                            if (countshapeSettinggeofence >= 1) {
+                                var newShape = e.overlay;
+                                newShape.type = e.type;
+                                setSelectionSettinggeofence(newShape);
+                            }
+                        }
+                        if (e.type == google.maps.drawing.OverlayType.POLYLINE) {
+                            // Switch back to non-drawing mode after drawing a shape.
+                            drawingManagerSettinggeofence.setDrawingMode(null);
+
+                            //  countshapeSettinggeofence = countshapeSettinggeofence + 1;
+                            if (countshapeSettinggeofence == 0) {
+                                oriShapeSettinggeofence = e.overlay;
+                                oriShapeSettinggeofence.type = e.type;
+                            }
+
+                            if (countshapeSettinggeofence >= 1) {
+                                var newShape = e.overlay;
+                                newShape.type = e.type;
+                                setSelectionSettinggeofence(newShape);
+                            }
+                        }
+
+                        if (e.type == google.maps.drawing.OverlayType.CIRCLE) {
+                            // Switch back to non-drawing mode after drawing a shape.
+                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            //  resetMenuDrawButton();
+                            //     countshapeSettinggeofence = countshapeSettinggeofence + 1;
+
+                            if (countshapeSettinggeofence == 0) {
+                                oriShapeSettinggeofence = e.overlay;
+                                oriShapeSettinggeofence.type = e.type;
+
+                            }
+
+                            if (countshapeSettinggeofence >= 1) {
+                                var newShape = e.overlay;
+                                newShape.type = e.type;
+                                setSelectionSettinggeofence(newShape);
+                            }
+                        }
+                        if (e.type == google.maps.drawing.OverlayType.RECTANGLE) {
+                            // Switch back to non-drawing mode after drawing a shape.
+                            drawingManagerSettinggeofence.setDrawingMode(null);
+
+                            //    countshapeSettinggeofence = countshapeSettinggeofence + 1;
+
+
+
+                            if (countshapeSettinggeofence == 0) {
+                                oriShapeSettinggeofence = e.overlay;
+                                oriShapeSettinggeofence.type = e.type;
+
+                            }
+
+                            if (countshapeSettinggeofence >= 1) {
+                                var newShape = e.overlay;
+                                newShape.type = e.type;
+                                setSelectionSettinggeofence(newShape);
+                            }
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
                 }
-
             }
-
-
         });
-
-
-
-
     }
 
 });
@@ -317,16 +481,11 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
 var multiDirection = parseFloat('16.86');;
-
 var multiTrackingMapsec = 0;
 var multitimer = 0;
-
 var MultipleGeocodeAdd = [];//some array
-
-
 function CheckMarkersMultipleID(arr, findValue) {
     var i = arr.length;
-
     while (i--) {
         if (arr[i] === findValue) return true;
     }
@@ -335,7 +494,7 @@ function CheckMarkersMultipleID(arr, findValue) {
 
 
 function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
-
+    SettingMultipleMapTrackingShow();
     markersMultipleID.length = 0;
     checkinMultipoint = '000';
     
@@ -355,7 +514,7 @@ function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
                     //TrackID: valSingleTrackID,
                     ImeiNo: ImeiNo,
                     count: countmultiple,
-                    AccountNo: AAccountNo
+                    AccountNo: GetCurrentUserAccountNo()
 
                     //ImeiNo: '359710048057492,359710041627184,1452824661',
                     //count: '3',
@@ -444,26 +603,25 @@ function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
                         });
                         var markermultiTrackingMap = new MarkerWithLabel({
                             position: boundreboundlatlongmultiTrackingMap,
-                            //  icon: image,
-                            flat: true,
-                            icon: {
-                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                                scale: 10,
-                                rotation: Direction,
-                                strokeColor: '#FFFFFF',
-                                fillColor: '#57A0DC',
-                                fillOpacity: 1,
-                                strokeWeight: 4
-                            },
+                        
+                            //flat: true,
+                            //icon: {
+                            //    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                            //    scale: 10,
+                            //    rotation: Direction,
+                            //    strokeColor: '#FFFFFF',
+                            //    fillColor: '#57A0DC',
+                            //    fillOpacity: 1,
+                            //    strokeWeight: 4
+                            //},
 
                             draggable: false,
                             labelContent: TrackID,
-                            // labelContent:'<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">{TrackID}</td> </tr><tr> <td colspan="2" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">{TrackItem}</td> </tr>    <tr> <td colspan="2" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">0137798</td> </tr><tr> <td colspan="2" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">Millage</td> </tr>   <tr > <td class="tdstreetViewTblInfo" >{Speed}</td> <td class="tdstreetViewTblInfo">120km/h</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Max Speed</td></tr> <tr> <td colspan="2" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr> <tr> <td colspan="2" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">No 41 Parit Hussin<br>34300 Bagan Serai.Perak</td> </tr>  </table></div>',
                             labelAnchor: new google.maps.Point(70, 13),
                             labelClass: "labelsMark",// the CSS class for the label
                             map: multiTrackingMap,
                             id: Latitude + TrackID,
-                            title: Latitude + TrackID
+                          //  title: Latitude + TrackID
                         });
 
 
@@ -706,35 +864,6 @@ function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
 }
 
 
-
-
-
-
-//var markers = {};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function DeleteMarkermultiTrackingMap(id) {
     //Find and remove the marker from the Array
    // MultipleGeocodeAdd.length = 0;
@@ -760,7 +889,7 @@ function DeleteMarkermultiTrackingMap(id) {
     if (index >= 0) {
 
         markersMultipleID.splice(index, 1);
-        console.log('DELETEDDDDDDDDD MULTI MARKERWWWWWWWWWWWWWWWWWWWWW');
+       
         markersMultipleID_Deleted.length = 0;
     }
 }
@@ -797,16 +926,6 @@ function stopClockmultiTrackingMaps() {
 
 }
 
-
-
-
-
-
-
-
-
-
-
 function getCurrentLocationmultiTrackingMap() {
     var me = this;
     if (navigator.geolocation) {
@@ -824,28 +943,6 @@ function getCurrentLocationmultiTrackingMap() {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function DeleteMarkerGeolocation(id) {

@@ -87,7 +87,7 @@ Ext.define('MyGPS.view.SettingFence.listgeofenceitemsettinggeofence', {
                    text: "Add New Virtual Boundry Setting",
 
                    handler: function (btn) {
-                      
+                       SettingFencePanelSettingInfoShow();
                        Ext.getCmp('SettingDrawFence_ShowDetailPanelbtn').setHidden(true);
                        Ext.getCmp('SettingDrawFence_HideDetailPanelbtn').setHidden(false);
                        if (!this.overlay) {
@@ -96,17 +96,17 @@ Ext.define('MyGPS.view.SettingFence.listgeofenceitemsettinggeofence', {
                        }
                        this.overlay.show();
                        deleteAllSelectedShapeSettinggeofence();
-                       Ext.getCmp('SettingDrawFence_ID').setValue('0');
-                       Ext.getCmp('SettingDrawFence_TrackItem').setValue('-1');
-                       // Ext.getCmp('SettingDrawFence_AccountNo').setValue('null');
-                       Ext.getCmp('SettingDrawFence_FencePath').setValue('null');
-                       // Ext.getCmp('SettingDrawFence_ShapeType').setValue('null');
-                       Ext.getCmp('SettingDrawFence_FenceName').setValue('Enter Area Name');
-                       Ext.getCmp('SettingDrawFence_TimeFrom').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_TimeTo').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_DaySetting').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_Status').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_Length').setValue('-1');
+                       //////////Ext.getCmp('SettingDrawFence_ID').setValue('0');
+                       //////////Ext.getCmp('SettingDrawFence_TrackItem').setValue('-1');
+                       //////////// Ext.getCmp('SettingDrawFence_AccountNo').setValue('null');
+                       //////////Ext.getCmp('SettingDrawFence_FencePath').setValue('null');
+                       //////////// Ext.getCmp('SettingDrawFence_ShapeType').setValue('null');
+                       //////////Ext.getCmp('SettingDrawFence_FenceName').setValue('Enter Area Name');
+                       //////////Ext.getCmp('SettingDrawFence_TimeFrom').setValue('-1');
+                       //////////Ext.getCmp('SettingDrawFence_TimeTo').setValue('-1');
+                       //////////Ext.getCmp('SettingDrawFence_DaySetting').setValue('-1');
+                       //////////Ext.getCmp('SettingDrawFence_Status').setValue('-1');
+                       //////////Ext.getCmp('SettingDrawFence_Length').setValue('-1');
                        var cntr = Ext.ComponentQuery.query("#geoFencesSettingholderID")[0];
                        cntr.setActiveItem(1);
                        //mapgeofence.setCenter(boundreboundlatlong)

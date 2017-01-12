@@ -8,7 +8,9 @@
         //layout: {
             
         //},
-        style: "background-color: #57A0DC; color:white;",
+       // style: "background-color: #000033; color:white;",
+        style: "background-color: #000066; color:white;",
+        
         items: [
 
 
@@ -49,7 +51,7 @@
                         {
                             top: 110,
                             left:135,
-                             html: '<font size="5" color="white">GPS Tracking<br>Application v 1.0</font>',                       
+                             html: '<font size="5" color="white">ALZHEMIER GPS Tracking<br>Application v 1.0</font>',                       
                             
                            
                         },
