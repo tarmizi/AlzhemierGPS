@@ -122,7 +122,8 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                ui: 'action',
                                handler: function () {
                                    DeselectMultipleTrackingList();
-                                   MultipleGeocodeAdd.length = 0;                             
+                                   MultipleGeocodeAdd.length = 0;
+                                 
                                    stopClockmultiTrackingMaps();
                                    Ext.getCmp('mainView').setActiveItem(7);
                                }
@@ -221,112 +222,138 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             position: google.maps.ControlPosition.TOP_LEFT,
                             drawingModes: [
                                google.maps.drawing.OverlayType.POLYGON,
-                              google.maps.drawing.OverlayType.CIRCLE
+                              google.maps.drawing.OverlayType.CIRCLE,
+                               google.maps.drawing.OverlayType.POLYLINE,
+                                google.maps.drawing.OverlayType.RECTANGLE
                             ]
+                        },
+                        polylineOptions: {
+                            strokeColor: "#000000",
+                            strokeOpacity: 1.0,
+                            clickable: true,
+                            //dragable: true,
+                            strokeWeight: 2
+                        },
+                        rectangleOptions: {
+                            strokeColor: "#000000",
+                            clickable: true,
+                            //editable: true,
+                            //dragable: true,
+                            strokeWeight: 2,
+                            fillColor: "#FFFFFF",
+                            fillOpacity: 1.0
                         },
                         polygonOptions: {
                             strokeColor: "#000000",
-                            // strokeOpacity: 0.8,
+                            clickable: true,
+                            //editable: true,
+                            //dragable:true,
                             strokeWeight: 2,
                             fillColor: "#FFFFFF",
-                            fillOpacity: 0.5
+                            fillOpacity:1.0
                         },
-                       
                         circleOptions: {
-                            fillColor: '#000000',
-                            fillOpacity: 0.5,
+                            fillColor: "#FFFFFF",
+                            fillOpacity:1.0,
                             strokeWeight: 2,
-                            clickable: false,
-                            editable: true,
+                            clickable: true,
+                            //dragable: true,
+                            //editable: true,
                             zIndex: 1
                         }
                     });
                     ///////////
 
                     /////////////////////// DRAWING INIT////////////////////////////////////////////////////////////////////////////////////////////////////
+                    var multiMapCountPolygonID=0;
+                    var multiMapCountPolylineID=0;
+                    var multiMapCountCircleID=0;
+                    var multiMapCountRectangleD = 0;
+
+                    google.maps.event.addListener(polygonpathsSettinggeofence, 'click', function (event) {
+                        alert(polygonpathsSettinggeofence.id + 'mmmmm');
+                        //Once you have the id here, you can trigger the color change
+                    });
                     drawingManagerSettinggeofence.setMap(multiTrackingMap);
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'polygoncomplete', function (polygon) {
-                        //  resetMenuDrawButton();
-                        if (countshapeSettinggeofence <= 0) {
-                            var coordinatespolygon = (polygon.getPath().getArray());
-                            polygonpathsSettinggeofence = new google.maps.Polygon({
-                                paths: coordinatespolygon
-                            });
+                     
+                        drawingManagerSettinggeofence.setDrawingMode(null);
+                        multiMapCountPolygonID = multiMapCountPolygonID + 1;
+                        var coordinatespolygon = (polygon.getPath().getArray());
+                        polygonpathsSettinggeofence = new google.maps.Polygon({
+                            paths: coordinatespolygon,
+                            id: 'Polygon' + multiMapCountPolygonID
+                        });
 
-                            Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
-                            var task = Ext.create('Ext.util.DelayedTask', function () {
-                                coorshapeSettinggeofence = '';
-                                coorshapeSettinggeofence += coordinatespolygon;
-                                var tempkm;
-                                // alert(coorshapeSettinggeofence);
-                                geofencepolyLengthInMetersSettinggeofence = google.maps.geometry.spherical.computeLength(polygon.getPath().getArray());
-                                ///////////    Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
-                                geofencetravellengthSettinggeofence = +Math.floor(geofencepolyLengthInMetersSettinggeofence);
-                                tempkm = geofencetravellengthSettinggeofence / 1000;
-                                ////////Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
-                                ////////Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
+                        alert(polygonpathsSettinggeofence.id);
+
+                      
+                            //Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
+                            //var task = Ext.create('Ext.util.DelayedTask', function () {
+                            //    coorshapeSettinggeofence = '';
+                            //    coorshapeSettinggeofence += coordinatespolygon;
+                            //    var tempkm;
+                            //    // alert(coorshapeSettinggeofence);
+                            //    geofencepolyLengthInMetersSettinggeofence = google.maps.geometry.spherical.computeLength(polygon.getPath().getArray());
+                            //    ///////////    Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
+                            //    geofencetravellengthSettinggeofence = +Math.floor(geofencepolyLengthInMetersSettinggeofence);
+                            //    tempkm = geofencetravellengthSettinggeofence / 1000;
+                            //    ////////Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
+                            //    ////////Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
                                
 
-                                shapetypeSettinggeofence = "polygon";
-                                Ext.Viewport.unmask();
-                            });
-                            task.delay(1000);
-                        }
+                            //    shapetypeSettinggeofence = "polygon";
+                            //    Ext.Viewport.unmask();
+                            //});
+                            //task.delay(1000);
+                  
 
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-
-
-                        //if (countshapeSettinggeofence > 1) {
-
-                        //    detectedmoreshapeSettinggeofence();
-                        //}
+                      
 
                     });
 
 
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'polylinecomplete', function (polyline) {
-
+                        multiMapCountPolylineID = multiMapCountPolylineID + 1;
                         var coordinatespolyline = (polyline.getPath().getArray());
                         polylinespathsSettinggeofence = new google.maps.polyline({
-                            paths: coordinatespolyline
+                            paths: coordinatespolyline,
+                            id: 'PolyLine' + multiMapCountPolylineID
                         });
                         shapetypeSettinggeofence = "polyline";
                         coorshapeSettinggeofence = coordinatespolyline;
 
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                        if (countshapeSettinggeofence >= 2) {
-
-                            detectedmoreshapeSettinggeofence();
-                        }
                     });
 
 
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'rectanglecomplete', function (rectangle) {
 
-                        var coordinates = (rectangle.getBounds());
-                        alert(coordinates);
+                      //  var coordinatesrectangle = (rectangle.getBounds());
+
+                        multiMapCountRectangleID = multiMapCountRectangleID + 1;
+                        var coordinatesrectangle = (rectangle.getBounds());
+                        polylinespathsSettinggeofence = new google.maps.rectangle({                           
+                            id: 'Rectangle' + multiMapCountRectangleID
+                        });
+                       
 
 
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                        if (countshapeSettinggeofence >= 2) {
-
-                            detectedmoreshapeSettinggeofence();
-                        }
                     });
 
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'circlecomplete', function (circle) {
-                        //   resetMenuDrawButton();
-                        if (countshapeSettinggeofence <= 0) {
-
+                     
+                        multiMapCountCircleID = multiMapCountCircleID + 1;
+                 
+                        polylinespathsSettinggeofence = new google.maps.rectangle({
+                            id: 'Circle' + multiMapCountCircleID
+                        });
 
                             Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
                             var task = Ext.create('Ext.util.DelayedTask', function () {
 
                                 //   InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, circle.getRadius(), circle.getCenter().lat() + ',' + circle.getCenter().lng(), "circle", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea, FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
 
-                                ////Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
-                                ////Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
-                                ////Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
+                            
                                 radiuseSettinggeofence = circle.getRadius();
                                 geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
                                 geofenceLengthSettinggeofence = +Math.floor(radiuseSettinggeofence);
@@ -337,112 +364,70 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             });
                             task.delay(1000);
 
-                            google.maps.event.addListener(circle, 'radius_changed', function () {
-                                Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..Processing geofence..' });
-                                var task = Ext.create('Ext.util.DelayedTask', function () {
-
-
-                                    //Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
-                                    //Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
-                                    //Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
-                                    radiuseSettinggeofence = circle.getRadius();
-                                    geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
-                                    geofenceLengthSettinggeofence = geofencetravellengthkmSettinggeofence + '(radius)';
-                                    circlecenterYSettinggeofence = circle.getCenter().lat();
-                                    circlecenterXSettinggeofence = circle.getCenter().lng();
-                                    shapetypeSettinggeofence = "circle";
-                                    Ext.Viewport.unmask();
-                                });
-                                task.delay(1000);
-                                console.log('radius changed');
-                                radiuseSettinggeofence = circle.getRadius();
-                                geofencetravellengthkmSettinggeofence = radiuseSettinggeofence + '(radius)';
-
-                            });
 
 
 
-                        }
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                        if (countshapeSettinggeofence > 1) {
-                            // stopClockGeoFence();
-                            detectedmoreshapeSettinggeofence();
-                        }
 
                     });
+                 
+
+                    //google.maps.event.addListener(polygonpathsSettinggeofence, 'click', function (polygon) {
+
+                    //    alert(this.id + 'mmmmm');
+
+
+                 //   drawingManagerSettinggeofence.setMap(multiTrackingMap);
+
+
+                    //});
+                    
+                   
 
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'overlaycomplete', function (e) {
                         if (e.type == google.maps.drawing.OverlayType.POLYGON) {
                             // Switch back to non-drawing mode after drawing a shape.
+
+                         
+
+                           
+
                             drawingManagerSettinggeofence.setDrawingMode(null);
-                            // resetMenuDrawButton();
-                            if (countshapeSettinggeofence == 0) {
+                         
                                 oriShapeSettinggeofence = e.overlay;
                                 oriShapeSettinggeofence.type = e.type;
-                                // alert(oriShape);
+                               
 
-                            }
-
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
+                          
                         }
                         if (e.type == google.maps.drawing.OverlayType.POLYLINE) {
                             // Switch back to non-drawing mode after drawing a shape.
                             drawingManagerSettinggeofence.setDrawingMode(null);
 
-                            //  countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                            if (countshapeSettinggeofence == 0) {
                                 oriShapeSettinggeofence = e.overlay;
                                 oriShapeSettinggeofence.type = e.type;
-                            }
-
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
+                           
+                          
                         }
 
                         if (e.type == google.maps.drawing.OverlayType.CIRCLE) {
                             // Switch back to non-drawing mode after drawing a shape.
                             drawingManagerSettinggeofence.setDrawingMode(null);
-                            //  resetMenuDrawButton();
-                            //     countshapeSettinggeofence = countshapeSettinggeofence + 1;
-
-                            if (countshapeSettinggeofence == 0) {
+                          
                                 oriShapeSettinggeofence = e.overlay;
                                 oriShapeSettinggeofence.type = e.type;
 
-                            }
 
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
                         }
                         if (e.type == google.maps.drawing.OverlayType.RECTANGLE) {
                             // Switch back to non-drawing mode after drawing a shape.
                             drawingManagerSettinggeofence.setDrawingMode(null);
 
-                            //    countshapeSettinggeofence = countshapeSettinggeofence + 1;
-
-
-
-                            if (countshapeSettinggeofence == 0) {
+                         
                                 oriShapeSettinggeofence = e.overlay;
                                 oriShapeSettinggeofence.type = e.type;
 
-                            }
 
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
+                       
                         }
                     });
 
@@ -505,6 +490,7 @@ function CheckMarkersMultipleID(arr, findValue) {
 
 function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
     SettingMultipleMapTrackingShow();
+    MultipleMapTrackingSettingLayerShow();
     markersMultipleID.length = 0;
     checkinMultipoint = '000';
     
@@ -926,7 +912,8 @@ function stopClockmultiTrackingMaps() {
     geocoderMultiLiveTrackingisFirstLoad = 'yes';
     DeleteAllMultiMarker();
     markersMulti.length = 0;
- 
+    MultipleMapTrackingSettingHide();
+    SettingMultipleMapTrackingHide();
     Ext.getCmp('btnMultiCountLiveTracking').setText( '0 Signal(s) Running');
     // console.log("STOPED");
     // Ext.getCmp('InfoSummDatasingle').setHtml('<table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: #57A0DC;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">ABC1234</td> </tr><tr> <td colspan="2" style="background-color: #57A0DC;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">-UNKNOWN-</td> </tr>    <tr > <td class="tdspeedmax">000km/h</td> <td class="tdspeedmax">000km/h</td></tr> <tr > <td class="tdspeed">Curr. Speed</td> <td class="tdspeed">Max Speed</td></tr> <tr> <td colspan="2" class="tdspeedmax">00:00:00:00:00:00:00</td> </tr>  </table>');

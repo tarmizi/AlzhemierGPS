@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<GroundOverlay>
+	<name>FloorPla3A</name>
+	<Icon>
+		<href>FloorPlan3A.jpg</href>
+		<viewBoundScale>0.75</viewBoundScale>
+	</Icon>
+	<altitude>34</altitude>
+	<altitudeMode>absolute</altitudeMode>
+	<LatLonBox>
+		<north>2.9272</north>
+		<south>2.927111111111111</south>
+		<east>101.6514944444445</east>
+		<west>101.6512527777778</west>
+	</LatLonBox>
+</GroundOverlay>
+</kml>

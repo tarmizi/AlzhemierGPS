@@ -116,7 +116,7 @@ function SettingMultipleMapTracking() {
                    html: '<div ><img src="resources/icons/NearMeRound.png" width="55" height="55" alt="Company Name"></div>',
                    ui: 'plain',
                    handler: function () {
-                       MultipleMapTrackingSettingLayerShow();
+                     
 
                    }
                },
@@ -128,7 +128,7 @@ function SettingMultipleMapTracking() {
                          html: '<div ><img src="resources/icons/LocateRound.png" width="55" height="55" alt="Company Name"></div>',
                          ui: 'plain',
                          handler: function () {
-                             MultipleMapTrackingSettingLayerHide();
+                            
                            
                          }
                      },
@@ -157,7 +157,12 @@ function SettingMultipleMapTracking() {
 
                   ui: 'plain',
                   handler: function (btn) {
-                     
+                      //SettingMultipleMapTrackingHide();
+                      //MultipleMapTrackingSettingLayerHide();
+                      MultipleGeocodeAdd.length = 0;
+                      stopClockmultiTrackingMaps();
+                      DeselectMultipleTrackingList();
+                      Ext.getCmp('mainView').setActiveItem(7);
                   }
               },
 

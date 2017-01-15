@@ -137,7 +137,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingItemsList', {
                                            var modelRecord = myStore.getAt(iii);
                                            var Latitude = modelRecord.get('Latitude');
                                            var Longitude = modelRecord.get('Longitude');
-                                           MultiSignalReversegeocodeAddress(Longitude, Latitude);
+                                        //   MultiSignalReversegeocodeAddress(Longitude, Latitude);
                                        }
 
                                        setTimeout(function () {
@@ -145,7 +145,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingItemsList', {
 
 
 
-
+                                        
                                            startmultiTrackingMaps('start', count + 1, strDeviceIDModified);
                                            //  Ext.getCmp('mainView').setActiveItem(2);
                                            Ext.Viewport.setMasked(false);

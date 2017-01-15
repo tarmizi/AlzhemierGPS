@@ -26,7 +26,7 @@ function MultipleMapTrackingSettingLayer() {
       id: '_multipleMapTrackingSettingLayerID',
       draggable: false,
       left: 55,
-      bottom: 301,
+      bottom: 370,
       zIndex: 10,
       // bottom: 165,
 
@@ -53,7 +53,26 @@ function MultipleMapTrackingSettingLayer() {
               align: 'end'
           },
 
-          items: [
+          items: [{
+              xtype: 'button',
+              id: 'btnmultipleMapTrackingSettingLayerCreateLayerRectangle',
+              height: 62,
+              width: 65,
+              html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerRectangle.png" width="55" height="55" alt="Company Name"></div>',
+              ui: 'plain',
+              handler: function () {
+                  drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
+                  //drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
+                  //if (drawPolygonCountSettingDrawFence == 1) {
+                  //    drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+
+                  //} else if (drawPolygonCountSettingDrawFence == 2) {
+                  //    drawingManagerSettinggeofence.setDrawingMode(null);
+                  //    drawPolygonCountSettingDrawFence = 0;
+
+                  //}
+              }
+          },
 
                   {
                       xtype: 'button',
@@ -83,7 +102,7 @@ function MultipleMapTrackingSettingLayer() {
                         html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerPolyline.png" width="55" height="55" alt="Company Name"></div>',
                         ui: 'plain',
                         handler: function () {
-
+                            drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
                         }
                     },
                       {
@@ -94,19 +113,9 @@ function MultipleMapTrackingSettingLayer() {
                           html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerCircle.png" width="55" height="55" alt="Company Name"></div>',
                           ui: 'plain',
                           handler: function () {
-                            //  drawCircleCountSettingDrawFence = drawCircleCountSettingDrawFence + 1;
+                     
                               drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
-                              //if (drawCircleCountSettingDrawFence == 1) {
-                            
-                                
-
-                              //} else if (drawCircleCountSettingDrawFence == 2) {
-                                 
-                              //    drawingManagerSettinggeofence.setDrawingMode(null);
-                              //    drawCircleCountSettingDrawFence = 0;
-
-                              //}
-
+                              
                           }
                       },
 
@@ -120,22 +129,22 @@ function MultipleMapTrackingSettingLayer() {
                     handler: function () {
 
 
-                        var imageBounds = {
-                            north: 40.773941,
-                            south: 40.712216,
-                            east: -74.12544,
-                            west: -74.22655
-                        };
+                        //var imageBounds = {
+                        //    north: 40.773941,
+                        //    south: 40.712216,
+                        //    east: -74.12544,
+                        //    west: -74.22655
+                        //};
 
-                        historicalOverlay = new google.maps.GroundOverlay(
-                            'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-                            imageBounds);
-                        historicalOverlay.setMap(multiTrackingMap);
+                        //historicalOverlay = new google.maps.GroundOverlay(
+                        //    'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+                        //    imageBounds);
+                        //historicalOverlay.setMap(multiTrackingMap);
 
                        // alert(ipLayer+'hh');
-                       ////  var kmzLayer = new google.maps.KmlLayer(ipLayer);
-                       //  var kmzLayer = new google.maps.KmlLayer('http://angkasarnd.my:8100/LatestFloorPlan1.kml');
-                       // kmzLayer.setMap(multiTrackingMap);
+                      //   var kmzLayer = new google.maps.KmlLayer(ipLayer);
+                        //var kmzLayer = new google.maps.KmlLayer('http://angkasarnd.my:8100/FloorPlan2.kml');
+                        //kmzLayer.setMap(multiTrackingMap);
                     }
                 },
                {

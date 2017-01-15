@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Folder>
+	<name>FloorPlan</name>
+	<open>1</open>
+	<GroundOverlay>
+		<name>TestFloorPlan</name>
+		<Icon>
+			<href>FloorPlan3A.jpg</href>
+			<viewBoundScale>0.75</viewBoundScale>
+		</Icon>
+		<LatLonBox>
+			<north>2.927294434555507</north>
+			<south>2.927042675323426</south>
+			<east>101.6514312352912</east>
+			<west>101.6513142790574</west>
+			<rotation>-88.25681528488585</rotation>
+		</LatLonBox>
+	</GroundOverlay>
+</Folder>
+</kml>
