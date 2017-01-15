@@ -49,7 +49,7 @@ var historicalOverlay;
 
 
 
-
+var _polylinepathsSettingLayer;
 
 
 
@@ -285,6 +285,11 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                        
                         });
 
+
+                        google.maps.event.addListener(polygon, 'click', function () {
+                            polygon.setOptions({ strokeColor: '#FF0000' });
+                        });
+
                         polygon.getPaths().forEach(function (_polygonpathsSettingLayer, index) {
 
                             google.maps.event.addListener(_polygonpathsSettingLayer, 'insert_at', function () {
@@ -317,32 +322,45 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                     google.maps.event.addListener(_drawingManagerSettingLayer, 'polylinecomplete', function (polyline) {
                        
                         _drawingManagerSettingLayer.setDrawingMode(null);
-                        var _coordinatespolyline = (polyline.getPath().getArray());
+                       // var _coordinatespolyline = (polyline.getPath().getArray());
 
-                        var _polylinepathsSettingLayer = new google.maps.Polyline({
-                            paths: _coordinatespolyline,
+                         _polylinepathsSettingLayer = new google.maps.Polyline({
+                             paths: polyline.getPath().getArray(),
 
                         });
-                        _coordinatespolyline.forEach(function (_polylinepathsSettingLayer, index) {
+                         polyline.getPath().forEach(function (_polylinepathsSettingLayer, index) {
 
-                            google.maps.event.addListener(_polylinepathsSettingLayer, 'insert_at', function () {
+                             google.maps.event.addListener(_polylinepathsSettingLayer, 'insert_at', function () {
                                 // New pointcons
                                 console.log('insert_at');
                             });
 
-                            google.maps.event.addListener(_polylinepathsSettingLayer, 'remove_at', function () {
+                             google.maps.event.addListener(_polylinepathsSettingLayer, 'remove_at', function () {
                                 console.log('remove_at');
                             });
 
-                            google.maps.event.addListener(_polylinepathsSettingLayer, 'set_at', function () {
+                             google.maps.event.addListener(_polylinepathsSettingLayer, 'set_at', function () {
                                 console.log('set_at');
                             });
 
                         });
 
-                        //google.maps.event.addListener(flightPath.getPath(), "insert_at", getPath);
-                        //google.maps.event.addListener(flightPath.getPath(), "remove_at", getPath);
-                        //google.maps.event.addListener(flightPath.getPath(), "set_at", getPath);
+                        //google.maps.event.addListener(_polylinepathsSettingLayer, "insert_at", getPath);
+                        //google.maps.event.addListener(_polylinepathsSettingLayer, "remove_at", getPath);
+                        //google.maps.event.addListener(_polylinepathsSettingLayer, "set_at", getPath);
+
+
+
+                        function getPath() {
+                            console.log('getPath');
+                            var path = polyline.getPath().getArray();
+                            var len = path.getLength();
+                            var coordStr = "";
+                            for (var i = 0; i < len; i++) {
+                                coordStr += path.getAt(i).toUrlValue(6) + "<br>";
+                            }
+                            console.log(coordStr);
+                        }
 
 
                         google.maps.event.addListener(polyline, 'dragend', function () {
@@ -435,6 +453,8 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             newShape.id = 'Polygon' + multiMapCountPolygonID;
                             _layerID.push('Polygon' + multiMapCountPolygonID);
                             google.maps.event.addListener(newShape, 'dblclick', function () {
+
+                              
                                 alert(newShape.id);
                             });
 
