@@ -61,7 +61,7 @@ function MultipleMapTrackingSettingLayer() {
               html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerRectangle.png" width="55" height="55" alt="Company Name"></div>',
               ui: 'plain',
               handler: function () {
-                  drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
+                  _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
                   //drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
                   //if (drawPolygonCountSettingDrawFence == 1) {
                   //    drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
@@ -82,7 +82,7 @@ function MultipleMapTrackingSettingLayer() {
                       html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerPolygon.png" width="55" height="55" alt="Company Name"></div>',
                       ui: 'plain',
                       handler: function () {
-                          drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+                          _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
                           //drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
                           //if (drawPolygonCountSettingDrawFence == 1) {
                           //    drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
@@ -102,7 +102,7 @@ function MultipleMapTrackingSettingLayer() {
                         html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerPolyline.png" width="55" height="55" alt="Company Name"></div>',
                         ui: 'plain',
                         handler: function () {
-                            drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+                            _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
                         }
                     },
                       {
@@ -114,7 +114,7 @@ function MultipleMapTrackingSettingLayer() {
                           ui: 'plain',
                           handler: function () {
                      
-                              drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
+                              _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
                               
                           }
                       },

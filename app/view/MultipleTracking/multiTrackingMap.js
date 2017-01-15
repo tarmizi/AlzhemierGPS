@@ -62,11 +62,11 @@ var mapgeofenceSettinggeofence;
 var boundaryColorSettinggeofence = '#ED1B24'; // initialize color of polyline
 var countSettinggeofence = 0;
 var markerGeofenceSettinggeofence;
-var drawingManagerSettinggeofence;
+var _drawingManagerSettingLayer;
 var oriShapeSettinggeofence;
 var countshapeSettinggeofence;
 var radiuseSettinggeofence;
-var polygonpathsSettinggeofence;
+
 var polylinespathsSettinggeofence;
 var circlecenterYSettinggeofence;
 var circlecenterXSettinggeofence;
@@ -78,6 +78,8 @@ var geofencetravellengthkmSettinggeofence;
 var geofenceLengthSettinggeofence;
 var alertisplaySettinggeofence;
 var geoFenceDateSettinggeofence;
+
+var _layerID = [];
 
 Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
@@ -216,7 +218,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                     countshapeSettinggeofence = 0;
                     radiuseSettinggeofence = 0;
                     shapetypeSettinggeofence = "none";
-                    drawingManagerSettinggeofence = new google.maps.drawing.DrawingManager({
+                    _drawingManagerSettingLayer = new google.maps.drawing.DrawingManager({
                         drawingControl: false,
                         drawingControlOptions: {
                             position: google.maps.ControlPosition.TOP_LEFT,
@@ -231,14 +233,15 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             strokeColor: "#000000",
                             strokeOpacity: 1.0,
                             clickable: true,
-                            //dragable: true,
+                            editable: true,
+                            draggable: true,
                             strokeWeight: 2
                         },
                         rectangleOptions: {
                             strokeColor: "#000000",
                             clickable: true,
-                            //editable: true,
-                            //dragable: true,
+                            editable: true,
+                            draggable: true,
                             strokeWeight: 2,
                             fillColor: "#FFFFFF",
                             fillOpacity: 1.0
@@ -246,8 +249,8 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                         polygonOptions: {
                             strokeColor: "#000000",
                             clickable: true,
-                            //editable: true,
-                            //dragable:true,
+                            editable: true,
+                            draggable: true,
                             strokeWeight: 2,
                             fillColor: "#FFFFFF",
                             fillOpacity:1.0
@@ -257,8 +260,8 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             fillOpacity:1.0,
                             strokeWeight: 2,
                             clickable: true,
-                            //dragable: true,
-                            //editable: true,
+                            draggable: true,
+                            editable: true,
                             zIndex: 1
                         }
                     });
@@ -268,86 +271,129 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                     var multiMapCountPolygonID=0;
                     var multiMapCountPolylineID=0;
                     var multiMapCountCircleID=0;
-                    var multiMapCountRectangleD = 0;
+                    var multiMapCountRectangleID = 0;
 
-                    google.maps.event.addListener(polygonpathsSettinggeofence, 'click', function (event) {
-                        alert(polygonpathsSettinggeofence.id + 'mmmmm');
-                        //Once you have the id here, you can trigger the color change
-                    });
-                    drawingManagerSettinggeofence.setMap(multiTrackingMap);
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'polygoncomplete', function (polygon) {
+                 
+                    _drawingManagerSettingLayer.setMap(multiTrackingMap);
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'polygoncomplete', function (polygon) {
                      
-                        drawingManagerSettinggeofence.setDrawingMode(null);
-                        multiMapCountPolygonID = multiMapCountPolygonID + 1;
+                        _drawingManagerSettingLayer.setDrawingMode(null);
+                      
                         var coordinatespolygon = (polygon.getPath().getArray());
-                        polygonpathsSettinggeofence = new google.maps.Polygon({
+                        var _polygonpathsSettingLayer = new google.maps.Polygon({
                             paths: coordinatespolygon,
-                            id: 'Polygon' + multiMapCountPolygonID
+                       
                         });
 
-                        alert(polygonpathsSettinggeofence.id);
+                        polygon.getPaths().forEach(function (_polygonpathsSettingLayer, index) {
 
-                      
-                            //Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
-                            //var task = Ext.create('Ext.util.DelayedTask', function () {
-                            //    coorshapeSettinggeofence = '';
-                            //    coorshapeSettinggeofence += coordinatespolygon;
-                            //    var tempkm;
-                            //    // alert(coorshapeSettinggeofence);
-                            //    geofencepolyLengthInMetersSettinggeofence = google.maps.geometry.spherical.computeLength(polygon.getPath().getArray());
-                            //    ///////////    Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
-                            //    geofencetravellengthSettinggeofence = +Math.floor(geofencepolyLengthInMetersSettinggeofence);
-                            //    tempkm = geofencetravellengthSettinggeofence / 1000;
-                            //    ////////Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
-                            //    ////////Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
-                               
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'insert_at', function () {
+                                // New pointcons
+                                console.log('insert_at');
+                            });
 
-                            //    shapetypeSettinggeofence = "polygon";
-                            //    Ext.Viewport.unmask();
-                            //});
-                            //task.delay(1000);
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'remove_at', function () {
+                                console.log('remove_at');
+                            });
+
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'set_at', function () {
+                                console.log('set_at');
+                            });
+
+                        });
+
+                        google.maps.event.addListener(polygon, 'dragend', function () {
+                            console.log('dragend');
+                        });
                   
-
+                        google.maps.event.addListener(polygon, 'dragstart', function () {
+                            console.log('dragstart');
+                        });
                       
 
                     });
 
 
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'polylinecomplete', function (polyline) {
-                        multiMapCountPolylineID = multiMapCountPolylineID + 1;
-                        var coordinatespolyline = (polyline.getPath().getArray());
-                        polylinespathsSettinggeofence = new google.maps.polyline({
-                            paths: coordinatespolyline,
-                            id: 'PolyLine' + multiMapCountPolylineID
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'polylinecomplete', function (polyline) {
+                       
+                        _drawingManagerSettingLayer.setDrawingMode(null);
+                        var _coordinatespolyline = (polyline.getPath().getArray());
+
+                        var _polylinepathsSettingLayer = new google.maps.Polyline({
+                            paths: _coordinatespolyline,
+
                         });
-                        shapetypeSettinggeofence = "polyline";
-                        coorshapeSettinggeofence = coordinatespolyline;
+                        _coordinatespolyline.forEach(function (_polylinepathsSettingLayer, index) {
 
-                    });
+                            google.maps.event.addListener(_polylinepathsSettingLayer, 'insert_at', function () {
+                                // New pointcons
+                                console.log('insert_at');
+                            });
 
+                            google.maps.event.addListener(_polylinepathsSettingLayer, 'remove_at', function () {
+                                console.log('remove_at');
+                            });
 
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'rectanglecomplete', function (rectangle) {
+                            google.maps.event.addListener(_polylinepathsSettingLayer, 'set_at', function () {
+                                console.log('set_at');
+                            });
 
-                      //  var coordinatesrectangle = (rectangle.getBounds());
-
-                        multiMapCountRectangleID = multiMapCountRectangleID + 1;
-                        var coordinatesrectangle = (rectangle.getBounds());
-                        polylinespathsSettinggeofence = new google.maps.rectangle({                           
-                            id: 'Rectangle' + multiMapCountRectangleID
                         });
+
+                        //google.maps.event.addListener(flightPath.getPath(), "insert_at", getPath);
+                        //google.maps.event.addListener(flightPath.getPath(), "remove_at", getPath);
+                        //google.maps.event.addListener(flightPath.getPath(), "set_at", getPath);
+
+
+                        google.maps.event.addListener(polyline, 'dragend', function () {
+                            console.log('dragend');
+                        });
+
+                        google.maps.event.addListener(polyline, 'dragstart', function () {
+                            console.log('dragstart');
+                        });
+
+
+
+
+
+
+
+
                        
 
+                    });
+
+
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'rectanglecomplete', function (rectangle) {
+                        _drawingManagerSettingLayer.setDrawingMode(null);                   
+                        var coordinatesrectangle = (rectangle.getBounds());
+                     
+                   
+
+                        google.maps.event.addListener(rectangle, 'bounds_changed', function (event) {
+                            Ext.Viewport.mask({ xtype: 'loadmask', message: 'bounds_changed..Processing V.Boundary' });
+                            var task = Ext.create('Ext.util.DelayedTask', function () {
+                                var ne = rectangle.getBounds().getNorthEast();
+                                var sw = rectangle.getBounds().getSouthWest();
+
+                                var contentString = '<b>Rectangle moved.</b><br>' +
+                                    'New north-east corner: ' + ne.lat() + ', ' + ne.lng() + '<br>' +
+                                    'New south-west corner: ' + sw.lat() + ', ' + sw.lng();
+
+
+                                console.log(contentString);
+                                Ext.Viewport.unmask();
+                            });
+                            task.delay(500);
+                        });
 
                     });
 
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'circlecomplete', function (circle) {
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'circlecomplete', function (circle) {
                      
-                        multiMapCountCircleID = multiMapCountCircleID + 1;
-                 
-                        polylinespathsSettinggeofence = new google.maps.rectangle({
-                            id: 'Circle' + multiMapCountCircleID
-                        });
-
+                
+                        _drawingManagerSettingLayer.setDrawingMode(null);
                             Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
                             var task = Ext.create('Ext.util.DelayedTask', function () {
 
@@ -362,69 +408,113 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                 shapetypeSettinggeofence = "circle";
                                 Ext.Viewport.unmask();
                             });
-                            task.delay(1000);
+                            task.delay(500);
 
 
+                            google.maps.event.addListener(circle, 'radius_changed', function () {
+                                Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..Processing V.Boundary' });
+                                var task = Ext.create('Ext.util.DelayedTask', function () {
 
+                                    Ext.Viewport.unmask();
+                                });
+                                task.delay(500);
+                            });
 
 
                     });
                  
-
-                    //google.maps.event.addListener(polygonpathsSettinggeofence, 'click', function (polygon) {
-
-                    //    alert(this.id + 'mmmmm');
-
-
-                 //   drawingManagerSettinggeofence.setMap(multiTrackingMap);
-
-
-                    //});
-                    
+                   
                    
 
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'overlaycomplete', function (e) {
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'overlaycomplete', function (e) {
                         if (e.type == google.maps.drawing.OverlayType.POLYGON) {
                             // Switch back to non-drawing mode after drawing a shape.
+                            multiMapCountPolygonID = multiMapCountPolygonID + 1;
+                            var newShape = e.overlay;
+                            newShape.type = e.type;
+                            newShape.id = 'Polygon' + multiMapCountPolygonID;
+                            _layerID.push('Polygon' + multiMapCountPolygonID);
+                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                                alert(newShape.id);
+                            });
 
-                         
-
+                             
                            
-
-                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            //     google.maps.event.addListener(_polygonpathsSettingLayer, 'click', function () {
+                            //    alert(this.id);
+                            //    //Once you have the id here, you can trigger the color change
+                            //});
+                            //_drawingManagerSettingLayer.setDrawingMode(null);
                          
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
+                            //    oriShapeSettinggeofence = e.overlay;
+                            //    oriShapeSettinggeofence.type = e.type;
                                
 
                           
                         }
                         if (e.type == google.maps.drawing.OverlayType.POLYLINE) {
-                            // Switch back to non-drawing mode after drawing a shape.
-                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            multiMapCountPolylineID = multiMapCountPolylineID + 1;
+                            var newShape = e.overlay;
+                            newShape.type = e.type;
+                            newShape.id = 'Polyline' + multiMapCountPolylineID;
+                            _layerID.push('Polyline' + multiMapCountPolylineID);
+                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                                alert(newShape.id);
+                            });
 
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
+
+
+
+
+                            // Switch back to non-drawing mode after drawing a shape.
+                            //_drawingManagerSettingLayer.setDrawingMode(null);
+
+                            //    oriShapeSettinggeofence = e.overlay;
+                            //    oriShapeSettinggeofence.type = e.type;
                            
                           
                         }
 
                         if (e.type == google.maps.drawing.OverlayType.CIRCLE) {
+
+                            multiMapCountCircleID = multiMapCountCircleID + 1;
+                            var newShape = e.overlay;
+                            newShape.type = e.type;
+                            newShape.id = 'Circle' + multiMapCountCircleID;
+                            _layerID.push('Circle' + multiMapCountCircleID);
+                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                                alert(newShape.id);
+                                _drawingManagerSettingLayer.setDrawingMode(null);
+                            });
+
+
                             // Switch back to non-drawing mode after drawing a shape.
-                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            //_drawingManagerSettingLayer.setDrawingMode(null);
                           
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
+                            //    oriShapeSettinggeofence = e.overlay;
+                            //    oriShapeSettinggeofence.type = e.type;
 
 
                         }
                         if (e.type == google.maps.drawing.OverlayType.RECTANGLE) {
+
+
+                            multiMapCountRectangleID = multiMapCountRectangleID + 1;
+                            var newShape = e.overlay;
+                            newShape.type = e.type;
+                            newShape.id = 'Rectangle' + multiMapCountRectangleID;
+                            _layerID.push('Rectangle' + multiMapCountRectangleID);
+                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                                alert(newShape.id);
+                            });
+
+
                             // Switch back to non-drawing mode after drawing a shape.
-                            drawingManagerSettinggeofence.setDrawingMode(null);
+                            //_drawingManagerSettingLayer.setDrawingMode(null);
 
                          
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
+                            //    oriShapeSettinggeofence = e.overlay;
+                            //    oriShapeSettinggeofence.type = e.type;
 
 
                        
