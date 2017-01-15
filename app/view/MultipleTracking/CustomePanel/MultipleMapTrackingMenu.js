@@ -6,19 +6,13 @@ var _settingMultipleMapTrackingchangeMsg;
 
 
 
-var countMapChangeSettingDrawFence = 0;
-var changeMsgSettingDrawFence;
-var drawCircleCountSettingDrawFence = 0;
-var drawPolygonCountSettingDrawFence = 0;
-var btnGeofenceDrawCircleEventSettingDrawFence;
-var btnGeofenceDrawPolygonEventSettingDrawFence;
-var checkClik = 'yes';
 
 
 
 
 
-Ext.define('MyGPS.view.MultiPleTracking.CustomePanel.SettingMultipleMapTracking', {
+
+Ext.define('MyGPS.view.MultiPleTracking.CustomePanel.MultipleMapTrackingMenu', {
 
 });
 
@@ -122,15 +116,7 @@ function SettingMultipleMapTracking() {
                    html: '<div ><img src="resources/icons/NearMeRound.png" width="55" height="55" alt="Company Name"></div>',
                    ui: 'plain',
                    handler: function () {
-                       drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
-                       if (drawPolygonCountSettingDrawFence == 1) {
-                           drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-
-                       } else if (drawPolygonCountSettingDrawFence == 2) {
-                           drawingManagerSettinggeofence.setDrawingMode(null);
-                           drawPolygonCountSettingDrawFence = 0;
-
-                       }
+                       MultipleMapTrackingSettingLayerShow();
 
                    }
                },
@@ -142,8 +128,8 @@ function SettingMultipleMapTracking() {
                          html: '<div ><img src="resources/icons/LocateRound.png" width="55" height="55" alt="Company Name"></div>',
                          ui: 'plain',
                          handler: function () {
-                            
-
+                             MultipleMapTrackingSettingLayerHide();
+                           
                          }
                      },
               {

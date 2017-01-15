@@ -7,6 +7,7 @@ var count = 0;
 
 var ip = document.location.protocol + '//' + document.location.host + '/resources/icons/';
 
+
 var boundreboundlatlongmultiTrackingMap;
 var boundstatus;
 
@@ -43,7 +44,7 @@ var uniqueIdgeoLocationMarker = 1;
 var geoLocationArr = [];
 
 
-
+var historicalOverlay;
 
 
 
@@ -99,6 +100,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                    xtype: 'toolbar',
                    docked: 'bottom',
                    id: 'toolbarMultiTrackingBottom',
+                   hidden:true,
                    items:
                           [
      {
@@ -453,6 +455,14 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
 
 
