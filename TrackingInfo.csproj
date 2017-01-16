@@ -188,6 +188,7 @@
     <Compile Include="Controllers\GeoFenceController.cs" />
     <Compile Include="Controllers\GPSUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayerController.cs" />
     <Compile Include="Controllers\MarkerController.cs" />
     <Compile Include="Controllers\MilageCountAlertHistoryController.cs" />
     <Compile Include="Controllers\MilageCountInfoController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\GeoFenceAreaModel.cs" />
     <Compile Include="Models\GeoFenceModel.cs" />
     <Compile Include="Models\GPSuserModel.cs" />
+    <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\MarkerModel.cs" />
     <Compile Include="Models\MilageCountAlertHistoryModel.cs" />
     <Compile Include="Models\MilageCountInfoModel.cs" />
@@ -242,11 +244,15 @@
     <Content Include=".sencha\app\watch-impl.xml" />
     <Content Include=".sencha\workspace\plugin.xml" />
     <Content Include="app.js" />
+    <Content Include="app\model\AlertMilageCount\alertMilageCount_LoadByDeviceAccNoModel.js" />
+    <Content Include="app\model\AlertMilageCount\alertMilageCount_LoadReceiptPictureByIDModel.js" />
     <Content Include="app\model\AutoFenceTimerModel.js" />
     <Content Include="app\model\GeofenceAlertHistory.js" />
     <Content Include="app\model\geoFenceAreaModel.js" />
     <Content Include="app\model\geoFenceModel.js" />
     <Content Include="app\model\GPSuserModel.js" />
+    <Content Include="app\model\Layer\LayerBoundaryGetAllModel.js" />
+    <Content Include="app\model\Layer\LayerGetAllModel.js" />
     <Content Include="app\model\ListOfMarkerModel.js" />
     <Content Include="app\model\markerModel.js" />
     <Content Include="app\model\MilageCountAlertHistory\MilageCountAlertHistory_LoadByDeviceAccNoModel.js" />
@@ -289,6 +295,7 @@
     <Content Include="app\store\GPSuserbyAccnostore.js" />
     <Content Include="app\store\GPSuserStore.js" />
     <Content Include="app\store\GpsUser\GpsUserStore.js" />
+    <Content Include="app\store\Layer\LayerGetAllStore.js" />
     <Content Include="app\store\ListofMarkerStore.js" />
     <Content Include="app\store\MarkerloadAllstore.js" />
     <Content Include="app\store\MilageCountAlertHistory\MilageCountAlertHistoryStore.js" />

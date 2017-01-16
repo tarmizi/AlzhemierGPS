@@ -141,10 +141,34 @@ function MultipleMapTrackingSettingLayer() {
                         //    imageBounds);
                         //historicalOverlay.setMap(multiTrackingMap);
 
-                       // alert(ipLayer+'hh');
-                      //   var kmzLayer = new google.maps.KmlLayer(ipLayer);
-                        //var kmzLayer = new google.maps.KmlLayer('http://angkasarnd.my:8100/FloorPlan2.kml');
-                        //kmzLayer.setMap(multiTrackingMap);
+                        alert(ipLayer+'xxxdqdddddddddddddddq');
+                        //  var kmzLayer = new google.maps.KmlLayer(ipLayer);
+
+
+                        var kmzLayer1 = new google.maps.KmlLayer('http://angkasarnd.my:8100/mm.kmz'
+                          );
+                        kmzLayer1.setMap(multiTrackingMap);
+                      
+
+
+                        //var kmzLayer2 = new google.maps.KmlLayer('http://angkasarnd.my:8100/Base3.kmz'
+                        //   , { preserveViewport: true });
+                    
+
+
+
+
+
+
+                        //var listener1 = google.maps.event.addListener(kmzLayer1, 'metadata_changed', function () {
+                        //    // When it's drawn (metadata changed), clear listener, draw warningsLayer ...
+                        //    google.maps.event.clearListeners(kmzLayer1, 'metadata_changed');
+                        //    kmzLayer2.setMap(multiTrackingMap);
+
+                         
+
+                        //});
+                       
                     }
                 },
                {
