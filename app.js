@@ -56,10 +56,10 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
      //   Ext.fly('appLoadingIndicator').destroy();
-
+       // Ext.Msg.defaultAllowedConfig.showAnimation = false;
         // Initialize the main view
        Ext.Viewport.add(Ext.create('MyGPS.view.MainPage'));
-
+     
       //  Ext.Viewport.add(Ext.create('MyGPS.view.SingleTracking.holderSingleTrackingitem'));
 
 
@@ -76,5 +76,15 @@ Ext.application({
                 }
             }
         );
+    }
+});
+
+
+Ext.override(Ext.MessageBox, {
+    hide: function () {
+        if (this.activeAnimation && this.activeAnimation._onEnd) {
+            this.activeAnimation._onEnd();
+        }
+        return this.callParent(arguments);
     }
 });

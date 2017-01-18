@@ -233,7 +233,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             strokeColor: "#000000",
                             strokeOpacity: 1.0,
                             clickable: true,
-                            editable: true,
+                            editable: false,
                             draggable: true,
                             strokeWeight: 2
                         },
@@ -272,113 +272,75 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                     var multiMapCountPolylineID=0;
                     var multiMapCountCircleID=0;
                     var multiMapCountRectangleID = 0;
-
-                 
+                    var coorAppendPolygon;
+                    var coorAppendPolyLine;
+                    var coordinatespolygon;
+                    var multiMapnewShape;
                     _drawingManagerSettingLayer.setMap(multiTrackingMap);
-                    google.maps.event.addListener(_drawingManagerSettingLayer, 'polygoncomplete', function (polygon) {
-                     
-                        _drawingManagerSettingLayer.setDrawingMode(null);
-                      
-                        var coordinatespolygon = (polygon.getPath().getArray());
-                        var _polygonpathsSettingLayer = new google.maps.Polygon({
-                            paths: coordinatespolygon,
-                       
-                        });
 
 
-                        google.maps.event.addListener(polygon, 'click', function () {
-                            polygon.setOptions({ strokeColor: '#FF0000' });
-                        });
 
-                        polygon.getPaths().forEach(function (_polygonpathsSettingLayer, index) {
 
-                            google.maps.event.addListener(_polygonpathsSettingLayer, 'insert_at', function () {
-                                // New pointcons
-                                console.log('insert_at');
-                            });
-
-                            google.maps.event.addListener(_polygonpathsSettingLayer, 'remove_at', function () {
-                                console.log('remove_at');
-                            });
-
-                            google.maps.event.addListener(_polygonpathsSettingLayer, 'set_at', function () {
-                                console.log('set_at');
-                            });
-
-                        });
-
-                        google.maps.event.addListener(polygon, 'dragend', function () {
-                            console.log('dragend');
-                        });
-                  
-                        google.maps.event.addListener(polygon, 'dragstart', function () {
-                            console.log('dragstart');
-                        });
-                      
-
+                    google.maps.event.addListener(multiTrackingMap, 'click', function () {
+                        multiMapnewShape.setOptions({ strokeColor: 'black' });
+                        console.log(coorAppendPolygon)
                     });
 
 
+
+                    google.maps.event.addListener(_drawingManagerSettingLayer, 'polygoncomplete', function (polygon) {                     
+                        _drawingManagerSettingLayer.setDrawingMode(null);                      
+                        var coordinatespolygon = (polygon.getPath().getArray());
+                        var _polygonpathsSettingLayer = new google.maps.Polygon({
+                            paths: coordinatespolygon,                       
+                        });
+                        coorAppendPolygon = '';
+                        coorAppendPolygon += coordinatespolygon;
+                        polygon.getPaths().forEach(function (_polygonpathsSettingLayer, index) {
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'insert_at', function () {
+                                coorAppendPolygon = '';
+                                coorAppendPolygon += coordinatespolygon;
+                            });
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'remove_at', function () {
+                                coorAppendPolygon = '';
+                                coorAppendPolygon += coordinatespolygon;
+                            });
+                            google.maps.event.addListener(_polygonpathsSettingLayer, 'set_at', function () {
+                                coorAppendPolygon = '';
+                                coorAppendPolygon += coordinatespolygon;
+                            });
+                        });
+                        google.maps.event.addListener(polygon, 'dragend', function () {
+                            coorAppendPolygon = '';
+                            coorAppendPolygon += coordinatespolygon;
+                        });                  
+                        google.maps.event.addListener(polygon, 'dragstart', function () {
+                            coorAppendPolygon = '';
+                            coorAppendPolygon += coordinatespolygon;
+                        });                    
+                       });
                     google.maps.event.addListener(_drawingManagerSettingLayer, 'polylinecomplete', function (polyline) {
-                       
                         _drawingManagerSettingLayer.setDrawingMode(null);
-                       // var _coordinatespolyline = (polyline.getPath().getArray());
+                        var _coordinatespolyline = (polyline.getPath().getArray());
 
                          _polylinepathsSettingLayer = new google.maps.Polyline({
-                             paths: polyline.getPath().getArray(),
+                             paths: _coordinatespolyline,
 
                         });
-                         polyline.getPath().forEach(function (_polylinepathsSettingLayer, index) {
-
-                             google.maps.event.addListener(_polylinepathsSettingLayer, 'insert_at', function () {
-                                // New pointcons
-                                console.log('insert_at');
-                            });
-
-                             google.maps.event.addListener(_polylinepathsSettingLayer, 'remove_at', function () {
-                                console.log('remove_at');
-                            });
-
-                             google.maps.event.addListener(_polylinepathsSettingLayer, 'set_at', function () {
-                                console.log('set_at');
-                            });
-
-                        });
-
-                        //google.maps.event.addListener(_polylinepathsSettingLayer, "insert_at", getPath);
-                        //google.maps.event.addListener(_polylinepathsSettingLayer, "remove_at", getPath);
-                        //google.maps.event.addListener(_polylinepathsSettingLayer, "set_at", getPath);
-
-
-
-                        function getPath() {
-                            console.log('getPath');
-                            var path = polyline.getPath().getArray();
-                            var len = path.getLength();
-                            var coordStr = "";
-                            for (var i = 0; i < len; i++) {
-                                coordStr += path.getAt(i).toUrlValue(6) + "<br>";
-                            }
-                            console.log(coordStr);
-                        }
-
-
-                        google.maps.event.addListener(polyline, 'dragend', function () {
+                         coorAppendPolyLine = '';
+                         coorAppendPolyLine += _coordinatespolyline
+                         google.maps.event.addListener(polyline, 'dragend', function () {
+                             coorAppendPolyLine = '';
+                             coorAppendPolyLine += _coordinatespolyline
                             console.log('dragend');
                         });
 
-                        google.maps.event.addListener(polyline, 'dragstart', function () {
+                         google.maps.event.addListener(polyline, 'dragstart', function () {
+                             coorAppendPolyLine = '';
+                             coorAppendPolyLine += _coordinatespolyline
                             console.log('dragstart');
                         });
 
-
-
-
-
-
-
-
-                       
 
                     });
 
@@ -451,24 +413,98 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             var newShape = e.overlay;
                             newShape.type = e.type;
                             newShape.id = 'Polygon' + multiMapCountPolygonID;
+                            multiMapnewShape = newShape;
                             _layerID.push('Polygon' + multiMapCountPolygonID);
-                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                            google.maps.event.addListener(newShape, 'rightclick', function () {
 
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to DELETE?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        //alert('You pressed the "' + buttonId + '" button.');
+
+                                        if (buttonId != "yes")
+                                        { return; }
+                                        else {
+
+                                        }
+
+
+                                    }
+                                });
+                              //  alert("Do you want to DELETE?" + newShape.id);
                               
-                                alert(newShape.id);
                             });
 
+                            google.maps.event.addListener(newShape, 'click', function () {
                              
+
+                                newShape.setOptions(
+                               {
+                                   strokeColor: '#FF0000',
+                                   clickable: true,
+                                   editable: false,
+                                   draggable: false,
+
+
+                               }
+
+                               );
+
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to Save?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        //alert('You pressed the "' + buttonId + '" button.');
+
+                                        if (buttonId != "yes")
+                                        {
+                                            newShape.setOptions(
+                           {
+                               strokeColor: 'black',
+                               clickable: true,
+                               editable: false,
+                               draggable: false,
+
+
+                           }
+
+                           );
+
+
+                                            return;
+                                        }
+                                        else {
+                                            newShape.setOptions(
+       {
+           strokeColor: 'black',
+           clickable: true,
+           editable: false,
+           draggable: false,
+
+
+       }
+
+       );
+                                        }
+
+
+                                    }
+                                });
+
+
+
+                             
+                                console.log(coorAppendPolygon)
+                            });
                            
-                            //     google.maps.event.addListener(_polygonpathsSettingLayer, 'click', function () {
-                            //    alert(this.id);
-                            //    //Once you have the id here, you can trigger the color change
-                            //});
-                            //_drawingManagerSettingLayer.setDrawingMode(null);
-                         
-                            //    oriShapeSettinggeofence = e.overlay;
-                            //    oriShapeSettinggeofence.type = e.type;
-                               
+                            
 
                           
                         }
@@ -477,20 +513,21 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             var newShape = e.overlay;
                             newShape.type = e.type;
                             newShape.id = 'Polyline' + multiMapCountPolylineID;
+                            multiMapnewShape = newShape;
                             _layerID.push('Polyline' + multiMapCountPolylineID);
                             google.maps.event.addListener(newShape, 'dblclick', function () {
                                 alert(newShape.id);
                             });
+                            google.maps.event.addListener(newShape, 'dblclick', function () {
 
 
+                                alert("Do you want to saved?" + newShape.id);
+                            });
 
-
-
-                            // Switch back to non-drawing mode after drawing a shape.
-                            //_drawingManagerSettingLayer.setDrawingMode(null);
-
-                            //    oriShapeSettinggeofence = e.overlay;
-                            //    oriShapeSettinggeofence.type = e.type;
+                            google.maps.event.addListener(newShape, 'click', function () {
+                                newShape.setOptions({ strokeColor: '#FF0000' });
+                              
+                            });
                            
                           
                         }

@@ -141,17 +141,17 @@ function MultipleMapTrackingSettingLayer() {
                         //    imageBounds);
                         //historicalOverlay.setMap(multiTrackingMap);
 
-                        alert(ipLayer+'xxxdqdddddddddddddddq');
+                        alert(ipLayer+'xxxdQQQQQxdxxxxxxq');
                         //  var kmzLayer = new google.maps.KmlLayer(ipLayer);
 
 
-                        var kmzLayer1 = new google.maps.KmlLayer('http://angkasarnd.my:8100/mm.kmz'
+                        var kmzLayer1 = new google.maps.KmlLayer('http://192.168.0.107/FloorPla3A.kmz'
                           );
                         kmzLayer1.setMap(multiTrackingMap);
                       
 
 
-                        //var kmzLayer2 = new google.maps.KmlLayer('http://angkasarnd.my:8100/Base3.kmz'
+                        //var kmzLayer2 = new google.maps.KmlLayer('http://angkasarnd.my:8100/Image.kmz'
                         //   , { preserveViewport: true });
                     
 
