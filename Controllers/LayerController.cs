@@ -50,13 +50,14 @@ namespace TrackingInfo.Controllers
         [HttpPost]
         public JsonResult LayerInsertUpdate(string LayerID,string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus)
         {
+            string LayerIDs = LayerID.Replace("),(", "-").Replace("(", "-").Replace(")", "-").Replace(" ", "").Replace(",", "-");
             bool success = true;
             string _Message = string.Empty;
             List<LayerModel> data = new List<LayerModel>();
 
             try
             {
-                success = LayerModel.Layer_InsertUpdate(LayerID,  LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerOrder, LayerStatus);
+                success = LayerModel.Layer_InsertUpdate(LayerIDs, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerOrder, LayerStatus);
             }
             catch (Exception ex)
             {

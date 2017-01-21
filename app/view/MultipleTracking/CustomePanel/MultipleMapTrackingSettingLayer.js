@@ -61,16 +61,12 @@ function MultipleMapTrackingSettingLayer() {
               html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerRectangle.png" width="55" height="55" alt="Company Name"></div>',
               ui: 'plain',
               handler: function () {
-                  _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
-                  //drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
-                  //if (drawPolygonCountSettingDrawFence == 1) {
-                  //    drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-
-                  //} else if (drawPolygonCountSettingDrawFence == 2) {
-                  //    drawingManagerSettinggeofence.setDrawingMode(null);
-                  //    drawPolygonCountSettingDrawFence = 0;
-
-                  //}
+                
+                  if (_saveLayerTag == 'No') {
+                      Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
+                  } else {
+                      _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
+                  }
               }
           },
 
@@ -82,16 +78,16 @@ function MultipleMapTrackingSettingLayer() {
                       html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerPolygon.png" width="55" height="55" alt="Company Name"></div>',
                       ui: 'plain',
                       handler: function () {
-                          _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-                          //drawPolygonCountSettingDrawFence = drawPolygonCountSettingDrawFence + 1;
-                          //if (drawPolygonCountSettingDrawFence == 1) {
-                          //    drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
 
-                          //} else if (drawPolygonCountSettingDrawFence == 2) {
-                          //    drawingManagerSettinggeofence.setDrawingMode(null);
-                          //    drawPolygonCountSettingDrawFence = 0;
 
-                          //}
+                          if (_saveLayerTag == 'No')
+                          {
+                              Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
+                          } else {
+                              _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+                          }
+                              
+                       
                       }
                   },
                     {
@@ -102,7 +98,12 @@ function MultipleMapTrackingSettingLayer() {
                         html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerPolyline.png" width="55" height="55" alt="Company Name"></div>',
                         ui: 'plain',
                         handler: function () {
-                            _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+                           
+                            if (_saveLayerTag == 'No') {
+                                Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
+                            } else {
+                                _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+                            }
                         }
                     },
                       {
@@ -113,8 +114,12 @@ function MultipleMapTrackingSettingLayer() {
                           html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerCircle.png" width="55" height="55" alt="Company Name"></div>',
                           ui: 'plain',
                           handler: function () {
-                     
-                              _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
+                              if (_saveLayerTag == 'No') {
+                                  Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
+                              } else {
+                                  _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
+                              }
+                             
                               
                           }
                       },

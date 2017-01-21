@@ -274,6 +274,10 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                     var multiMapCountRectangleID = 0;
                     var coorAppendPolygon;
                     var coorAppendPolyLine;
+                    var coorAppendRectangle;
+                    var coorCircleX;
+                    var coorCircleY;
+                    var coorCircleRadius;
                     var coordinatespolygon;
                     var multiMapnewShape;
                     _drawingManagerSettingLayer.setMap(multiTrackingMap);
@@ -281,10 +285,6 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
 
-                    google.maps.event.addListener(multiTrackingMap, 'click', function () {
-                        multiMapnewShape.setOptions({ strokeColor: 'black' });
-                        console.log(coorAppendPolygon)
-                    });
 
 
 
@@ -347,22 +347,23 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
                     google.maps.event.addListener(_drawingManagerSettingLayer, 'rectanglecomplete', function (rectangle) {
                         _drawingManagerSettingLayer.setDrawingMode(null);                   
-                        var coordinatesrectangle = (rectangle.getBounds());
-                     
-                   
+                        var ne = rectangle.getBounds().getNorthEast();
+                        var sw = rectangle.getBounds().getSouthWest();
+                        coorAppendRectangle = '';
+                        coorAppendRectangle += ne.lat() + ', ' + ne.lng() +','+ sw.lat() + ', ' + sw.lng();
+                       
 
                         google.maps.event.addListener(rectangle, 'bounds_changed', function (event) {
                             Ext.Viewport.mask({ xtype: 'loadmask', message: 'bounds_changed..Processing V.Boundary' });
                             var task = Ext.create('Ext.util.DelayedTask', function () {
                                 var ne = rectangle.getBounds().getNorthEast();
                                 var sw = rectangle.getBounds().getSouthWest();
-
-                                var contentString = '<b>Rectangle moved.</b><br>' +
-                                    'New north-east corner: ' + ne.lat() + ', ' + ne.lng() + '<br>' +
-                                    'New south-west corner: ' + sw.lat() + ', ' + sw.lng();
-
-
-                                console.log(contentString);
+                                coorAppendRectangle = '';
+                                coorAppendRectangle += ne.lat() + ', ' + ne.lng() + ',' + sw.lat() + ', ' + sw.lng();
+                                //var contentString = '<b>Rectangle moved.</b><br>' +
+                                //    'New north-east corner: ' + ne.lat() + ', ' + ne.lng() + '<br>' +
+                                //    'New south-west corner: ' + sw.lat() + ', ' + sw.lng();
+                                console.log(coorAppendRectangle);
                                 Ext.Viewport.unmask();
                             });
                             task.delay(500);
@@ -374,27 +375,20 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                      
                 
                         _drawingManagerSettingLayer.setDrawingMode(null);
-                            Ext.Viewport.mask({ xtype: 'loadmask', message: 'Processing geofence..' });
-                            var task = Ext.create('Ext.util.DelayedTask', function () {
+                          
 
                                 //   InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, circle.getRadius(), circle.getCenter().lat() + ',' + circle.getCenter().lng(), "circle", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea, FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
 
                             
-                                radiuseSettinggeofence = circle.getRadius();
-                                geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
-                                geofenceLengthSettinggeofence = +Math.floor(radiuseSettinggeofence);
-                                circlecenterYSettinggeofence = circle.getCenter().lat();
-                                circlecenterXSettinggeofence = circle.getCenter().lng();
-                                shapetypeSettinggeofence = "circle";
-                                Ext.Viewport.unmask();
-                            });
-                            task.delay(500);
-
-
+                                coorCircleRadius = circle.getRadius();                               
+                                coorCircleY = circle.getCenter().lat();
+                                coorCircleX = circle.getCenter().lng();
                             google.maps.event.addListener(circle, 'radius_changed', function () {
-                                Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..Processing V.Boundary' });
+                                Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..' });
                                 var task = Ext.create('Ext.util.DelayedTask', function () {
-
+                                    coorCircleRadius = circle.getRadius();
+                                    coorCircleY = circle.getCenter().lat();
+                                    coorCircleX = circle.getCenter().lng();
                                     Ext.Viewport.unmask();
                                 });
                                 task.delay(500);
@@ -402,11 +396,8 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
                     });
-                 
-                   
-                   
-
                     google.maps.event.addListener(_drawingManagerSettingLayer, 'overlaycomplete', function (e) {
+                        _saveLayerTag = 'No';
                         if (e.type == google.maps.drawing.OverlayType.POLYGON) {
                             // Switch back to non-drawing mode after drawing a shape.
                             multiMapCountPolygonID = multiMapCountPolygonID + 1;
@@ -416,7 +407,6 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             multiMapnewShape = newShape;
                             _layerID.push('Polygon' + multiMapCountPolygonID);
                             google.maps.event.addListener(newShape, 'rightclick', function () {
-
                                 Ext.Msg.show({
                                     title: 'Confirmation?',
                                     message: 'Do you want to DELETE?',
@@ -424,36 +414,16 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                     buttons: Ext.MessageBox.YESNO,
                                     iconCls: Ext.MessageBox.INFO,
                                     fn: function (buttonId) {
-                                        //alert('You pressed the "' + buttonId + '" button.');
-
                                         if (buttonId != "yes")
                                         { return; }
                                         else {
-
+                                            newShape.setMap(null);
                                         }
-
-
                                     }
                                 });
-                              //  alert("Do you want to DELETE?" + newShape.id);
-                              
-                            });
+                             });
 
                             google.maps.event.addListener(newShape, 'click', function () {
-                             
-
-                                newShape.setOptions(
-                               {
-                                   strokeColor: '#FF0000',
-                                   clickable: true,
-                                   editable: false,
-                                   draggable: false,
-
-
-                               }
-
-                               );
-
                                 Ext.Msg.show({
                                     title: 'Confirmation?',
                                     message: 'Do you want to Save?',
@@ -461,37 +431,45 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                     buttons: Ext.MessageBox.YESNO,
                                     iconCls: Ext.MessageBox.INFO,
                                     fn: function (buttonId) {
-                                        //alert('You pressed the "' + buttonId + '" button.');
-
                                         if (buttonId != "yes")
                                         {
-                                            newShape.setOptions(
-                           {
-                               strokeColor: 'black',
-                               clickable: true,
-                               editable: false,
-                               draggable: false,
-
-
-                           }
-
-                           );
-
-
+                                            newShape.setOptions({strokeColor: 'black', clickable: true,editable: true,draggable: true,});
                                             return;
                                         }
                                         else {
-                                            newShape.setOptions(
-       {
-           strokeColor: 'black',
-           clickable: true,
-           editable: false,
-           draggable: false,
+                                            newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: false, });
+                                            Ext.Msg.prompt('Create Layer-POLYGON',
+                                                            'Enter Layer Name',
+                                                            function (buttonId, value) {
+                                                              
+                                                                var values = value;
+                                                                if(buttonId=='ok')
+                                                                {
+                                                                    if (values.length == 0) {
+                                                                        Ext.Msg.alert('Layer Name Cannot Empty!!!');                                                                      
+                                                                        return;
+                                                                    }                                                                
+                                                                    var LayerID = coorAppendPolygon + '-' +newShape.id + '-' + values + '-' + GetCurrentUserName();
+                                                                    var LayerPath = coorAppendPolygon;
+                                                                    var LayerName = values;
+                                                                    var LayerType = 'Polygon';
+                                                                    var LayerLength = google.maps.geometry.spherical.computeLength(newShape.getPath().getArray());
+                                                                    var CreatedBy = GetCurrentUserName();
+                                                                    var ModifiedBy = GetCurrentUserName();
+                                                                    var LayerStatus = 'Active';
 
-
-       }
-
-       );
+                                                                    Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus)
+                                                                
+                                                                    return;
+                                                                }                                                             
+                                                                                        },
+                                                                                        null,
+                                                                                        false,
+                                                                                        null,
+                                                                                        {
+                                                                                        placeHolder: 'Enter Layer name'
+                                                                                        }
+                                                                                    );
                                         }
 
 
@@ -501,7 +479,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
                              
-                                console.log(coorAppendPolygon)
+                              
                             });
                            
                             
@@ -515,20 +493,69 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             newShape.id = 'Polyline' + multiMapCountPolylineID;
                             multiMapnewShape = newShape;
                             _layerID.push('Polyline' + multiMapCountPolylineID);
-                            google.maps.event.addListener(newShape, 'dblclick', function () {
-                                alert(newShape.id);
+                            google.maps.event.addListener(newShape, 'rightclick', function () {
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to DELETE?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        if (buttonId != "yes")
+                                        { return; }
+                                        else {
+                                            newShape.setMap(null);
+                                        }
+                                    }
+                                });
                             });
-                            google.maps.event.addListener(newShape, 'dblclick', function () {
+                           google.maps.event.addListener(newShape, 'click', function () {
+                            Ext.Msg.show({
+                                title: 'Confirmation?',
+                                message: 'Do you want to Save?',
+                                width: 500,
+                                buttons: Ext.MessageBox.YESNO,
+                                iconCls: Ext.MessageBox.INFO,
+                                fn: function (buttonId) {
+                                    if (buttonId != "yes") {
+                                        newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: false, });
+                                        return;
+                                    }
+                                    else {
+                                        newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: true, });
+                                        Ext.Msg.prompt('Create Layer-POLYLINE',
+                                                        'Enter Layer Name',
+                                                        function (buttonId, value) {
+                                                            var values = value;
+                                                            if (buttonId == 'ok') {
+                                                                if (values.length == 0) {
+                                                                    Ext.Msg.alert('Layer Name Cannot Empty!!!');
+                                                                    return;
+                                                                }
+                                                                var LayerID = coorAppendPolyLine + '-' +newShape.id + '-' + values + '-' + GetCurrentUserName();
+                                                                var LayerPath = coorAppendPolyLine;
+                                                                var LayerName = values;
+                                                                var LayerType = 'PolyLine';
+                                                                var LayerLength = google.maps.geometry.spherical.computeLength(newShape.getPath().getArray());
+                                                                var CreatedBy = GetCurrentUserName();
+                                                                var ModifiedBy = GetCurrentUserName();
+                                                                var LayerStatus = 'Active';
 
+                                                                Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus)
 
-                                alert("Do you want to saved?" + newShape.id);
+                                                                return;
+                                                            }
+                                                        },                           null,
+                                                                                    false,
+                                                                                    null,
+                                                                                    {
+                                                                                        placeHolder: 'Enter Layer name'
+                                                                                    }
+                                                                                );
+                                    }
+                                }
                             });
-
-                            google.maps.event.addListener(newShape, 'click', function () {
-                                newShape.setOptions({ strokeColor: '#FF0000' });
-                              
-                            });
-                           
+                        });
                           
                         }
 
@@ -539,40 +566,150 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                             newShape.type = e.type;
                             newShape.id = 'Circle' + multiMapCountCircleID;
                             _layerID.push('Circle' + multiMapCountCircleID);
-                            google.maps.event.addListener(newShape, 'dblclick', function () {
-                                alert(newShape.id);
-                                _drawingManagerSettingLayer.setDrawingMode(null);
+                            google.maps.event.addListener(newShape, 'rightclick', function () {
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to DELETE?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        if (buttonId != "yes")
+                                        { return; }
+                                        else {
+                                            newShape.setMap(null);
+                                        }
+                                    }
+                                });
                             });
+                           google.maps.event.addListener(newShape, 'click', function () {
+                            Ext.Msg.show({
+                                title: 'Confirmation?',
+                                message: 'Do you want to Save?',
+                                width: 500,
+                                buttons: Ext.MessageBox.YESNO,
+                                iconCls: Ext.MessageBox.INFO,
+                                fn: function (buttonId) {
+                                    if (buttonId != "yes") {
+                                        newShape.setOptions({ strokeColor: 'black', clickable: true, editable: true, draggable: true, });
+                                        return;
+                                    }
+                                    else {
+                                        newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: false, });
+
+                                        Ext.Msg.prompt('Create Layer-CIRCLE',
+                                                        'Enter Layer Name',
+                                                        function (buttonId, value) {
+
+                                                            var values = value;
+                                                            if (buttonId == 'ok') {
+                                                                if (values.length == 0) {
+                                                                    Ext.Msg.alert('Layer Name Cannot Empty!!!');
+                                                                    return;
+                                                                }
+                                                                var LayerID = coorCircleY +'-' +coorCircleX+ '-' + newShape.id + '-' + values + '-' + GetCurrentUserName();
+                                                                var LayerPath = coorCircleY + ',' + coorCircleX;
+                                                                var LayerName = values;
+                                                                var LayerType = 'Circle';
+                                                                var LayerLength = coorCircleRadius;
+                                                                var CreatedBy = GetCurrentUserName();
+                                                                var ModifiedBy = GetCurrentUserName();
+                                                                var LayerStatus = 'Active';
+                                                                Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus);
+                                                                return;
+                                                            }
+                                                        },
+                                                                                    null,
+                                                                                    false,
+                                                                                    null,
+                                                                                    {
+                                                                                        placeHolder: 'Enter Layer name'
+                                                                                    }
+                                                                                );
+
+                                    }
 
 
-                            // Switch back to non-drawing mode after drawing a shape.
-                            //_drawingManagerSettingLayer.setDrawingMode(null);
-                          
-                            //    oriShapeSettinggeofence = e.overlay;
-                            //    oriShapeSettinggeofence.type = e.type;
-
+                                }
+                            });
+                        });
 
                         }
                         if (e.type == google.maps.drawing.OverlayType.RECTANGLE) {
-
-
                             multiMapCountRectangleID = multiMapCountRectangleID + 1;
                             var newShape = e.overlay;
                             newShape.type = e.type;
                             newShape.id = 'Rectangle' + multiMapCountRectangleID;
                             _layerID.push('Rectangle' + multiMapCountRectangleID);
-                            google.maps.event.addListener(newShape, 'dblclick', function () {
-                                alert(newShape.id);
+                            google.maps.event.addListener(newShape, 'rightclick', function () {
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to DELETE?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        if (buttonId != "yes")
+                                        { return; }
+                                        else {
+                                            newShape.setMap(null);
+                                        }
+                                    }
+                                });
                             });
+                            google.maps.event.addListener(newShape, 'click', function () {
+                                Ext.Msg.show({
+                                    title: 'Confirmation?',
+                                    message: 'Do you want to Save?',
+                                    width: 500,
+                                    buttons: Ext.MessageBox.YESNO,
+                                    iconCls: Ext.MessageBox.INFO,
+                                    fn: function (buttonId) {
+                                        if (buttonId != "yes") {
+                                            newShape.setOptions({ strokeColor: 'black', clickable: true, editable: true, draggable: true, });
+                                            return;
+                                        }
+                                        else {
+                                            newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: false, });
+
+                                            Ext.Msg.prompt('Create Layer-RECTANGLE',
+                                                            'Enter Layer Name',
+                                                            function (buttonId, value) {
+
+                                                                var values = value;
+                                                                if (buttonId == 'ok') {
+                                                                    if (values.length == 0) {
+                                                                        Ext.Msg.alert('Layer Name Cannot Empty!!!');
+                                                                        return;
+                                                                    }
+                                                                    var LayerID = coorAppendRectangle + '-' + newShape.id + '-' + values + '-' + GetCurrentUserName();
+                                                                    var LayerPath = coorAppendRectangle;
+                                                                    var LayerName = values;
+                                                                    var LayerType = 'Rectangle';
+                                                                    var LayerLength = 0;
+                                                                    var CreatedBy = GetCurrentUserName();
+                                                                    var ModifiedBy = GetCurrentUserName();
+                                                                    var LayerStatus = 'Active';
+
+                                                                    Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus)
+
+                                                                    return;
+                                                                }
+                                                            },
+                                                                                        null,
+                                                                                        false,
+                                                                                        null,
+                                                                                        {
+                                                                                            placeHolder: 'Enter Layer name'
+                                                                                        }
+                                                                                    );
+
+                                        }
 
 
-                            // Switch back to non-drawing mode after drawing a shape.
-                            //_drawingManagerSettingLayer.setDrawingMode(null);
-
-                         
-                            //    oriShapeSettinggeofence = e.overlay;
-                            //    oriShapeSettinggeofence.type = e.type;
-
+                                    }
+                                });
+                            });
 
                        
                         }
