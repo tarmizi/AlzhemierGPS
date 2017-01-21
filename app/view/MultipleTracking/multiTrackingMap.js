@@ -81,6 +81,12 @@ var geoFenceDateSettinggeofence;
 
 var _layerID = [];
 
+
+
+
+var LayerID; var LayerPath; var LayerName; var LayerType; var LayerLength; var CreatedBy; var ModifiedBy; var LayerStatus;
+
+
 Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
 
 
@@ -433,43 +439,53 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                     fn: function (buttonId) {
                                         if (buttonId != "yes")
                                         {
+                                            _saveLayerTag = 'No';
                                             newShape.setOptions({strokeColor: 'black', clickable: true,editable: true,draggable: true,});
                                             return;
                                         }
                                         else {
                                             newShape.setOptions({ strokeColor: 'black', clickable: true, editable: false, draggable: false, });
-                                            Ext.Msg.prompt('Create Layer-POLYGON',
-                                                            'Enter Layer Name',
-                                                            function (buttonId, value) {
+                                                                     MultiMapTrackingLayerNameCfmBoxShow();
+                                                                     LayerID = coorAppendPolygon + '-' + newShape.id + '-' + Ext.getCmp('MultiMapTrackingLayerNameCfmBox_LayerName').getValue() + '-' + GetCurrentUserName();
+                                                                     LayerPath = coorAppendPolygon;                                                                
+                                                                     LayerType = 'Polygon';
+                                                                     LayerLength = google.maps.geometry.spherical.computeLength(newShape.getPath().getArray());
+                                                                     CreatedBy = GetCurrentUserName();
+                                                                     ModifiedBy = GetCurrentUserName();
+                                                                     LayerStatus = 'Active';
+                                                                     
+                                            //Ext.Msg.prompt('Create Layer-POLYGON',
+                                            //                'Enter Layer Name',
+                                            //                function (buttonId, value) {
                                                               
-                                                                var values = value;
-                                                                if(buttonId=='ok')
-                                                                {
-                                                                    if (values.length == 0) {
-                                                                        Ext.Msg.alert('Layer Name Cannot Empty!!!');                                                                      
-                                                                        return;
-                                                                    }                                                                
-                                                                    var LayerID = coorAppendPolygon + '-' +newShape.id + '-' + values + '-' + GetCurrentUserName();
-                                                                    var LayerPath = coorAppendPolygon;
-                                                                    var LayerName = values;
-                                                                    var LayerType = 'Polygon';
-                                                                    var LayerLength = google.maps.geometry.spherical.computeLength(newShape.getPath().getArray());
-                                                                    var CreatedBy = GetCurrentUserName();
-                                                                    var ModifiedBy = GetCurrentUserName();
-                                                                    var LayerStatus = 'Active';
+                                            //                    var values = value;
+                                            //                    if(buttonId=='ok')
+                                            //                    {
+                                            //                        if (values.length == 0) {
+                                            //                            Ext.Msg.alert('Layer Name Cannot Empty!!!');                                                                      
+                                            //                            return;
+                                            //                        }                                                                
+                                            //                        var LayerID = coorAppendPolygon + '-' +newShape.id + '-' + values + '-' + GetCurrentUserName();
+                                            //                        var LayerPath = coorAppendPolygon;
+                                            //                        var LayerName = values;
+                                            //                        var LayerType = 'Polygon';
+                                            //                        var LayerLength = google.maps.geometry.spherical.computeLength(newShape.getPath().getArray());
+                                            //                        var CreatedBy = GetCurrentUserName();
+                                            //                        var ModifiedBy = GetCurrentUserName();
+                                            //                        var LayerStatus = 'Active';
 
-                                                                    Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus)
+                                            //                        Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus)
                                                                 
-                                                                    return;
-                                                                }                                                             
-                                                                                        },
-                                                                                        null,
-                                                                                        false,
-                                                                                        null,
-                                                                                        {
-                                                                                        placeHolder: 'Enter Layer name'
-                                                                                        }
-                                                                                    );
+                                            //                        return;
+                                            //                    }                                                             
+                                            //                                            },
+                                            //                                            null,
+                                            //                                            false,
+                                            //                                            null,
+                                            //                                            {
+                                            //                                            placeHolder: 'Enter Layer name'
+                                            //                                            }
+                                            //                                        );
                                         }
 
 

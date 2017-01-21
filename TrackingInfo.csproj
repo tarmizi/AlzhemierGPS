@@ -414,6 +414,7 @@
     <Content Include="app\view\MainPage.js" />
     <Content Include="app\view\mapsendcommands.js" />
     <Content Include="app\view\MultiPleTracking\API\MultipleTrackingAPI.js" />
+    <Content Include="app\view\MultiPleTracking\CustomePanel\MultiMapTrackingLayerNameCfmBox.js" />
     <Content Include="app\view\MultiPleTracking\CustomePanel\MultipleMapTrackingMenu.js" />
     <Content Include="app\view\MultiPleTracking\CustomePanel\MultipleMapTrackingSearchLocation.js" />
     <Content Include="app\view\MultiPleTracking\CustomePanel\MultipleMapTrackingSettingLayer.js" />
