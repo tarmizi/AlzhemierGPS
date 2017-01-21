@@ -487,7 +487,7 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingMap', {
                                             //                                            }
                                             //                                        );
                                         }
-
+                                        /////////////////
 
                                     }
                                 });
