@@ -7,7 +7,7 @@ var _saveLayerTag ;
 
 
 
-function Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus) {
+function Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus, BuildingName, FloorName, SectorName, R1) {
 
    
     _saveLayerTag = 'No';
@@ -29,9 +29,10 @@ function Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLengt
             ModifiedBy: ModifiedBy,
             LayerOrder: 1,
             LayerStatus: LayerStatus,
-         
-
-
+            BuildingName: BuildingName,
+            FloorName: FloorName,
+            SectorName: SectorName,
+            R1: R1,
         },
         success: function (result, request) {
             _saveLayerTag = 'Yes';

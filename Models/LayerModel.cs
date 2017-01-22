@@ -197,7 +197,7 @@ namespace TrackingInfo.Models
 
 
 
-        public static bool Layer_InsertUpdate(string LayerID, string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus)
+        public static bool Layer_InsertUpdate(string LayerID, string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus, string BuildingName, string FloorName, string SectorName, string R1)
         {
             List<LayerModel> _Value = new List<LayerModel>();
             SqlConnection _SQLConnection = SQLConnectionString.BuildConnection();
@@ -226,6 +226,12 @@ namespace TrackingInfo.Models
                         _SQLCommand.Parameters.AddWithValue("@ModifiedBy", ModifiedBy);
                         _SQLCommand.Parameters.AddWithValue("@LayerOrder", LayerOrder);
                         _SQLCommand.Parameters.AddWithValue("@LayerStatus", LayerStatus);
+
+                        _SQLCommand.Parameters.AddWithValue("@BuildingName", BuildingName);
+
+                        _SQLCommand.Parameters.AddWithValue("@FloorName", FloorName);
+                        _SQLCommand.Parameters.AddWithValue("@SectorName", SectorName);
+                        _SQLCommand.Parameters.AddWithValue("@R1", R1);
 
                         _DBConnection.Open();
                         _SQLCommand.ExecuteNonQuery();

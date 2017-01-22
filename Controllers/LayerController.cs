@@ -48,7 +48,7 @@ namespace TrackingInfo.Controllers
 
 
         [HttpPost]
-        public JsonResult LayerInsertUpdate(string LayerID,string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus)
+        public JsonResult LayerInsertUpdate(string LayerID, string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus, string BuildingName, string FloorName, string SectorName, string R1)
         {
             string LayerIDs = LayerID.Replace("),(", "-").Replace("(", "-").Replace(")", "-").Replace(" ", "").Replace(",", "-");
             bool success = true;
@@ -57,7 +57,7 @@ namespace TrackingInfo.Controllers
 
             try
             {
-                success = LayerModel.Layer_InsertUpdate(LayerIDs, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerOrder, LayerStatus);
+                success = LayerModel.Layer_InsertUpdate(LayerIDs, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerOrder, LayerStatus, BuildingName, FloorName, SectorName, R1);
             }
             catch (Exception ex)
             {

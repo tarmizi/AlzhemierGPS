@@ -28,8 +28,8 @@ var _DataStore_BuildingStore_GetAll = Ext.create('Ext.data.Store', {
             //console.log(document.location.protocol + '//' + document.location.host + '/TrackingAppAPI/GeoFence/GeofenceSelect');
             Ext.Msg.alert('Loading failed', response.statusText);
         }
-    }
-    //autoLoad: true
+    },
+    autoLoad: true
 });
 
 

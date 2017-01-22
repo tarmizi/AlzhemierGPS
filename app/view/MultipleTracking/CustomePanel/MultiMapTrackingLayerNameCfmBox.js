@@ -10,7 +10,7 @@ function MultiMapTrackingLayerNameCfmBox() {
     _multiMapTrackingLayerNameCfmBox = Ext.create('Ext.Panel', {
 
         height: 400,
-        width: 320,
+        width: 420,
 
         id: 'MultiMapTrackingLayerNameCfmBoxID',
         centered: true,
@@ -57,16 +57,46 @@ function MultiMapTrackingLayerNameCfmBox() {
                            items: [
                                {
                                    // xtype: 'textfield',
-                                   xtype: 'textfield',
+                                   xtype: 'selectfield',
                                    id: 'MultiMapTrackingLayerNameCfmBox_BuildingName',
                                    label: 'Building Name',
                                    labelWidth: '45%',
-                                   disabled: false,
+                                   store: _DataStore_BuildingStore_GetAll,
+                                   valueField: 'BuildingName',
+                                   displayField: 'BuildingName',
                                    //placeHolder: 'Tom Roy',
                                    labelWrap: true,
-                                   //required: true,
-                                   clearIcon: true
+                                
+                                  
                                },
+
+                                 {
+                                     // xtype: 'textfield',
+                                     xtype: 'selectfield',
+                                     id: 'MultiMapTrackingLayerNameCfmBox_FloorName',
+                                     label: 'Floor Name',
+                                     labelWidth: '45%',
+                                     store: _DataStore_FloorStore_GetAll,
+                                     valueField: 'FloorName',
+                                     displayField: 'FloorName',
+                                   
+                                     labelWrap: true,
+                                    
+                                 },
+
+                                   {
+                                       // xtype: 'textfield',
+                                       xtype: 'selectfield',
+                                       id: 'MultiMapTrackingLayerNameCfmBox_SectorName',
+                                       label: 'Sector Name',
+                                       labelWidth: '45%',
+                                       store: _DataStore_SectorStore_GetAll,
+                                       valueField: 'SectorName',
+                                       displayField: 'SectorName',
+                                       labelWrap: true,
+                                       hidden: true,
+                                    
+                                   },
                                   {
                                       xtype: 'checkboxfield',
                                       label: '<b><font color=#60A2CF>Floor</font></b>',
@@ -76,31 +106,19 @@ function MultiMapTrackingLayerNameCfmBox() {
                                           check: function () {
 
                                               Ext.getCmp('MultiMapTrackingLayerNameCfmBoxSector').setChecked(false);
-                                              Ext.getCmp('MultiMapTrackingLayerNameCfmBoxFloorName').setHidden(false);
-                                              Ext.getCmp('MultiMapTrackingLayerNameCfmBoxSectorName').setHidden(true);
+                                              Ext.getCmp('MultiMapTrackingLayerNameCfmBox_FloorName').setHidden(false);
+                                              Ext.getCmp('MultiMapTrackingLayerNameCfmBox_SectorName').setHidden(true);
 
                                           },
                                           uncheck: function () {
-                                              Ext.getCmp('MultiMapTrackingLayerNameCfmBoxFloorName').setHidden(true);
+                                             // Ext.getCmp('MultiMapTrackingLayerNameCfmBoxFloorName').setHidden(true);
                                               // Ext.getCmp('LabClinicalBridgeCont_Details1').setHidden(true);
 
                                           }
                                       }
 
                                   },
-                              {
-                                  // xtype: 'textfield',
-                                  xtype: 'textfield',
-                                  id: 'MultiMapTrackingLayerNameCfmBoxFloorName',
-                                  label: 'Floor Name',
-                                  labelWidth: '45%',
-                                  disabled: false,
-                                  hidden:true,
-                                  //placeHolder: 'Tom Roy',
-                                  labelWrap: true,
-                                  //required: true,
-                                  clearIcon: true
-                              },
+                              
                                  {
                                      xtype: 'checkboxfield',
                                      label: '<b><font color=#60A2CF>Sector</font></b>',
@@ -109,32 +127,20 @@ function MultiMapTrackingLayerNameCfmBox() {
                                      listeners: {
                                          check: function () {
 
-                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBoxMainFloor').setChecked(false);
-                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBoxSectorName').setHidden(false);
-                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBoxFloorName').setHidden(true);
+                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBoxMainFloor').setChecked(false);                                            
+                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBox_FloorName').setHidden(false);
+                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBox_SectorName').setHidden(false);
 
                                          },
                                          uncheck: function () {
-                                             Ext.getCmp('MultiMapTrackingLayerNameCfmBoxSectorName').setHidden(true);
+                                             //Ext.getCmp('MultiMapTrackingLayerNameCfmBoxSectorName').setHidden(true);
                                              // Ext.getCmp('LabClinicalBridgeCont_Details1').setHidden(true);
 
                                          }
                                      }
 
                                  },
-                                 {
-                                     // xtype: 'textfield',
-                                     xtype: 'textfield',
-                                     id: 'MultiMapTrackingLayerNameCfmBoxSectorName',
-                                     label: 'Sector Name',
-                                     labelWidth: '45%',
-                                     disabled: false,
-                                     hidden: true,
-                                     //placeHolder: 'Tom Roy',
-                                     labelWrap: true,
-                                     //required: true,
-                                     clearIcon: true
-                                 },
+                                
                                 {
                                     // xtype: 'textfield',
                                     xtype: 'textfield',
@@ -248,7 +254,11 @@ function MultiMapTrackingLayerNameCfmBox() {
                              text: 'Create',
                              handler: function () {
                                  LayerName = Ext.getCmp('MultiMapTrackingLayerNameCfmBox_LayerName').getValue();
-                                 Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus);
+                                 var BuildingName = Ext.getCmp('MultiMapTrackingLayerNameCfmBox_BuildingName').getValue();
+                                 var FloorName = Ext.getCmp('MultiMapTrackingLayerNameCfmBox_FloorName').getValue();
+                                 var SectorName = Ext.getCmp('MultiMapTrackingLayerNameCfmBox_SectorName').getValue();
+                                 var R1 = LayerID;
+                                 Layer_InsertUpdate(LayerID, LayerPath, LayerName, LayerType, LayerLength, CreatedBy, ModifiedBy, LayerStatus, BuildingName, FloorName, SectorName, R1);
                              }
 
                          },
