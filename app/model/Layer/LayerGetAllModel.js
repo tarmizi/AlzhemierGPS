@@ -13,7 +13,10 @@
         { name: 'ModifiedBy' },
         { name: 'ModifiedDate' },
         { name: 'LayerStatus' },
-        { name: 'LayerOrder' }
+        { name: 'LayerOrder' },
+        { name: 'BuildingName' },
+        { name: 'FloorName' },
+        { name: 'SectorName' }
         ]
         },
 });

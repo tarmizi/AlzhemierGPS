@@ -183,6 +183,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AutoFenceTimerController.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\FloorController.cs" />
     <Compile Include="Controllers\GeofenceAlertHistoryController.cs" />
     <Compile Include="Controllers\GeoFenceAreaController.cs" />
     <Compile Include="Controllers\GeoFenceController.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Controllers\MilageCountInfoController.cs" />
     <Compile Include="Controllers\RegisterAccountController.cs" />
     <Compile Include="Controllers\ResponderAlertController.cs" />
+    <Compile Include="Controllers\SectorController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\SignalsController.cs" />
     <Compile Include="Controllers\TrackerDeviceController.cs" />
@@ -204,6 +207,8 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AutoFenceTimerModel.cs" />
+    <Compile Include="Models\BuildingModel.cs" />
+    <Compile Include="Models\FloorModel.cs" />
     <Compile Include="Models\GeofenceAlertHistoryModel.cs" />
     <Compile Include="Models\GeoFenceAreaModel.cs" />
     <Compile Include="Models\GeoFenceModel.cs" />
@@ -214,6 +219,7 @@
     <Compile Include="Models\MilageCountInfoModel.cs" />
     <Compile Include="Models\RegisteredAccountModel.cs" />
     <Compile Include="Models\ResponderAlertModel.cs" />
+    <Compile Include="Models\SectorModel.cs" />
     <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\SignalsModel.cs" />
     <Compile Include="Models\SQLConnection.cs" />
@@ -247,6 +253,8 @@
     <Content Include="app\model\AlertMilageCount\alertMilageCount_LoadByDeviceAccNoModel.js" />
     <Content Include="app\model\AlertMilageCount\alertMilageCount_LoadReceiptPictureByIDModel.js" />
     <Content Include="app\model\AutoFenceTimerModel.js" />
+    <Content Include="app\model\Building\BuildingGetAllModel.js" />
+    <Content Include="app\model\Floor\FloorGetAllModel.js" />
     <Content Include="app\model\GeofenceAlertHistory.js" />
     <Content Include="app\model\geoFenceAreaModel.js" />
     <Content Include="app\model\geoFenceModel.js" />
@@ -266,6 +274,7 @@
     <Content Include="app\model\ResponderAlertModel.js" />
     <Content Include="app\model\ResponderAlert\ResponderAlertModel.js" />
     <Content Include="app\model\searchresultmodel.js" />
+    <Content Include="app\model\Sector\SectorGetAllModel.js" />
     <Content Include="app\model\settingModel.js" />
     <Content Include="app\model\Signal.js" />
     <Content Include="app\model\signalhistorymodel.js" />
@@ -284,6 +293,8 @@
     <Content Include="app\store\AlertMilageCount\AlertMilageCountStore.js" />
     <Content Include="app\store\AutoFenceTimerGetByAcc.js" />
     <Content Include="app\store\AutoFenceTimerGetByID.js" />
+    <Content Include="app\store\Building\BuildingStore.js" />
+    <Content Include="app\store\Floor\FloorStore.js" />
     <Content Include="app\store\geoFenceActiveStore.js" />
     <Content Include="app\store\GeofenceAlertHistoryGetByAcc.js" />
     <Content Include="app\store\GeofenceAlertHistoryStore.js" />
@@ -310,6 +321,7 @@
     <Content Include="app\store\ResponderAlertGetByAcc.js" />
     <Content Include="app\store\ResponderAlertGetByID.js" />
     <Content Include="app\store\ResponderAlert\ResponderAlertStore.js" />
+    <Content Include="app\store\Sector\SectorStore.js" />
     <Content Include="app\store\settingGetbyAccontNo.js" />
     <Content Include="app\store\signalhistorystore.js" />
     <Content Include="app\store\SignalItemList.js" />

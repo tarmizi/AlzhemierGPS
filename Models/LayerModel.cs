@@ -106,6 +106,28 @@ namespace TrackingInfo.Models
             set;
         }
 
+
+
+
+        public string BuildingName
+        {
+            get;
+            set;
+        }
+
+        public string FloorName
+        {
+            get;
+            set;
+        }
+
+        public string SectorName
+        {
+            get;
+            set;
+        }
+
+
         public LayerModel() { }
 
         public static bool LayerBoundary_InsertUpdate(string LayerID, string AccountNo,string DeviceID ,string LayerPath, string LayerName, string LayerType, string LayerLength, string CreatedBy, string ModifiedBy, int LayerOrder, string LayerStatus)
@@ -301,6 +323,11 @@ namespace TrackingInfo.Models
                             _result.ModifiedDate = _SQLDataReader["ModifiedDate"].ToString();
                             _result.LayerStatus = _SQLDataReader["LayerStatus"].ToString();
                             _result.LayerOrder = _SQLDataReader["LayerOrder"].ToString();
+
+
+                            _result.BuildingName = _SQLDataReader["BuildingName"].ToString();
+                            _result.FloorName = _SQLDataReader["FloorName"].ToString();
+                            _result.SectorName = _SQLDataReader["SectorName"].ToString();
 
 
                             _Value.Add(_result);
