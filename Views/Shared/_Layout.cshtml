@@ -49,10 +49,25 @@
         //  window.history.forward();
         function noBack() {
             // alert('xxxx');
-            //window.onbeforeunload = function () { return "Are You Sure to Exit?"; };
-            //window.location.hash = "";
-            //window.location.hash = "Again-No-back-button";//again because google chrome don't insert first hash into history
-            //window.onhashchange = function () { window.location.hash = ""; }
+            window.onbeforeunload = function () {
+
+                //return "Are You Sure to Exit?";
+
+                alert(detectOs());
+                if (Ext.os.is('Windows')) {
+                    document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
+
+                    function onBackKeyDown(eve) {
+                        eve.preventDefault();
+
+                        //do something
+                        alert('back button pressed');
+                    }
+                }
+            };
+            window.location.hash = "";
+            window.location.hash = "Again-No-back-button";//again because google chrome don't insert first hash into history
+            window.onhashchange = function () { window.location.hash = ""; }
 
             //window_beforeUnload = function(e) {
             //    var message = " ";
@@ -67,17 +82,7 @@
             //    window.attachEvent("onbeforeunload", window_beforeUnload);
             //}
 
-
-            if (Ext.os.is('Android')) {
-                document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
-
-                function onBackKeyDown(eve) {
-                    eve.preventDefault();
-
-                    //do something
-                    alert('back button pressed');
-                }
-            }
+         
 
         }
     </script>

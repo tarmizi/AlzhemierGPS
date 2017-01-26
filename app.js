@@ -18,6 +18,7 @@ Ext.application({
            'Ext.form.*',
          'Ext.field.*',
          'Ext.Img',
+         'Ext.app.History',
  
          'Ext.Map'
     ],
@@ -76,7 +77,22 @@ Ext.application({
                 }
             }
         );
-    }
+    },
+
+
+
+    backTo: function () {
+        alert('Back');
+    //var historyArray = myApp.app.getHistory().getActions();
+    //for (var i = historyArray.length; i > 0; i--) {
+    //    if (pageName === historyArray [i - 1].getUrl()) {
+    //        var steps = historyArray.length - i;
+    //        for (var i = 0; i < steps; i++)
+    //            myApp.app.getHistory().getActions().pop();
+    //        history.go(-steps)
+    //    }
+    //}
+},
 });
 
 
