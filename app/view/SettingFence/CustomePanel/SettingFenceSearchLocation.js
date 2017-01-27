@@ -71,7 +71,7 @@ function SettingFenceSearchLocation() {
                              ui: 'action',
                              text: 'Cancel',
                              handler: function () {
-                                 MultipleMapTrackingSearchLocationHide();
+                                 SettingFenceSearchLocationHide();
                              }
 
                          },
@@ -94,7 +94,7 @@ function SettingFenceSearchLocation() {
                                  }
                                  Ext.Viewport.mask({ xtype: 'loadmask', message: 'Locating Address....please wait' });
                                  var task = Ext.create('Ext.util.DelayedTask', function () {
-                                     LocateMap_multipleMapTrackingSearchLocation();
+                                     LocateMap_SettingFenceSearchLocation();
                                      Ext.Viewport.unmask();
 
                                  });
@@ -149,7 +149,7 @@ function SettingFenceSearchLocationShow() {
 
 
 function SettingFenceSearchLocationHide() {
-    _multipleMapTrackingSearchLocation.hide();
+    _settingFenceSearchLocation.hide();
 }
 
 
@@ -162,8 +162,8 @@ function LocateMap_SettingFenceSearchLocation() {
     var xc = localStorage.getItem("coorX");
     var yc = localStorage.getItem("coorY");
 
-    multiTrackingMap.setZoom(14);      // This will trigger a zoom_changed on the map
-    multiTrackingMap.setCenter(new google.maps.LatLng(yc, xc));
+    mapgeofenceSettinggeofence.setZoom(14);      // This will trigger a zoom_changed on the map
+    mapgeofenceSettinggeofence.setCenter(new google.maps.LatLng(yc, xc));
     localStorage.removeItem("coorX");
     localStorage.removeItem("coorY");
     SettingFenceSearchLocationHide();

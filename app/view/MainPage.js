@@ -48,7 +48,7 @@
 
            {
                //4
-               xtype: 'geoFencesSettingholder',
+               xtype: 'SettingFenceListOfGeoFence',
                //style: "background-color: #FF9900; color:white;",
                //html: '<center>Item 2</center>'
            },
@@ -92,10 +92,18 @@
         { //11
             xtype: 'HistoryMap',
         },
-        {
-            style: "background-color: #006600; color:white;",
-            html: '<center>Item 3</center>'
-        }
+
+          { //12
+              xtype: 'SettingFenceListOfGeoFence',
+          },
+
+         { //13
+             xtype: 'SettingFenceMap',
+         },
+        //{
+        //    style: "background-color: #006600; color:white;",
+        //    html: '<center>Item 3</center>'
+        //}
 
         ]
     }

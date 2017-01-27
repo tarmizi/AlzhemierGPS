@@ -900,16 +900,16 @@ function startmultiTrackingMaps(val, countmultiple, ImeiNo) {
                         var markermultiTrackingMap = new MarkerWithLabel({
                             position: boundreboundlatlongmultiTrackingMap,
                         
-                            //flat: true,
-                            //icon: {
-                            //    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                            //    scale: 10,
-                            //    rotation: Direction,
-                            //    strokeColor: '#FFFFFF',
-                            //    fillColor: '#57A0DC',
-                            //    fillOpacity: 1,
-                            //    strokeWeight: 4
-                            //},
+                            flat: true,
+                            icon: {
+                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                scale: 10,
+                                rotation: Direction,
+                                strokeColor: '#FFFFFF',
+                                fillColor: '#57A0DC',
+                                fillOpacity: 1,
+                                strokeWeight: 4
+                            },
 
                             draggable: false,
                             labelContent: TrackID,

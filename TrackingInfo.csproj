@@ -446,10 +446,10 @@
     <Content Include="app\view\SettingFence\CustomePanel\SettingFenceDrawFenceMenu.js" />
     <Content Include="app\view\SettingFence\CustomePanel\SettingFenceSearchLocation.js" />
     <Content Include="app\view\SettingFence\holdersettinggeofence.js" />
-    <Content Include="app\view\SettingFence\listgeofenceitemsettinggeofence.js" />
     <Content Include="app\view\SettingFence\SettingFenceDrawMap.js" />
-    <Content Include="app\view\SettingFence\SettingFencePanelSettingInfo.js" />
-    <Content Include="app\view\SettingFence\Settinggeofence.js" />
+    <Content Include="app\view\SettingFence\SettingFenceListOfGeoFence.js" />
+    <Content Include="app\view\SettingFence\SettingFenceMap.js" />
+    <Content Include="app\view\SettingFence\CustomePanel\SettingFencePanelSettingInfo.js" />
     <Content Include="app\view\Setting\MainSetting.js" />
     <Content Include="app\view\Setting\MilageCountSetting.js" />
     <Content Include="app\view\Setting\SettingResponderAlert.js" />

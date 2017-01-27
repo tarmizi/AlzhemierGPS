@@ -3,7 +3,7 @@
 
 var _settingFencePanelSettingInfo;
 
-Ext.define('MyGPS.view.SettingFence.SettingFencePanelSettingInfo', {
+Ext.define('MyGPS.view.SettingFence.CustomePanel.SettingFencePanelSettingInfo', {
 
 });
 

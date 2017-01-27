@@ -16,14 +16,16 @@ function SettingFenceDrawFenceMenu() {
       width: 1,
       id: '_settingFenceDrawFenceMenuID',
       draggable: false,
-      left: 55,
-      bottom: 370,
+      right: -5,
+      top: 45,
+      //right: 35,
+      //bottom: 570,
       zIndex: 10,
       // bottom: 165,
 
       showAnimation: {
           type: 'slide',
-          direction: 'right',
+          direction: 'left',
           duration: 250,
           easing: 'ease-out'
       },
@@ -56,7 +58,7 @@ function SettingFenceDrawFenceMenu() {
                   if (_saveLayerTag == 'No') {
                       Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
                   } else {
-                      _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
+                      drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
                   }
               }
           },
@@ -74,7 +76,7 @@ function SettingFenceDrawFenceMenu() {
                           if (_saveLayerTag == 'No') {
                               Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
                           } else {
-                              _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+                              drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
                           }
 
 
@@ -92,7 +94,7 @@ function SettingFenceDrawFenceMenu() {
                             if (_saveLayerTag == 'No') {
                                 Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
                             } else {
-                                _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
+                                drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.POLYLINE);
                             }
                         }
                     },
@@ -107,7 +109,7 @@ function SettingFenceDrawFenceMenu() {
                               if (_saveLayerTag == 'No') {
                                   Ext.Msg.alert('Please Saved Previous Layer to be able <br> create next layer.!!!');
                               } else {
-                                  _drawingManagerSettingLayer.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
+                                  drawingManagerSettinggeofence.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
                               }
 
 
@@ -133,7 +135,7 @@ function SettingFenceDrawFenceMenu() {
                    html: '<div ><img src="resources/icons/multipleMapTrackingSettingLayerCreateLayerSearchLocation.png" width="55" height="55" alt="Company Name"></div>',
                    ui: 'plain',
                    handler: function () {
-                       MultipleMapTrackingSearchLocationShow();
+                       SettingFenceSearchLocationShow();
 
                    }
                },
