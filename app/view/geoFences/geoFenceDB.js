@@ -362,6 +362,8 @@ function InsertGeoFencesFromSavedArea(AccountNo, TrackID, TrackItem, Fencelenght
 
 function AutoFenceTimerInsertUpdate(ID, TrackItem, TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status, FenceLength) {
 
+
+    console.log(ID + '//' + TrackItem + '//' + TrackID + '//' + AccountNo + '//' + FencePath + '//' + ShapeType + '//' + FenceAreaName + '//' + TimeFrom + '//' + TimeTo + '//' + DaySetting + '//' + Status + '//' + FenceLength);
     Ext.Ajax.request({
 
         url: document.location.protocol + '//' + document.location.host + '/AutoFenceTimer/AutoFenceTimerInsertUpdate',
@@ -385,13 +387,13 @@ function AutoFenceTimerInsertUpdate(ID, TrackItem, TrackID, AccountNo, FencePath
         success: function (result, request) {
 
             Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
-                AccNo: AAccountNo,
+                AccNo: GetCurrentUserAccountNo(),
             });
             Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
             Ext.Viewport.mask({ xtype: 'loadmask', message: 'Please Wait...' });
             var task = Ext.create('Ext.util.DelayedTask', function () {
                 Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
-                    AccNo: AAccountNo,
+                    AccNo: GetCurrentUserAccountNo(),
                 });
                 Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
                 CheckingAutoTimerDuplicate(ID, 'IDK', TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status, FenceLength)
@@ -477,7 +479,7 @@ function CheckingAutoTimerDuplicate(ID, IDK, TrackID, AccountNo, FencePath, Shap
     var timefromNextActive;
     var timeToActive;
     Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
-        AccNo: AAccountNo,
+        AccNo: GetCurrentUserAccountNo(),
     });
     Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
     var myStore = Ext.getStore('AutoFenceTimerGetByAcc');

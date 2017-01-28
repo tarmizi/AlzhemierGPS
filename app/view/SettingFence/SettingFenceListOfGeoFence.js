@@ -84,28 +84,60 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
 
                    handler: function (btn) {
                        Ext.getCmp('mainView').setActiveItem(13);
-                     //  SettingFencePanelSettingInfoShow();
-                       //Ext.getCmp('SettingDrawFence_ShowDetailPanelbtn').setHidden(true);
-                       //Ext.getCmp('SettingDrawFence_HideDetailPanelbtn').setHidden(false);
+                     
+                   
                        SettingFencePanelSettingInfoShow();
                        SettingFenceDrawFenceMenuShow();
-                       SettingFencePanelSettingInfoSaveShow();
+                     //  SettingFencePanelSettingInfoSaveShow();
                        deleteAllSelectedShapeSettinggeofence();
-              
                      
+                       Ext.getCmp('SettingDrawFence_ID').setValue('0');
+                       Ext.getCmp('SettingDrawFence_TrackItem').setValue('-1');
+                       // Ext.getCmp('SettingDrawFence_AccountNo').setValue('null');
+                       Ext.getCmp('SettingDrawFence_FencePath').setValue('null');
+                       // Ext.getCmp('SettingDrawFence_ShapeType').setValue('null');
+                       Ext.getCmp('SettingDrawFence_FenceName').setValue('Enter Area Name');
+                       Ext.getCmp('SettingDrawFence_TimeFrom').setValue('-1');
+                       Ext.getCmp('SettingDrawFence_TimeTo').setValue('-1');
+                       Ext.getCmp('SettingDrawFence_DaySetting').setValue('-1');
+                       Ext.getCmp('SettingDrawFence_Status').setValue('-1');
+                       Ext.getCmp('SettingDrawFence_Length').setValue('-1');
 
                    
-                       Ext.Viewport.mask({ xtype: 'loadmask', message: 'Re-Center  Map..Please Wait' });
+                       Ext.Viewport.mask({ xtype: 'loadmask', message: 'Re-Center  Map..' });
+                       //mapgeofenceSettinggeofence.setZoom(5);
+
+                     
+
+
+
+
 
                        var task = Ext.create('Ext.util.DelayedTask', function () {
-                           mapgeofenceSettinggeofence.setZoom(5);
+
+                           Ext.getStore('TrackingItemList').getProxy().setExtraParams({
+                               AccNo: GetCurrentUserAccountNo(),
+                           });
+                           Ext.StoreMgr.get('TrackingItemList').load();
+                           setTimeout(function () {
+
+                             
+                               Ext.getStore('TrackingItemList').getProxy().setExtraParams({
+                                   AccNo: GetCurrentUserAccountNo(),
+                               });
+                               Ext.StoreMgr.get('TrackingItemList').load();
+                              
+                           }, 500);
+
+                        
                            
                            Ext.Viewport.unmask();
                        });
                        task.delay(1000);
 
 
-
+                        // This will trigger a zoom_changed on the map
+                      // mapgeofenceSettinggeofence.setCenter(new google.maps.LatLng(6.396116, 100.677904));
 
                    }
 

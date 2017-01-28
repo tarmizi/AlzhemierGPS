@@ -87,7 +87,7 @@ function SettingFencePanelSettingInfo() {
                                xtype: 'button',
 
                                id: 'btnSettingFencePanelSettingInfoMockText',
-                               text: '<font size="2" color="white">Virtual Boundary Setting</font>',
+                               text: '<font size="2" color="white"><u>Virtual Boundary Setting</u></font>',
                              
                                // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
                                ui: 'plain',
@@ -99,9 +99,130 @@ function SettingFencePanelSettingInfo() {
 
                            },
 
+                           {
+                               xtype:'spacer'
+                           },
 
 
 
+                           {
+                               xtype: 'button',
+
+                               height: 43,
+                               width:43,
+                               id: 'btnSettingFencePanelSettingInfoBack',
+                            //   text: '<font size="2" color="white">Virtual Boundary Setting</font>',
+
+                               html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="33" height="33" alt="Company Name"></div>',
+                               ui: 'plain',
+                               handler: function () {
+                                 
+                                   SettingFenceDrawFenceMenuHide();
+                                   SettingFencePanelSettingInfoHide();
+                                   Ext.getCmp('mainView').setActiveItem(4);
+                               }
+
+
+
+                           },
+                           {
+                               xtype: 'button',
+
+                               height: 38,
+                               width: 38,
+                               id: 'btnSettingFencePanelSettingInfoSave',
+                               //   text: '<font size="2" color="white">Virtual Boundary Setting</font>',
+
+                               html: '<div ><img src="resources/icons/WhiteSaveIcon.png" width="28" height="28" alt="Company Name"></div>',
+                               ui: 'plain',
+                               handler: function () {
+                                   var ID = Ext.getCmp('SettingDrawFence_ID').getValue();
+                                 
+                                   var TrackID = Ext.getCmp('SettingDrawFence_TrackItem').getValue();
+                                   //Ext.getCmp('SettingDrawFence_AccountNo').setValue(AAccountNo);
+                                   var AccountNo = GetCurrentUserAccountNo();
+                                   var FencePath = Ext.getCmp('SettingDrawFence_FencePath').getValue();
+                                   var ShapeType = Ext.getCmp('SettingDrawFence_ShapeType').getValue();
+                                   var FenceAreaName = Ext.getCmp('SettingDrawFence_FenceName').getValue();
+                                   var TimeFrom = parseInt(Ext.getCmp('SettingDrawFence_TimeFrom').getValue());
+                                   var TimeTo = parseInt(Ext.getCmp('SettingDrawFence_TimeTo').getValue());
+                                   var DaySetting = Ext.getCmp('SettingDrawFence_DaySetting').getValue();
+                                   var Status = Ext.getCmp('SettingDrawFence_Status').getValue();
+                                   var FenceLength = Ext.getCmp('SettingDrawFence_Length').getValue();
+                                   //  alert(checkDuplicateTimeToStatus);
+                                   Ext.Viewport.mask({ xtype: 'loadmask', message: 'Saving..Please Wait' });
+
+
+
+                                   var task = Ext.create('Ext.util.DelayedTask', function () {
+
+
+
+                                       //  alert(TimeFrom +'----'+ TimeTo);
+                                       Ext.Viewport.unmask();
+                                       if (TrackID == '-1')
+                                       { Ext.Msg.alert('ERROR', 'Track Item Not Valid !'); return; }
+                                       else if (AccountNo == '')
+                                       { Ext.Msg.alert('ERROR', 'Account No Not Valid !'); return; }
+                                       else if (FencePath == 'null')
+                                       { Ext.Msg.alert('ERROR', 'Fence Path Not Valid !'); return; }
+                                       else if (FenceAreaName == 'Enter Fence Area Name' || FenceAreaName == '')
+                                       { Ext.Msg.alert('ERROR', 'Fence Area Name Not Valid !'); return; }
+                                       else if (TimeFrom == '-1')
+                                       { Ext.Msg.alert('ERROR', 'TimeFrom Not Valid !'); return; }
+                                       else if (TimeFrom >= TimeTo)
+                                       { Ext.Msg.alert('ERROR', 'TimeFrom Not Valid ,TimeFrom >= TimeTo !'); return; }
+                                       else if (TimeTo == '-1')
+                                       { Ext.Msg.alert('ERROR', 'TimeTo Not Valid !'); return; }
+                                       else if (TimeTo <= TimeFrom)
+                                       { Ext.Msg.alert('ERROR', 'TimeTo Not Valid !,TimeTo <= TimeFrom'); return; }
+                                           //  else if (DaySetting == '-1')
+                                           //{ Ext.Msg.alert('ERROR', 'Day Setting Not Valid !'); return; }
+                                       else if (Status == '-1')
+                                       { Ext.Msg.alert('ERROR', 'Fence Status Not Valid !'); return; }
+                                       else if (FenceLength == '-1')
+                                       { Ext.Msg.alert('ERROR', 'FenceLength Not Valid !'); return; }
+
+                                       else
+                                       {
+                                           //Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
+                                           //    AccNo: AAccountNo,
+                                           //});
+                                           //Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+                                           AutoFenceTimerInsertUpdate(ID, 'IDK', TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status, FenceLength);
+
+                                       }
+
+                                       // InsertUpdateSetting(AAccountNo, 'null', Ext.getCmp('SelectedMarker').getValue(), Ext.getCmp('PanMapAfterPointChange').getValue(), Ext.getCmp('AttachedLabelOnMarker').getValue(), Ext.getCmp('Geo_Setting_CIGPS').getValue());
+
+                                   });
+                                   task.delay(1000);
+
+                               }
+                               
+
+
+
+                           },
+                             
+                               {
+                                   xtype: 'button',
+
+                                   height: 43,
+                                   width: 43,
+                                   id: 'btnSettingFencePanelSettingInfoSaveHide',
+                                   //   text: '<font size="2" color="white">Virtual Boundary Setting</font>',
+                                   
+                                   html: '<div ><img src="resources/icons/WhiteShrinkIcon.png" width="33" height="33" alt="Company Name"></div>',
+                                   ui: 'plain',
+                                   handler: function () {
+                                       SettingFencePanelSettingInfoHide();
+                                     
+                                   }
+
+
+
+                               },
                        ]
 
             },
@@ -120,6 +241,17 @@ function SettingFencePanelSettingInfo() {
                                   //      //  Ext.getCmp('SettingDrawFence_detailPanel').setHidden(true);
                                   //    }
                                   //},
+                                   {
+                                       xtype: 'textfield',
+                                       label: 'ID',
+                                       width: '100%',
+                                       id: 'SettingDrawFence_ID',
+                                       labelWrap: true,
+                                   
+                                       disabled: true,
+                                       // placeHolder: 'C01'
+
+                                   },
                                  {
                                      xtype: 'selectfield',
 
@@ -381,16 +513,6 @@ function SettingFencePanelSettingInfo() {
 
                                    {
                                        xtype: 'textfield',
-                                       label: 'SettingDrawFenceID',
-                                       width: '100%',
-                                       id: 'SettingDrawFence_ID',
-                                       labelWrap: true,
-                                       hidden: true,
-                                       // disabled: true,
-                                       // placeHolder: 'C01'
-
-                                   }, {
-                                       xtype: 'textfield',
                                        label: 'SettingDrawFencePath',
                                        width: '100%',
                                        id: 'SettingDrawFence_FencePath',
@@ -505,7 +627,7 @@ function SettingFencePanelSettingInfo() {
 
 
 function SettingFencePanelSettingInfoShow() {
-    Ext.Viewport.remove(_settingFencePanelSettingInfo);
+   Ext.Viewport.remove(_settingFencePanelSettingInfo);
     this.overlay = Ext.Viewport.add(SettingFencePanelSettingInfo());
     this.overlay.show();
 }

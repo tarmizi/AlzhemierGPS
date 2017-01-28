@@ -208,14 +208,14 @@
 
 
                     Ext.getStore('TrackingItemList').getProxy().setExtraParams({
-                        AccNo: AAccountNo,
+                        AccNo: GetCurrentUserAccountNo(),
                     });
                     Ext.StoreMgr.get('TrackingItemList').load();
                     setTimeout(function () {
 
 
                         Ext.getStore('TrackingItemList').getProxy().setExtraParams({
-                            AccNo: AAccountNo,
+                            AccNo: GetCurrentUserAccountNo(),
                         });
                         Ext.StoreMgr.get('TrackingItemList').load();
                     }, 500);
