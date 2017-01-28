@@ -85,6 +85,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
             {
 
                 xtype: 'toolbar',
+                hidden:true,
                 id: 'toolbarSettingFenceMapBottom',
                 docked: 'bottom',
                 layout: {
@@ -253,17 +254,17 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 panControl: false,
                 scaleControl: false,
-                mapTypeControl: false,
+                mapTypeControl: true,
                 mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DEFAULT,
-                    position: google.maps.ControlPosition.BOTTOM_CENTER
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                    position: google.maps.ControlPosition.TOP_LEFT
                 },
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 zoomControl: true,
                 zoomControlOptions: {
                     position: google.maps.ControlPosition.RIGHT_BOTTOM
                 },
-                streetViewControl: true,
+                streetViewControl: false,
                 streetViewControlOptions: {
                     position: google.maps.ControlPosition.LEFT_TOP
                 }
@@ -332,11 +333,14 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                 var tempkm;
                                 // alert(coorshapeSettinggeofence);
                                 geofencepolyLengthInMetersSettinggeofence = google.maps.geometry.spherical.computeLength(polygon.getPath().getArray());
-                                Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
+                             //   Ext.getCmp('SettingDrawFence_FencePath').setValue(coorshapeSettinggeofence);
                                 geofencetravellengthSettinggeofence = +Math.floor(geofencepolyLengthInMetersSettinggeofence);
                                 tempkm = geofencetravellengthSettinggeofence / 1000;
-                                Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
-                                Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
+                             //   Ext.getCmp('SettingDrawFence_Length').setValue(tempkm);
+                             //   Ext.getCmp('SettingDrawFence_ShapeType').setValue('polygon');
+
+
+
                                 // InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, tempkm, coorshapeSettinggeofence, "polygon", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea, FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
 
 
@@ -357,35 +361,9 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                     });
 
 
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'polylinecomplete', function (polyline) {
+                
 
-                        var coordinatespolyline = (polyline.getPath().getArray());
-                        polylinespathsSettinggeofence = new google.maps.polyline({
-                            paths: coordinatespolyline
-                        });
-                        shapetypeSettinggeofence = "polyline";
-                        coorshapeSettinggeofence = coordinatespolyline;
-
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                        if (countshapeSettinggeofence >= 2) {
-
-                            detectedmoreshapeSettinggeofence();
-                        }
-                    });
-
-
-                    google.maps.event.addListener(drawingManagerSettinggeofence, 'rectanglecomplete', function (rectangle) {
-
-                        var coordinates = (rectangle.getBounds());
-                        alert(coordinates);
-
-
-                        countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                        if (countshapeSettinggeofence >= 2) {
-
-                            detectedmoreshapeSettinggeofence();
-                        }
-                    });
+               
 
                     google.maps.event.addListener(drawingManagerSettinggeofence, 'circlecomplete', function (circle) {
                         //   resetMenuDrawButton();
@@ -397,9 +375,6 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
 
                                 //   InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, circle.getRadius(), circle.getCenter().lat() + ',' + circle.getCenter().lng(), "circle", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea, FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
 
-                                Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
-                                Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
-                                Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
                                 radiuseSettinggeofence = circle.getRadius();
                                 geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
                                 geofenceLengthSettinggeofence = +Math.floor(radiuseSettinggeofence);
@@ -414,9 +389,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                 Ext.Viewport.mask({ xtype: 'loadmask', message: 'Radius change..Processing geofence..' });
                                 var task = Ext.create('Ext.util.DelayedTask', function () {
                                     // InsertGeoFences(AAccountNo, SingleTrackID, trackingItems, circle.getRadius(), circle.getCenter().lat() + ',' + circle.getCenter().lng(), "circle", AAlertEmail, AAlertEmail, AAlertEmail, FenceAlertPhone1, FenceAlertPhone2, FenceAlertPhone3, FenceAlertPhone4, UserName, OS, 'Active', 'NotSend', 'ANSxyGPS@hotmail.my', '+60193198764', FenceAlertName1, FenceAlertName2, FenceAlertName3, FenceAlertName4, AISMSAlertMsg, geofenceArea,FenceAlertRelationship1, FenceAlertRelationship2, FenceAlertRelationship3, FenceAlertRelationship4);
-                                    Ext.getCmp('SettingDrawFence_FencePath').setValue(circle.getCenter().lat() + ',' + circle.getCenter().lng());
-                                    Ext.getCmp('SettingDrawFence_Length').setValue(circle.getRadius());
-                                    Ext.getCmp('SettingDrawFence_ShapeType').setValue('circle');
+                               
                                     radiuseSettinggeofence = circle.getRadius();
                                     geofencetravellengthkmSettinggeofence = parseInt(radiuseSettinggeofence) + 'M(radius)';
                                     geofenceLengthSettinggeofence = geofencetravellengthkmSettinggeofence + '(radius)';
@@ -461,22 +434,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                 setSelectionSettinggeofence(newShape);
                             }
                         }
-                        if (e.type == google.maps.drawing.OverlayType.POLYLINE) {
-                            // Switch back to non-drawing mode after drawing a shape.
-                            drawingManagerSettinggeofence.setDrawingMode(null);
-
-                            //  countshapeSettinggeofence = countshapeSettinggeofence + 1;
-                            if (countshapeSettinggeofence == 0) {
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
-                            }
-
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
-                        }
+                  
 
                         if (e.type == google.maps.drawing.OverlayType.CIRCLE) {
                             // Switch back to non-drawing mode after drawing a shape.
@@ -496,29 +454,10 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                 setSelectionSettinggeofence(newShape);
                             }
                         }
-                        if (e.type == google.maps.drawing.OverlayType.RECTANGLE) {
-                            // Switch back to non-drawing mode after drawing a shape.
-                            drawingManagerSettinggeofence.setDrawingMode(null);
-
-                            //    countshapeSettinggeofence = countshapeSettinggeofence + 1;
-
-
-
-                            if (countshapeSettinggeofence == 0) {
-                                oriShapeSettinggeofence = e.overlay;
-                                oriShapeSettinggeofence.type = e.type;
-
-                            }
-
-                            if (countshapeSettinggeofence >= 1) {
-                                var newShape = e.overlay;
-                                newShape.type = e.type;
-                                setSelectionSettinggeofence(newShape);
-                            }
-                        }
+                    
                     });
 
-
+                    SettingFencePanelSettingInfoShow();
                     // var input = document.getElementById('pac-input');
 
 

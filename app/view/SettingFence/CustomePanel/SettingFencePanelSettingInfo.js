@@ -26,7 +26,7 @@ function SettingFencePanelSettingInfo() {
 
         ////xtype: 'panel',
             // style: 'background-color:#57A0DC',
-        height: 150,
+        height: 180,
             //width: 320,
             //  centered: true,
             // height: '10%',
@@ -49,38 +49,83 @@ function SettingFencePanelSettingInfo() {
             easing: null
 
         },
-        ////style: 'background-color: #57A0DC;',
+            ////style: 'background-color: #57A0DC;',
+
+
+            style: 'background-color: #57A0DC;',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         items: [
 
-          
-                      
+        
+            {
+
+                xtype: 'toolbar',
+               // title: 'Boundary Info',
+                docked: 'top',
+                height:30,
+                id: 'SettingFencePanelSettingInfoTop',
+                //  hidden:true,
+                items:
+                       [
+
+
+                           {
+                               xtype: 'button',
+
+                               id: 'btnSettingFencePanelSettingInfoMockText',
+                               text: '<font size="2" color="white">Virtual Boundary Setting</font>',
+                             
+                               // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
+                               ui: 'plain',
+                               handler: function () {
+                                  
+                               }
+
+
+
+                           },
+
+
+
+
+                       ]
+
+            },
+
+                    
                            
                          
 
-                                  {
-                                      xtype: "button",
-                                      ui: "action",
-                                      text: "Boundary Information",
-                                      // action: 'ButtonBackToHomeClicked'
-                                      //xtype: 'button',                                     
-                                      //id: 'SettingDrawFence_HideDetailPanel',
-                                      //// margin: 'top left bottom right',
-                                      // margin: '-40 2 0 0',                                     
-                                      //height: 45,
-                                      //width: 45,
-                                      //html: '<div ><img src="resources/icons/Picture44.png" width="35" height="35" alt="Company Name"></div>',
-                                      ////ui:'round'
-                                      //ui: 'plain',
-                                      handler: function () {
-                                          SettingFencePanelSettingInfoHide();
-                                        //  Ext.getCmp('SettingDrawFence_detailPanel').setHidden(true);
-                                      }
-                                  },
+                                  //{
+                                  //    xtype: "button",
+                                  //    ui: "action",
+                                  //    text: "Boundary Information",
+                                     
+                                  //    handler: function () {
+                                  //        SettingFencePanelSettingInfoHide();
+                                  //      //  Ext.getCmp('SettingDrawFence_detailPanel').setHidden(true);
+                                  //    }
+                                  //},
                                  {
                                      xtype: 'selectfield',
 
                                      id: 'SettingDrawFence_TrackItem',
                                      label: 'Tracking Item',
+                                     labelWrap: true,
                                   //   width: '100%',
                                      //  _DataStore_getTrackID
                                      // labelWidth: '40%',

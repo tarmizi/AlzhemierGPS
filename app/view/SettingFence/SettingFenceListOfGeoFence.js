@@ -87,8 +87,9 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                      //  SettingFencePanelSettingInfoShow();
                        //Ext.getCmp('SettingDrawFence_ShowDetailPanelbtn').setHidden(true);
                        //Ext.getCmp('SettingDrawFence_HideDetailPanelbtn').setHidden(false);
-                     
+                       SettingFencePanelSettingInfoShow();
                        SettingFenceDrawFenceMenuShow();
+                       SettingFencePanelSettingInfoSaveShow();
                        deleteAllSelectedShapeSettinggeofence();
               
                      
@@ -98,6 +99,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
 
                        var task = Ext.create('Ext.util.DelayedTask', function () {
                            mapgeofenceSettinggeofence.setZoom(5);
+                           
                            Ext.Viewport.unmask();
                        });
                        task.delay(1000);
