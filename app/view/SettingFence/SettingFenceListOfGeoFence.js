@@ -1,4 +1,20 @@
 ﻿
+
+var SettingDrawFence_ID = '0';
+var SettingDrawFence_TrackItem = '-1';
+var SettingDrawFence_FencePath = 'null';
+
+var SettingDrawFence_FenceName = 'Enter Area Name';
+var SettingDrawFence_TimeFrom = '-1';
+var SettingDrawFence_TimeTo = '-1';
+var SettingDrawFence_DaySetting = '-1';
+var SettingDrawFence_Status='-1';
+var SettingDrawFence_Length='-1'
+
+
+
+
+
 Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
     extend: 'Ext.Panel', //Ext.navigation.View
     xtype: 'SettingFenceListOfGeoFence',
@@ -90,20 +106,33 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                        SettingFenceDrawFenceMenuShow();
                      //  SettingFencePanelSettingInfoSaveShow();
                        deleteAllSelectedShapeSettinggeofence();
-                     
-                       Ext.getCmp('SettingDrawFence_ID').setValue('0');
-                       Ext.getCmp('SettingDrawFence_TrackItem').setValue('-1');
-                       // Ext.getCmp('SettingDrawFence_AccountNo').setValue('null');
-                       Ext.getCmp('SettingDrawFence_FencePath').setValue('null');
-                       // Ext.getCmp('SettingDrawFence_ShapeType').setValue('null');
-                       Ext.getCmp('SettingDrawFence_FenceName').setValue('Enter Area Name');
-                       Ext.getCmp('SettingDrawFence_TimeFrom').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_TimeTo').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_DaySetting').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_Status').setValue('-1');
-                       Ext.getCmp('SettingDrawFence_Length').setValue('-1');
+                       SettingDrawFence_ID = '0';
+                       SettingDrawFence_TrackItem = '-1';
+                       SettingDrawFence_FencePath = 'null';
+                       SettingDrawFence_FenceName = 'Enter Area Name';
+                       SettingDrawFence_TimeFrom = '-1';
+                       SettingDrawFence_TimeTo = '-1';
+                       SettingDrawFence_DaySetting = '-1';
+                       SettingDrawFence_Status = '-1';
+                       SettingDrawFence_Length = '-1';
+                       Ext.getCmp('SettingDrawFence_ID').setValue(SettingDrawFence_ID);
+                       Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setHidden(true);
+                       Ext.getCmp('SettingDrawFence_TrackItem').setValue(SettingDrawFence_TrackItem);
+                       Ext.getCmp('SettingDrawFence_FencePath').setValue(SettingDrawFence_FencePath);                    
+                       Ext.getCmp('SettingDrawFence_FenceName').setValue(SettingDrawFence_FenceName);
+                       Ext.getCmp('SettingDrawFence_TimeFrom').setValue(SettingDrawFence_TimeFrom);
+                       Ext.getCmp('SettingDrawFence_TimeTo').setValue(SettingDrawFence_TimeTo);
+                       Ext.getCmp('SettingDrawFence_DaySetting').setValue(SettingDrawFence_DaySetting);
+                       Ext.getCmp('SettingDrawFence_Status').setValue(SettingDrawFence_Status);
+                       Ext.getCmp('SettingDrawFence_Length').setValue(SettingDrawFence_Length);
 
                    
+                     
+
+
+
+
+
                        Ext.Viewport.mask({ xtype: 'loadmask', message: 'Re-Center  Map..' });
                        //mapgeofenceSettinggeofence.setZoom(5);
 
@@ -228,6 +257,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                         // });
                         // Ext.StoreMgr.get('singlesignalstore').load();
                         // TrackItem, TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status
+                        Ext.getCmp('mainView').setActiveItem(13);
                         var ID = (records.get('ID'));
                         var TrackItem = (records.get('TrackItem'));
                         var TrackID = (records.get('TrackID'));
@@ -240,22 +270,39 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                         var DaySetting = (records.get('DaySetting'));
                         var Status = (records.get('Status'));
                         var FenceLength = (records.get('FenceLength'));
+
+
+
+                         SettingDrawFence_ID = ID;
+                         SettingDrawFence_TrackItem = TrackItem;
+                         SettingDrawFence_FencePath = FencePath;
+                         SettingDrawFence_FenceName = FenceAreaName;
+                         SettingDrawFence_TimeFrom = TimeFrom;
+                         SettingDrawFence_TimeTo = TimeTo;
+                         SettingDrawFence_DaySetting = DaySetting;
+                         SettingDrawFence_Status = Status;
+                         SettingDrawFence_Length = FenceLength;
+
                         loadSettingFenceDrawMap(ID, TrackItem, TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status, FenceLength);
 
 
-                        Ext.getCmp('SettingDrawFence_ShowDetailPanelbtn').setHidden(true);
-                        Ext.getCmp('SettingDrawFence_HideDetailPanelbtn').setHidden(false);
-                        Ext.getCmp('SettingAutoFenceAddNewbtn').setHidden(true);
-                        Ext.getCmp('SettingAutoFenceBackbtn').setHidden(false);
-                        Ext.getCmp('AutoFenceSettingSavebtn').setHidden(false);
-                        if (!this.overlay) {
-                            this.overlay = Ext.Viewport.add(_geofence_rightpanelSettingDrawFence
-                        );
-                        }
-                        this.overlay.show();
+                        SettingFencePanelSettingInfoShow();
+                        SettingFenceDrawFenceMenuShow();
 
-                        var cntr = Ext.ComponentQuery.query("#geoFencesSettingholderID")[0];
-                        cntr.setActiveItem(1);
+
+                        //Ext.getCmp('SettingDrawFence_ShowDetailPanelbtn').setHidden(true);
+                        //Ext.getCmp('SettingDrawFence_HideDetailPanelbtn').setHidden(false);
+                        //Ext.getCmp('SettingAutoFenceAddNewbtn').setHidden(true);
+                        //Ext.getCmp('SettingAutoFenceBackbtn').setHidden(false);
+                        //Ext.getCmp('AutoFenceSettingSavebtn').setHidden(false);
+                        //if (!this.overlay) {
+                        //    this.overlay = Ext.Viewport.add(_geofence_rightpanelSettingDrawFence
+                        //);
+                        //}
+                        //this.overlay.show();
+
+                        //var cntr = Ext.ComponentQuery.query("#geoFencesSettingholderID")[0];
+                        //cntr.setActiveItem(1);
 
                         setTimeout(function () {
                             list.deselectAll();

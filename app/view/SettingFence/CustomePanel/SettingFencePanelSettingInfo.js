@@ -252,6 +252,18 @@ function SettingFencePanelSettingInfo() {
                                        // placeHolder: 'C01'
 
                                    },
+
+                                     {
+                                         xtype: 'textfield',
+                                         label: 'Tracking Item',
+                                         width: '100%',
+                                         id: 'SettingDrawFence_TrackItem_loadDB',
+                                         labelWrap: true,
+                                       
+                                         disabled: true,
+                                         // placeHolder: 'C01'
+
+                                     },
                                  {
                                      xtype: 'selectfield',
 

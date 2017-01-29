@@ -143,8 +143,18 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                   html: '<div ><img src="resources/icons/WhiteExpendIcon.png" width="33" height="33" alt="Company Name"></div>',
                                   ui: 'plain',
                                   handler: function () {
-
+                                   
                                       SettingFencePanelSettingInfoShow();
+                                      Ext.getCmp('SettingDrawFence_ID').setValue(SettingDrawFence_ID);
+                                      Ext.getCmp('SettingDrawFence_TrackItem').setHidden(false);
+                                      Ext.getCmp('SettingDrawFence_TrackItem').setValue(SettingDrawFence_TrackItem);
+                                      Ext.getCmp('SettingDrawFence_FencePath').setValue(SettingDrawFence_FencePath);
+                                      Ext.getCmp('SettingDrawFence_FenceName').setValue(SettingDrawFence_FenceName);
+                                      Ext.getCmp('SettingDrawFence_TimeFrom').setValue(SettingDrawFence_TimeFrom);
+                                      Ext.getCmp('SettingDrawFence_TimeTo').setValue(SettingDrawFence_TimeTo);
+                                      Ext.getCmp('SettingDrawFence_DaySetting').setValue(SettingDrawFence_DaySetting);
+                                      Ext.getCmp('SettingDrawFence_Status').setValue(SettingDrawFence_Status);
+                                      Ext.getCmp('SettingDrawFence_Length').setValue(SettingDrawFence_Length);
                                     
 
                                   }
@@ -717,7 +727,9 @@ var arraygeofenceSettinggeofence = [];
 var arraygeofenceSettinggeofencePolygonBounds = [];
 
 function drawgefenceSettinggeofence(typeshape, pathxy, pathlenght) {
-    alert(typeshape + pathxy + pathlenght);
+    //alert(typeshape + pathxy + pathlenght);
+
+    console.log(typeshape);
     arraygeofenceSettinggeofence.length = 0;
     if (typeshape == 'circle') {
         var globalFileTypeId = pathxy.split(',');
@@ -817,13 +829,23 @@ function drawgefenceSettinggeofence(typeshape, pathxy, pathlenght) {
 
 
         //   arraygeofenceSettinggeofence.length = 0;
+
+
+
         window.setTimeout(function () {
-            var ctr = new google.maps.LatLng(polyboundsy, polyboundsx);
-            var bounds = new google.maps.LatLngBounds();
-            bounds.extend(ctr);
-            mapgeofenceSettinggeofence.fitBounds(bounds);
+
+          //  var ctr = new google.maps.LatLng(polyboundsy, polyboundsx);
+         //   var bounds = new google.maps.LatLngBounds();
+            var center = new google.maps.LatLng(polyboundsy, polyboundsx);
+            // using global variable:
+            mapgeofenceSettinggeofence.panTo(center);
+            //bounds.extend(ctr);
+            //mapgeofenceSettinggeofence.fitBounds(bounds);
             mapgeofenceSettinggeofence.setZoom(16);
         }, 1000);
+
+
+
         if (countshapeSettinggeofence > 1) {
 
             deleteShapeFromDrawFence(polygonpathsSettinggeofence);
@@ -853,10 +875,11 @@ function ClearShapeFromDrawFence() {
 }
 function loadgeofenceSettinggeofence() {
     geofenceAreaSettinggeofence = "";
+    console.log('loadgeofenceSettinggeofence:' + SingleTrackID);
     Ext.Viewport.mask({ xtype: 'loadmask', message: 'Drawing geofence..!!!!' });
     var task = Ext.create('Ext.util.DelayedTask', function () {
         Ext.getStore('geoFenceStore').getProxy().setExtraParams({
-            AccountNo: AAccountNo,
+            AccountNo: GetCurrentUserAccountNo(),
             TrackID: SingleTrackID,
 
 
@@ -891,3 +914,53 @@ function loadgeofenceSettinggeofence() {
 }
 
 
+
+function loadSettingFenceDrawMap(ID, TrackItem, TrackID, AccountNo, FencePath, ShapeType, FenceAreaName, TimeFrom, TimeTo, DaySetting, Status, FenceLength) {
+    SettingFencePanelSettingInfoShow();
+
+
+    setTimeout(function () {
+        Ext.getCmp('SettingDrawFence_ID').setValue(ID);
+
+        Ext.getCmp('SettingDrawFence_TrackItem').setHidden(true);      
+
+        Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setValue(TrackItem);
+        Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setHidden(false);
+  
+        Ext.getCmp('SettingDrawFence_AccountNo').setValue(AccountNo);
+        Ext.getCmp('SettingDrawFence_FencePath').setValue(FencePath);
+        Ext.getCmp('SettingDrawFence_ShapeType').setValue(ShapeType);
+        Ext.getCmp('SettingDrawFence_FenceName').setValue(FenceAreaName);
+        Ext.getCmp('SettingDrawFence_TimeFrom').setValue(TimeFrom);
+        Ext.getCmp('SettingDrawFence_TimeTo').setValue(TimeTo);
+        Ext.getCmp('SettingDrawFence_DaySetting').setValue(DaySetting);
+        Ext.getCmp('SettingDrawFence_Status').setValue(Status);
+        Ext.getCmp('SettingDrawFence_Length').setValue(FenceLength);
+
+    }, 500);
+  
+    ClearShapeFromDrawFence();
+    deleteAllSelectedShapeSettinggeofence();
+    drawgefenceSettinggeofence(ShapeType, FencePath, FenceLength)
+}
+
+var draw_circleSettingDrawFence
+function drawFence(FencePath, ShapeType, pathlenght) {
+   
+
+    if (ShapeType == 'circle') {
+        var globalFileTypeId = FencePath.split(',');
+        var b = parseInt(pathlenght);
+        var ctr = new google.maps.LatLng(globalFileTypeId[0], globalFileTypeId[1]);
+        draw_circleSettingDrawFence = new google.maps.Circle({
+            center: ctr,
+            radius: b,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            map: mapgeofenceSettinggeofence
+        });
+    }
+}

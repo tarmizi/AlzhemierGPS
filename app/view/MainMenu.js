@@ -182,7 +182,24 @@
                 html: '<div ><img src="resources/icons/MainMenuGeofence.png" width="90" height="90" alt="Company Name"></div>',
                 ui: 'plain',
                 handler: function () {
-                    Ext.getCmp('mainView').setActiveItem(4);
+
+                    Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
+                        AccNo: GetCurrentUserAccountNo(),
+                    });
+                    Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+
+                    Ext.Viewport.mask({ xtype: 'loadmask', message: 'Loadind Data...Please Wait' });
+                    var task = Ext.create('Ext.util.DelayedTask', function () {                
+                                              
+                        Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
+                            AccNo: GetCurrentUserAccountNo(),
+                        });
+                        Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+                        Ext.getCmp('mainView').setActiveItem(4);
+                        Ext.Viewport.unmask();
+                    });
+                    task.delay(1000);
+                  
 
                   
                    
