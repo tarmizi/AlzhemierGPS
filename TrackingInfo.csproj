@@ -465,6 +465,7 @@
     <Content Include="app\view\TraceAlertFence\holderTraceAlertFence.js" />
     <Content Include="app\view\TraceAlertFence\listTraceAlertFence.js" />
     <Content Include="app\view\TraceAlertFence\listTraceAlertFenceOri.js" />
+    <Content Include="app\view\TraceAlertFence\TraceAlertFenceMap.js" />
     <Content Include="app\view\TrackieItemSendCommand.js" />
     <Content Include="app\view\TrackingHistory\TrackingHistoryCreateria.js" />
     <Content Include="app\view\TrackingHistory\TrackingHistoryMap.js" />
