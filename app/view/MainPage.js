@@ -94,12 +94,23 @@
         },
 
           { //12
-              xtype: 'SettingFenceListOfGeoFence',
+              xtype: 'ListOfTraceAlertFence',
           },
 
          { //13
              xtype: 'SettingFenceMap',
          },
+
+         { //14
+             xtype: 'TraceAlertFenceMap',
+         },
+
+         //{ //15
+         //    xtype: 'TraceAlertFenceMap',
+         //},
+
+
+
         //{
         //    style: "background-color: #006600; color:white;",
         //    html: '<center>Item 3</center>'

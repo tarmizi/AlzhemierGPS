@@ -111,7 +111,40 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
              }
 
          },
-               {
+
+
+           {
+               xtype: 'button',
+
+               id: 'SettingAutoFenceTraceAlert',
+               //ui: 'action',
+               //text: "Back",
+               height: 40,
+               width: 47,
+
+               html: '<div ><img src="resources/icons/WhiteTraceAlertIcon.png" width="41" height="33" alt="Company Name"></div>',
+               ui: 'plain',
+               handler: function () {
+                   Ext.getCmp('mainView').setActiveItem(12);
+                   var currentTime = new Date()
+                   var month = currentTime.getMonth() + 1;
+                   var day = currentTime.getDate();
+                   var year = currentTime.getFullYear();
+                   LoadListOfTraceAlertFence(year, month);
+
+                 
+
+
+
+               
+
+               }
+
+           },
+
+
+
+             {
                    xtype: 'button',
 
                    id: 'SettingAutoFenceAddNewbtn',

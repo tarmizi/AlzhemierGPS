@@ -282,6 +282,7 @@
     <Content Include="app\model\singlesignalmodel.js" />
     <Content Include="app\model\singlesignalTrackingmodel.js" />
     <Content Include="app\model\testlist.js" />
+    <Content Include="app\model\TraceAlert\TraceAlertHistoryModel.js" />
     <Content Include="app\model\TrackerDeviceModel.js" />
     <Content Include="app\model\TrackingHistory\TrackingHistoryModel.js" />
     <Content Include="app\model\TrackingItem.js" />
@@ -328,6 +329,7 @@
     <Content Include="app\store\signallastlocationstore.js" />
     <Content Include="app\store\singlesignalstore.js" />
     <Content Include="app\store\singlesignalTrackingstore.js" />
+    <Content Include="app\store\TraceAlert\TraceAlertHistoryGetByAccNoYearMonth.js" />
     <Content Include="app\store\TrackerDevicestore.js" />
     <Content Include="app\store\TrackingHistoryMap\TrackingHistoryMapStore.js" />
     <Content Include="app\store\TrackingItemCheckIDstore.js" />
@@ -461,8 +463,10 @@
     <Content Include="app\view\SingleTracking\listSingleTrackingitem.js" />
     <Content Include="app\view\SingleTracking\singleTrackingMap.js" />
     <Content Include="app\view\SingleTracking\singleTrackingOverViewMap.js" />
+    <Content Include="app\view\TraceAlertFence\CustomePanel\TraceAlertFenceHistoryInfo.js" />
     <Content Include="app\view\TraceAlertFence\Gmaphistory.js" />
     <Content Include="app\view\TraceAlertFence\holderTraceAlertFence.js" />
+    <Content Include="app\view\TraceAlertFence\ListOfTraceAlertFence.js" />
     <Content Include="app\view\TraceAlertFence\listTraceAlertFence.js" />
     <Content Include="app\view\TraceAlertFence\listTraceAlertFenceOri.js" />
     <Content Include="app\view\TraceAlertFence\TraceAlertFenceMap.js" />

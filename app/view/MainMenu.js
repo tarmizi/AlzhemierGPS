@@ -184,7 +184,8 @@
                 handler: function () {
 
                  //   SettingFenceAddNewfenceShow();
-
+                    isFirstLoadListOfTraceAlertFence = 'no';
+                    // ada kat class SettingFenceListOfGeoFence
                     loadListOfGeofence();
                    
 

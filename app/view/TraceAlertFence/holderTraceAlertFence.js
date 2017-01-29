@@ -1,4 +1,7 @@
-﻿Ext.define('MyGPS.view.TraceAlertFence.holderTraceAlertFence', {
+﻿
+//TAK PAKAI
+
+Ext.define('MyGPS.view.TraceAlertFence.holderTraceAlertFence', {
     extend: 'Ext.Container',
     requires: ['Ext.Map', 'Ext.dataview.List',
        'Ext.data.Store', 'Ext.field.Select',

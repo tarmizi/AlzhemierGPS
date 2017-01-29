@@ -3,12 +3,13 @@ var dialogboxHistoryTimeset;
 var _traceAlertFenceMap;
 Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
     extend: 'Ext.Panel',
+    xtype: 'TraceAlertFenceMap',
     requires: [
     'Ext.dataview.List',
         'Ext.data.Store', 'Ext.Map'
 
     ],
-    xtype: 'TraceAlertFenceMap',
+  
     config: {
        
         id: 'TraceAlertFenceMapID',
@@ -51,6 +52,62 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
 
          {
 
+             xtype: 'toolbar',
+             title: '<font size="4" color="white">V.Boundary Trace Alert</font>',
+             docked: 'top',
+             id: 'toolbarTraceAlertFenceMapTop',
+             //  hidden:true,
+             items:
+                    [
+
+
+                        {
+                            xtype: 'button',
+
+                            id: 'btnTraceAlertFenceMapHome',
+                            //  text: 'Show',
+                            iconCls: 'home',
+                            // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
+                            ui: 'plain',
+                            handler: function () {
+                                Ext.getCmp('mainView').setActiveItem(1);
+                                
+                            }
+
+
+
+                        },
+
+                          {
+                              xtype: 'spacer'
+                          },
+                                    {
+                                        xtype: 'button',
+                                        //right: -7,
+                                        //top: 1,
+                                        id: 'btnTraceAlertFenceMapAccInfo',
+                                        html: '<div ><img src="resources/icons/MainMenuPictureProfile.png" width="45" height="45" alt="Company Name"></div>',
+                                        //  html: '<div ><img src="resources/icons/hideGeofence.png" width="30" height="20" alt="Company Name"></div>',
+                                        ui: 'plain',
+                                        handler: function () {
+
+
+
+                                        }
+                                    },
+
+
+                    ]
+
+         },
+
+
+
+
+
+
+         {
+
 
              xtype: 'toolbar',
              // xtype: 'titlebar',
@@ -58,59 +115,55 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
 
              items: [
 
-
+                   {
+                       xtype: 'spacer'
+                   },
                   {
-                      //  align: 'center',
-                      //height: 10,
-                      //margin: '2 10 2 10',
-                      ui: 'action',
+                      
+                   
                       xtype: 'button',
-
                       id: 'backButtonhistoryploting',
-                      text: '<< Back',
+                      height: 40,
+                      width: 40,
+                      html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="30" height="30" alt="Company Name"></div>',
+                      ui: 'plain',
                       handler: function () {
-                          _valuepanelhistoryPlay.hide();
-                          //Ext.getCmp('mainViewgmaphistory').setActiveItem(0);
-                          //if (isrecenter == '1') {
-                          //    resetMap();
-                          //}
-
-                          var cntr = Ext.ComponentQuery.query("#holderTraceAlertFenceID")[0];
-                          cntr.setActiveItem(0);
-                          resetMap();
-                          //Ext.getCmp('maphistorycard').destroy();
-
+                          TraceAlertFenceHistoryInfoHide();
+                          resetMapTraceAlertFenceMap();
+                      
 
                       }
                   },
-                  {
-                      xtype: 'spacer'
-                  },
+                
 
                   {
-                      //  align: 'center',
-                      // width: 50,
+                   
                       ui: 'action',
                       xtype: 'button',
                       id: 'testButtonhistoryploting',
                       text: 'Show Info',
-                      handler: function (btn) {
+                      handler: function () {
 
-                          Ext.getCmp('Playtrackedhistory').setHtml('<table>  <tr> <td colspan="2" font-weight: bold; style="background-color: #57A0DC;  font-size: 26px; color: #fff; text-align: center;">0</td> </tr> <tr > <td colspan="2" style="background-color: #57A0DC;  font-size: 10px; color: #fff; text-align: center;   font-weight: bold;">0.0km/h</td> </tr> <tr> <td colspan="2" style="background-color: #57A0DC; font-weight: bold; font-size: 10px; color: #fff; text-align: center;  ">00:00:00:00:0</td> </tr>  </table>');
-
-
-                          if (!this.overlay) {
-                              this.overlay = Ext.Viewport.add(_valuepanelhistoryinfo
-                          );
-
-                          }
-                          this.overlay.show();
+                          TraceAlertFenceHistoryInfoShow();
+                         
                       }
                   },
              ]
 
 
-         }]
+         }
+
+
+
+
+
+
+
+
+
+
+
+     ]
 
 
 
