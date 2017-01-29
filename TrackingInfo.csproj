@@ -443,6 +443,7 @@
     <Content Include="app\view\regAccount.js" />
     <Content Include="app\view\sendcommand.js" />
     <Content Include="app\view\settingapp.js" />
+    <Content Include="app\view\SettingFence\CustomePanel\SettingFenceAddNewfence.js" />
     <Content Include="app\view\SettingFence\CustomePanel\SettingFenceDrawFenceMenu.js" />
     <Content Include="app\view\SettingFence\CustomePanel\SettingFencePanelSettingInfoSave.js" />
     <Content Include="app\view\SettingFence\CustomePanel\SettingFenceSearchLocation.js" />

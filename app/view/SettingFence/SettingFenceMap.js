@@ -49,7 +49,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
             {
 
                 xtype: 'toolbar',
-                title: 'Geofence Map',
+                title: '<font size="4.5" color="white">Virtual Boundary Map</font>',
                 docked: 'top',
                 id: 'toolbarSettingFenceMapTop',
                 //  hidden:true,
@@ -74,7 +74,23 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
 
 
                            },
+                              {
+                                  xtype: 'spacer'
+                              },
+                           {
+                               xtype: 'button',
+                               //right: -7,
+                               //top: 1,
+                               id: 'btnSettingFenceMapAccInfo',
+                               html: '<div ><img src="resources/icons/MainMenuPictureProfile.png" width="45" height="45" alt="Company Name"></div>',
+                               //  html: '<div ><img src="resources/icons/hideGeofence.png" width="30" height="20" alt="Company Name"></div>',
+                               ui: 'plain',
+                               handler: function () {
 
+
+
+                               }
+                           },
 
 
 
@@ -124,7 +140,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="33" height="33" alt="Company Name"></div>',
                                ui: 'plain',
                                handler: function () {
-                                   Ext.getCmp('mainView').setActiveItem(4);
+                                   loadListOfGeofence();
                                    SettingFenceDrawFenceMenuHide();
                                }
 
@@ -145,16 +161,36 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceMap', {
                                   handler: function () {
                                    
                                       SettingFencePanelSettingInfoShow();
-                                      Ext.getCmp('SettingDrawFence_ID').setValue(SettingDrawFence_ID);
-                                      Ext.getCmp('SettingDrawFence_TrackItem').setHidden(false);
-                                      Ext.getCmp('SettingDrawFence_TrackItem').setValue(SettingDrawFence_TrackItem);
-                                      Ext.getCmp('SettingDrawFence_FencePath').setValue(SettingDrawFence_FencePath);
-                                      Ext.getCmp('SettingDrawFence_FenceName').setValue(SettingDrawFence_FenceName);
-                                      Ext.getCmp('SettingDrawFence_TimeFrom').setValue(SettingDrawFence_TimeFrom);
-                                      Ext.getCmp('SettingDrawFence_TimeTo').setValue(SettingDrawFence_TimeTo);
-                                      Ext.getCmp('SettingDrawFence_DaySetting').setValue(SettingDrawFence_DaySetting);
-                                      Ext.getCmp('SettingDrawFence_Status').setValue(SettingDrawFence_Status);
-                                      Ext.getCmp('SettingDrawFence_Length').setValue(SettingDrawFence_Length);
+                                      if (isClickAddNewSettingFenceButton == 'yes')
+                                      {
+                                          Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setHidden(true);
+                                          Ext.getCmp('SettingDrawFence_ID').setValue(SettingDrawFence_ID);
+                                          Ext.getCmp('SettingDrawFence_TrackItem').setHidden(false);
+                                        //  Ext.getCmp('SettingDrawFence_TrackItem').setValue(SettingDrawFence_TrackItem);
+                                          Ext.getCmp('SettingDrawFence_FencePath').setValue(SettingDrawFence_FencePath);
+                                          Ext.getCmp('SettingDrawFence_FenceName').setValue(SettingDrawFence_FenceName);
+                                          Ext.getCmp('SettingDrawFence_TimeFrom').setValue(SettingDrawFence_TimeFrom);
+                                          Ext.getCmp('SettingDrawFence_TimeTo').setValue(SettingDrawFence_TimeTo);
+                                          Ext.getCmp('SettingDrawFence_DaySetting').setValue(SettingDrawFence_DaySetting);
+                                          Ext.getCmp('SettingDrawFence_Status').setValue(SettingDrawFence_Status);
+                                          Ext.getCmp('SettingDrawFence_Length').setValue(SettingDrawFence_Length);
+                                      }
+                                      else
+                                      {
+                                          Ext.getCmp('SettingDrawFence_ID').setValue(SettingDrawFence_ID);
+                                          Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setHidden(false);
+                                          Ext.getCmp('SettingDrawFence_TrackItem').setHidden(true);
+                                          Ext.getCmp('SettingDrawFence_TrackItem_loadDB').setValue(SettingDrawFence_TrackItem);
+                                          Ext.getCmp('SettingDrawFence_FencePath').setValue(SettingDrawFence_FencePath);
+                                          Ext.getCmp('SettingDrawFence_FenceName').setValue(SettingDrawFence_FenceName);
+                                          Ext.getCmp('SettingDrawFence_TimeFrom').setValue(SettingDrawFence_TimeFrom);
+                                          Ext.getCmp('SettingDrawFence_TimeTo').setValue(SettingDrawFence_TimeTo);
+                                          Ext.getCmp('SettingDrawFence_DaySetting').setValue(SettingDrawFence_DaySetting);
+                                          Ext.getCmp('SettingDrawFence_Status').setValue(SettingDrawFence_Status);
+                                          Ext.getCmp('SettingDrawFence_Length').setValue(SettingDrawFence_Length);
+                                      }
+                                     
+                                    
                                     
 
                                   }

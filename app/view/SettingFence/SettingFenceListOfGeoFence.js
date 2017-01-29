@@ -3,14 +3,13 @@
 var SettingDrawFence_ID = '0';
 var SettingDrawFence_TrackItem = '-1';
 var SettingDrawFence_FencePath = 'null';
-
 var SettingDrawFence_FenceName = 'Enter Area Name';
 var SettingDrawFence_TimeFrom = '-1';
 var SettingDrawFence_TimeTo = '-1';
 var SettingDrawFence_DaySetting = '-1';
 var SettingDrawFence_Status='-1';
 var SettingDrawFence_Length='-1'
-
+var isClickAddNewSettingFenceButton = 'no';
 
 
 
@@ -31,7 +30,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
 {
 
     xtype: 'toolbar',
-    title: 'Geofence',
+    title: '<font size="4" color="white">Virtual Boundary</font>',
     docked: 'top',
     id: 'toolbarGeofenceTop',
     //  hidden:true,
@@ -42,7 +41,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                {
                    xtype: 'button',
 
-                   id: 'btnGeoFenceHome',
+                   id: 'btnSettingFenceListOfGeoFenceHome',
                    //  text: 'Show',
                    iconCls: 'home',
                    // html: '<div ><img src="resources/icons/hideGeofence.png" width="33" height="23" alt="Company Name"></div>',
@@ -56,7 +55,23 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
 
                },
 
+                 {
+                     xtype: 'spacer'
+                 },
+                           {
+                               xtype: 'button',
+                               //right: -7,
+                               //top: 1,
+                               id: 'btnSettingFenceListOfGeoFenceHomeAccInfo',
+                               html: '<div ><img src="resources/icons/MainMenuPictureProfile.png" width="45" height="45" alt="Company Name"></div>',
+                               //  html: '<div ><img src="resources/icons/hideGeofence.png" width="30" height="20" alt="Company Name"></div>',
+                               ui: 'plain',
+                               handler: function () {
 
+
+
+                               }
+                           },
 
 
            ]
@@ -83,8 +98,13 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
              xtype: 'button',
           
              id: 'SettingAutoFenceBackbtn',
-             ui: 'action',
-             text: "Back",
+             //ui: 'action',
+             //text: "Back",
+             height: 40,
+             width: 40,
+            
+             html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="30" height="30" alt="Company Name"></div>',
+             ui: 'plain',
              handler: function (btn) {
                  Ext.getCmp('mainView').setActiveItem(1);
             
@@ -95,13 +115,17 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                    xtype: 'button',
 
                    id: 'SettingAutoFenceAddNewbtn',
-                   ui: 'action',
-                   text: "Add New Virtual Boundry Setting",
+                   //ui: 'action',
+                   //text: "Add New Virtual Boundry Setting",
+                   height: 40,
+                   width: 50,
 
+                   html: '<div ><img src="resources/icons/AddNewFenceSettingWhite.png" width="46" height="38" alt="Company Name"></div>',
+                   ui: 'plain',
                    handler: function (btn) {
                        Ext.getCmp('mainView').setActiveItem(13);
                      
-                   
+                       isClickAddNewSettingFenceButton = 'yes';
                        SettingFencePanelSettingInfoShow();
                        SettingFenceDrawFenceMenuShow();
                      //  SettingFencePanelSettingInfoSaveShow();
@@ -129,7 +153,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                    
                      
 
-
+                   
 
 
 
@@ -159,14 +183,20 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                            }, 500);
 
                         
-                           
+                         
                            Ext.Viewport.unmask();
                        });
                        task.delay(1000);
 
 
                         // This will trigger a zoom_changed on the map
-                      // mapgeofenceSettinggeofence.setCenter(new google.maps.LatLng(6.396116, 100.677904));
+                       mapgeofenceSettinggeofence.setCenter(new google.maps.LatLng(9.340446, 110.298495));
+                     //  var center = new google.maps.LatLng(18.723921, 90.062886);
+                       // using global variable:
+                     //  mapgeofenceSettinggeofence.panTo(center);
+                       //bounds.extend(ctr);
+                       //mapgeofenceSettinggeofence.fitBounds(bounds);
+                    mapgeofenceSettinggeofence.setZoom(4);
 
                    }
 
@@ -270,7 +300,7 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
                         var DaySetting = (records.get('DaySetting'));
                         var Status = (records.get('Status'));
                         var FenceLength = (records.get('FenceLength'));
-
+                        isClickAddNewSettingFenceButton = 'no';
 
 
                          SettingDrawFence_ID = ID;
@@ -341,3 +371,33 @@ Ext.define('MyGPS.view.SettingFence.SettingFenceListOfGeoFence', {
 //    });
 //    task.delay(1000);
 //}
+
+
+function loadListOfGeofence()
+{
+
+
+    Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
+        AccNo: GetCurrentUserAccountNo(),
+    });
+    Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+
+    Ext.Viewport.mask({ xtype: 'loadmask', message: 'Loadind Data...Please Wait' });
+    var task = Ext.create('Ext.util.DelayedTask', function () {
+
+        Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
+            AccNo: GetCurrentUserAccountNo(),
+        });
+        Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+        Ext.getCmp('mainView').setActiveItem(4);
+
+     
+
+
+
+
+
+        Ext.Viewport.unmask();
+    });
+    task.delay(1000);
+}

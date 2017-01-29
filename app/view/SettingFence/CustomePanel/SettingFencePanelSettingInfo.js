@@ -26,7 +26,7 @@ function SettingFencePanelSettingInfo() {
 
         ////xtype: 'panel',
             // style: 'background-color:#57A0DC',
-        height: 180,
+        height: 200,
             //width: 320,
             //  centered: true,
             // height: '10%',
@@ -119,7 +119,7 @@ function SettingFencePanelSettingInfo() {
                                  
                                    SettingFenceDrawFenceMenuHide();
                                    SettingFencePanelSettingInfoHide();
-                                   Ext.getCmp('mainView').setActiveItem(4);
+                                   loadListOfGeofence();
                                }
 
 

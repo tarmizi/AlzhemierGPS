@@ -183,25 +183,9 @@
                 ui: 'plain',
                 handler: function () {
 
-                    Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
-                        AccNo: GetCurrentUserAccountNo(),
-                    });
-                    Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
+                 //   SettingFenceAddNewfenceShow();
 
-                    Ext.Viewport.mask({ xtype: 'loadmask', message: 'Loadind Data...Please Wait' });
-                    var task = Ext.create('Ext.util.DelayedTask', function () {                
-                                              
-                        Ext.getStore('AutoFenceTimerGetByAcc').getProxy().setExtraParams({
-                            AccNo: GetCurrentUserAccountNo(),
-                        });
-                        Ext.StoreMgr.get('AutoFenceTimerGetByAcc').load();
-                        Ext.getCmp('mainView').setActiveItem(4);
-                        Ext.Viewport.unmask();
-                    });
-                    task.delay(1000);
-                  
-
-                  
+                    loadListOfGeofence();
                    
 
                 }
