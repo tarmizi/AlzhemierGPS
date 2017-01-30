@@ -1,6 +1,9 @@
 ﻿
 var dialogboxHistoryTimeset;
 var _traceAlertFenceMap;
+var flightPlanCoordinatess = new Array();
+var ttpoint;
+
 Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
     extend: 'Ext.Panel',
     xtype: 'TraceAlertFenceMap',
@@ -130,7 +133,7 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
                       handler: function () {
                           TraceAlertFenceHistoryInfoHide();
                           resetMapTraceAlertFenceMap();
-                      
+                          Ext.getCmp('mainView').setActiveItem(12);
 
                       }
                   },
@@ -203,7 +206,7 @@ var DTarr = [];
 var xyHistory = [];
 var markersArray = [];
 var flightPath;
-var petahistory;
+
 var polyLengthInMeters;
 var isrecenter;
 
@@ -252,8 +255,8 @@ function resetMapTraceAlertFenceMap() {
     var task = Ext.create('Ext.util.DelayedTask', function () {
 
 
-        petahistory.setZoom(5);      // This will trigger a zoom_changed on the map
-        petahistory.setCenter(new google.maps.LatLng(4.65307992, 102.11242676));
+        _traceAlertFenceMap.setZoom(5);      // This will trigger a zoom_changed on the map
+        _traceAlertFenceMap.setCenter(new google.maps.LatLng(4.65307992, 102.11242676));
 
         Ext.Viewport.unmask();
 
@@ -262,7 +265,7 @@ function resetMapTraceAlertFenceMap() {
 
 }
 
-function plotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert, TrackItemAlert, GeofenceID) {
+function TraceAlertFencePlotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert, TrackItemAlert, GeofenceID) {
 
     Ext.getStore('GeofenceAlertHistoryStore').getProxy().setExtraParams({
         TrackID: TrackIDAlert,
@@ -305,7 +308,7 @@ function plotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert, TrackItemAlert
 
             }
             isrecenter = '1';
-
+            TraceAlertFenceDrawlinexypathhistory(pathXY, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert);
         } else {
             isrecenter = '0';
             Ext.Msg.alert("No Signal Point Detected.!!");
@@ -313,7 +316,7 @@ function plotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert, TrackItemAlert
         }
 
         Ext.Viewport.unmask();
-        drawlinexypathhistory(pathXY, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert);
+     
     });
     task.delay(1000);
 
@@ -331,7 +334,7 @@ var travellengthkm;
 var marker, i;
 var pointCount;
 //var flightPlanCoordinates = new Array();
-function drawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert) {
+function TraceAlertFenceDrawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert) {
     // flightPlanCoordinates.length = 0;
 
 
@@ -358,7 +361,7 @@ function drawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert
                 position: new google.maps.LatLng(Yarr[i], Xarr[i]),
                 animation: google.maps.Animation.DROP,
                 //icon: imagie,
-                map: petahistory
+                map: _traceAlertFenceMap
             });
 
             markersArray.push(marker);
@@ -381,7 +384,7 @@ function drawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert
 
             lineXYpath.push(flightPath);
 
-            flightPath.setMap(petahistory);
+            flightPath.setMap(_traceAlertFenceMap);
             polyLengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath().getArray());
             var travellength = parseInt(polyLengthInMeters);
             travellength = +Math.floor(polyLengthInMeters);
@@ -398,7 +401,7 @@ function drawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert
                     //infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b></font>");
 
                     // infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b><br> Speed :<b>" + Spdarr[i] + "km/h</b><br> Time :<b>" + dt + "</b></font>");
-                    infowindow.open(petahistory, marker);
+                    infowindow.open(_traceAlertFenceMap, marker);
                 }
             })
     (marker, i));
@@ -406,7 +409,7 @@ function drawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert
 
         }
 
-        petahistory.fitBounds(bounds);
+        _traceAlertFenceMap.fitBounds(bounds);
         //  travellengthkm = travellength / 1000;
 
     }, 1000);
@@ -427,8 +430,5 @@ function calcDistance(p1, p2) {
     return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(1);
 }
 
-
-var flightPlanCoordinatess = new Array();
-var ttpoint;
 
 
