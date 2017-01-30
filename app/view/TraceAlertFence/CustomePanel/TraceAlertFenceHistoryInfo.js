@@ -32,7 +32,7 @@ function TraceAlertFenceHistoryInfo()
 
 
             items: {
-                id: 'Infotrackedhistory',
+                id: 'TraceAlertFenceHistoryInfoSummaryID',
                 html: '<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdata">N/A</td> <td class="tdgpsdata">N/A</td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">Date From</td> <td class="tdgpslabel">Tracked Item</td></tr><tr> <td class="tdgpslabel">Tracked ID</td> <td class="tdgpslabel">Tracked Item</td></tr><tr> <td class="tdgpslabel">Tracked ID</td> <td class="tdgpslabel">Tracked Item</td></tr><tr> <td class="tdgpslabel">Tracked ID</td> <td class="tdgpslabel">Tracked Item</td></tr></table>',
 
                 items: {

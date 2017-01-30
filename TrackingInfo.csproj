@@ -329,6 +329,7 @@
     <Content Include="app\store\signallastlocationstore.js" />
     <Content Include="app\store\singlesignalstore.js" />
     <Content Include="app\store\singlesignalTrackingstore.js" />
+    <Content Include="app\store\TraceAlert\TraceAlertHistoryGetByAccNoTrackIDGeofenceID.js" />
     <Content Include="app\store\TraceAlert\TraceAlertHistoryGetByAccNoYearMonth.js" />
     <Content Include="app\store\TrackerDevicestore.js" />
     <Content Include="app\store\TrackingHistoryMap\TrackingHistoryMapStore.js" />

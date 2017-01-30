@@ -88,7 +88,11 @@ namespace TrackingInfo.Models
             get;
             set;
         }
-        
+        public string TimeAlert
+        {
+            get;
+            set;
+        }
 
         public static List<GeofenceAlertHistoryModel> Get_GeofenceAlertHistoryByAccNo(string AccNo)
         {
@@ -224,7 +228,7 @@ namespace TrackingInfo.Models
                             _result.AccountNo = _SQLDataReader["AccountNo"].ToString();
                             _result.TrackID = _SQLDataReader["TrackID"].ToString();
                             _result.TrackItem = _SQLDataReader["TrackItem"].ToString();
-                            //_result.Fencelength = _SQLDataReader["Fencelength"].ToString();
+                            _result.Fencelength = _SQLDataReader["Fencelength"].ToString();
                             //_result.FencePath = _SQLDataReader["FencePath"].ToString();
                             //_result.ShapeType = _SQLDataReader["ShapeType"].ToString();
                             //_result.Longituded = _SQLDataReader["Longituded"].ToString();
@@ -233,7 +237,8 @@ namespace TrackingInfo.Models
                             _result.FenceAreaName = _SQLDataReader["FenceAreaName"].ToString();
                             _result.CreatedGeofenceID = _SQLDataReader["CreatedGeofenceID"].ToString();
                             _result.TrackingItem_Alert = _SQLDataReader["TrackingItem_Alert"].ToString();
-
+                            _result.TimeAlert = _SQLDataReader["TimeAlert"].ToString();
+                            
                             _Value.Add(_result);
 
                         }

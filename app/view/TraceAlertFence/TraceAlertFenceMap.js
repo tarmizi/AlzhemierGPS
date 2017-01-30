@@ -131,7 +131,7 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
                       html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="30" height="30" alt="Company Name"></div>',
                       ui: 'plain',
                       handler: function () {
-                          TraceAlertFenceHistoryInfoHide();
+                         
                           resetMapTraceAlertFenceMap();
                           Ext.getCmp('mainView').setActiveItem(12);
 
@@ -206,7 +206,8 @@ var DTarr = [];
 var xyHistory = [];
 var markersArray = [];
 var flightPath;
-
+var draw_polygonTraceAlertDrawFence;
+var draw_circleTraceAlertDrawFence;
 var polyLengthInMeters;
 var isrecenter;
 
@@ -248,8 +249,15 @@ function resetMapTraceAlertFenceMap() {
         }
         lineXYpath.length = 0;
     }
+    if (draw_polygonTraceAlertDrawFence)
+    {
+        draw_polygonTraceAlertDrawFence.setMap(null);
+    }
 
-
+    if (draw_circleTraceAlertDrawFence) {
+        draw_circleTraceAlertDrawFence.setMap(null);
+    }
+  
 
     Ext.Viewport.mask({ xtype: 'loadmask', message: 'Re-Center Map...' });
     var task = Ext.create('Ext.util.DelayedTask', function () {
@@ -267,26 +275,26 @@ function resetMapTraceAlertFenceMap() {
 
 function TraceAlertFencePlotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert, TrackItemAlert, GeofenceID) {
 
-    Ext.getStore('GeofenceAlertHistoryStore').getProxy().setExtraParams({
-        TrackID: TrackIDAlert,
-        DateFrom: DateAlert,
-        DateTo: DateAlert,
-        geofenceID: GeofenceID,
-    });
-    Ext.StoreMgr.get('GeofenceAlertHistoryStore').load();
+    //Ext.getStore('TraceAlertHistoryGetByAccNoTrackIDGeofenceID').getProxy().setExtraParams({
+    //    TrackID: TrackIDAlert,
+    //    DateFrom: DateAlert,
+    //    DateTo: DateAlert,
+    //    geofenceID: GeofenceID,
+    //});
+    //Ext.StoreMgr.get('TraceAlertHistoryGetByAccNoTrackIDGeofenceID').load();
 
 
 
     Ext.Viewport.mask({ xtype: 'loadmask', message: 'Ploting Point in progress..Please Wait..' });
     var task = Ext.create('Ext.util.DelayedTask', function () {
-        Ext.getStore('GeofenceAlertHistoryStore').getProxy().setExtraParams({
+        Ext.getStore('TraceAlertHistoryGetByAccNoTrackIDGeofenceID').getProxy().setExtraParams({
             TrackID: TrackIDAlert,
             DateFrom: DateAlert,
             DateTo: DateAlert,
             geofenceID: GeofenceID,
         });
-        Ext.StoreMgr.get('GeofenceAlertHistoryStore').load();
-        var myStoreHH = Ext.getStore('GeofenceAlertHistoryStore');
+        Ext.StoreMgr.get('TraceAlertHistoryGetByAccNoTrackIDGeofenceID').load();
+        var myStoreHH = Ext.getStore('TraceAlertHistoryGetByAccNoTrackIDGeofenceID');
         var co = myStoreHH.getCount();
 
         var ii = 0;
@@ -308,7 +316,13 @@ function TraceAlertFencePlotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert,
 
             }
             isrecenter = '1';
+            var modelRecordTraceAlert = myStoreHH.getAt(0);
+            var typeshape = modelRecordTraceAlert.get('ShapeType');
+            var pathxy = modelRecordTraceAlert.get('FencePath');
+            var pathlenght = modelRecordTraceAlert.get('Fencelength');
+            TraceAlertDrawFence(typeshape, pathxy, pathlenght);
             TraceAlertFenceDrawlinexypathhistory(pathXY, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert);
+         
         } else {
             isrecenter = '0';
             Ext.Msg.alert("No Signal Point Detected.!!");
@@ -333,6 +347,8 @@ var travellength;
 var travellengthkm;
 var marker, i;
 var pointCount;
+var ipImage = document.location.protocol + '//' + document.location.host + '/resources/icons/';
+var TraceAlertMarkerImage;
 //var flightPlanCoordinates = new Array();
 function TraceAlertFenceDrawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateAlert, DateAlert, TrackItemAlert) {
     // flightPlanCoordinates.length = 0;
@@ -342,77 +358,97 @@ function TraceAlertFenceDrawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateA
 
     var locations = [];
 
-    console.log(Xarr.length);
 
-    setTimeout(function () {
+    Ext.Viewport.mask({ xtype: 'loadmask', message: 'Draw Line..Please Wait..' });
+    var task = Ext.create('Ext.util.DelayedTask', function () {
+        setTimeout(function () {
 
 
 
-        bounds = new google.maps.LatLngBounds();
+            bounds = new google.maps.LatLngBounds();
 
-        for (i = 0; i < Xarr.length; i++) {
-            //var point = new google.maps.LatLng(locations[i][0], locations[i][1]);
-            // bounds.extend(point);
-            var point = new google.maps.LatLng(Yarr[i], Xarr[i]);
-            bounds.extend(point);
-            //  console.log(locations[i][0], locations[i][1]);
-            marker = new google.maps.Marker({
-                //    position: new google.maps.LatLng(locations[i][0], locations[i][1]),
-                position: new google.maps.LatLng(Yarr[i], Xarr[i]),
-                animation: google.maps.Animation.DROP,
-                //icon: imagie,
-                map: _traceAlertFenceMap
-            });
+            for (i = 0; i < Xarr.length; i++) {
+                //var point = new google.maps.LatLng(locations[i][0], locations[i][1]);
+                // bounds.extend(point);
+                var point = new google.maps.LatLng(Yarr[i], Xarr[i]);
+                bounds.extend(point);
 
-            markersArray.push(marker);
+                TraceAlertMarkerImage = {
+                    url: ipImage + 'geofencemarker.png', // url
+                    scaledSize: new google.maps.Size(80, 80), // scaled size
+                    //  origin: new google.maps.Point(0, 0), // origin
+                    anchor: new google.maps.Point(40, 40) // anchor
+                };
 
 
 
 
 
+                marker = new google.maps.Marker({
+                    //    position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+                    position: new google.maps.LatLng(Yarr[i], Xarr[i]),
+                    //optimized: false,
+                    //flat: true,
+                  //  icon: TraceAlertMarkerImage,
+                    map: _traceAlertFenceMap
+                });
+
+                markersArray.push(marker);
 
 
 
-            flightPlanCoordinates.push(point);
-            var flightPath = new google.maps.Polyline({
-                path: flightPlanCoordinates,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-            });
-
-            lineXYpath.push(flightPath);
-
-            flightPath.setMap(_traceAlertFenceMap);
-            polyLengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath().getArray());
-            var travellength = parseInt(polyLengthInMeters);
-            travellength = +Math.floor(polyLengthInMeters);
-
-            Ext.getCmp('Infotrackedhistory').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdatahistory"><u>Tracking ID :  ' + TrackIDAlert + '</u></td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">Date From</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Date To</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Travel range(KM)</td> <td class="tdgpslabel">' + travellength.toFixed(1) + " M" + "| Point:" + pointCount + '</td></tr><tr> <td class="tdgpslabel">Tracking Item</td> <td class="tdgpslabel">' + TrackItemAlert + '</td></tr></table>');
-            google.maps.event.addListener(marker, 'mousedown', (function (marker, i) {
 
 
-                return function () {
-                    var infowindow = new google.maps.InfoWindow();
-                    var dt = DTarr[i].replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '');
-
-                    infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b><br>Signal Date:<b>" + dt + "</b></font>");
-                    //infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b></font>");
-
-                    // infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b><br> Speed :<b>" + Spdarr[i] + "km/h</b><br> Time :<b>" + dt + "</b></font>");
-                    infowindow.open(_traceAlertFenceMap, marker);
-                }
-            })
-    (marker, i));
 
 
-        }
 
-        _traceAlertFenceMap.fitBounds(bounds);
-        //  travellengthkm = travellength / 1000;
+                flightPlanCoordinates.push(point);
+                var flightPath = new google.maps.Polyline({
+                    path: flightPlanCoordinates,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
 
-    }, 1000);
+                lineXYpath.push(flightPath);
+
+                flightPath.setMap(_traceAlertFenceMap);
+                polyLengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath().getArray());
+                var travellength = parseInt(polyLengthInMeters);
+                travellength = +Math.floor(polyLengthInMeters);
+
+                Ext.getCmp('Infotrackedhistory').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdatahistory"><u>Tracking ID :  ' + TrackIDAlert + '</u></td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">Date From</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Date To</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Travel range(KM)</td> <td class="tdgpslabel">' + travellength.toFixed(1) + " M" + "| Point:" + pointCount + '</td></tr><tr> <td class="tdgpslabel">Tracking Item</td> <td class="tdgpslabel">' + TrackItemAlert + '</td></tr></table>');
+                google.maps.event.addListener(marker, 'mousedown', (function (marker, i) {
+
+
+                    return function () {
+                        var infowindow = new google.maps.InfoWindow();
+                        var dt = DTarr[i].replace(/(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}/g, '');
+
+                        infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b><br>Signal Date:<b>" + dt + "</b></font>");
+                        //infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b></font>");
+
+                        // infowindow.setContent("<font color=red>Signal seq:<b>" + i + "</b><br> Speed :<b>" + Spdarr[i] + "km/h</b><br> Time :<b>" + dt + "</b></font>");
+                        infowindow.open(_traceAlertFenceMap, marker);
+                    }
+                })
+        (marker, i));
+
+
+            }
+
+            _traceAlertFenceMap.fitBounds(bounds);
+            //  travellengthkm = travellength / 1000;
+
+        }, 200);
+
+        Ext.Viewport.unmask();
+
+    });
+    task.delay(1000);
+
+  
 
 
 }
@@ -431,4 +467,76 @@ function calcDistance(p1, p2) {
 }
 
 
+var arrTraceAlertDrawFence = [];
+function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
+    //alert(typeshape + pathxy + pathlenght);
 
+    console.log(typeshape);
+    arrTraceAlertDrawFence.length = 0;
+    if (typeshape == 'circle') {
+        var globalFileTypeId = pathxy.split(',');
+        var b = parseInt(pathlenght);
+        var ctr = new google.maps.LatLng(globalFileTypeId[0], globalFileTypeId[1]);
+         draw_circleTraceAlertDrawFence = new google.maps.Circle({
+            center: ctr,
+            radius: b,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            map: _traceAlertFenceMap
+        });
+
+     
+
+    }
+    if (typeshape == 'polygon') {
+
+        var polysplit = pathxy.split('),');
+
+
+
+
+        var index, len;
+        var a = polysplit;
+        for (index = 0, len = a.length; index < len; ++index) {
+            //alert(a[index] + ')');
+
+            var splitresult = a[index] + ')'.split(',');
+            var text = splitresult.replace(/[\])}[{(]/g, '');
+            var pathpoly = text.split(',');
+
+            arrTraceAlertDrawFence.push(new google.maps.LatLng(pathpoly[0], pathpoly[1]));
+            //  arraygeofenceSettinggeofencePolygonBounds.push(text);
+
+
+           
+
+        }
+     
+         draw_polygonTraceAlertDrawFence = new google.maps.Polygon({
+            paths: arrTraceAlertDrawFence,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            // strokeColor: "#FF8800",            
+            //strokeOpacity: 0.8,
+            //strokeWeight: 3,
+            //fillColor: "#FF8800",
+            //fillOpacity: 0.35
+        });
+        draw_polygonTraceAlertDrawFence.setMap(_traceAlertFenceMap);
+
+       
+
+
+
+
+    }
+
+
+
+}

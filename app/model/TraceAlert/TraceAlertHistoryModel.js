@@ -19,7 +19,8 @@
              { name: 'FenceAreaName' },
             { name: 'CreatedGeofenceID' },
              { name: 'TrackingItem_Alert' },
-
+                  { name: 'TimeAlert' },
+             
         ]
     }
 });
