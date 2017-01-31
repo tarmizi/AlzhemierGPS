@@ -132,6 +132,7 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
                       id: 'btnTraceAlertMapBack',
                       height: 40,
                       width: 40,
+                      margin:'0 -15 0 0',
                       html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="30" height="30" alt="Company Name"></div>',
                       ui: 'plain',
                       handler: function () {
