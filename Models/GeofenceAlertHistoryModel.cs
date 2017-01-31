@@ -93,7 +93,16 @@ namespace TrackingInfo.Models
             get;
             set;
         }
-
+        public string TimeFrom
+        {
+            get;
+            set;
+        }
+        public string TimeTo
+        {
+            get;
+            set;
+        }
         public static List<GeofenceAlertHistoryModel> Get_GeofenceAlertHistoryByAccNo(string AccNo)
         {
 
@@ -238,6 +247,9 @@ namespace TrackingInfo.Models
                             _result.CreatedGeofenceID = _SQLDataReader["CreatedGeofenceID"].ToString();
                             _result.TrackingItem_Alert = _SQLDataReader["TrackingItem_Alert"].ToString();
                             _result.TimeAlert = _SQLDataReader["TimeAlert"].ToString();
+                            _result.TimeFrom =TimeConverter(_SQLDataReader["TimeFrom"].ToString());
+                            _result.TimeTo =TimeConverter(_SQLDataReader["TimeTo"].ToString());
+                            
                             
                             _Value.Add(_result);
 
@@ -367,6 +379,74 @@ namespace TrackingInfo.Models
 
 
             return _Value;
+
+        }
+
+
+
+
+
+
+
+
+
+
+        public static string TimeConverter(string Time)
+        {
+            string Masa="";
+
+            if(Time=="1")
+            {
+                Masa = "01:00AM";
+            }else if(Time=="2")
+            { Masa = "02:00AM"; }
+            else if (Time == "2")
+            { Masa = "02:00AM"; }
+            else if (Time == "3")
+            { Masa = "03:00AM"; }
+            else if (Time == "4")
+            { Masa = "04:00AM"; }
+            else if (Time == "5")
+            { Masa = "05:00AM"; }
+            else if (Time == "6")
+            { Masa = "06:00AM"; }
+            else if (Time == "7")
+            { Masa = "07:00AM"; }
+            else if (Time == "8")
+            { Masa = "08:00AM"; }
+            else if (Time == "9")
+            { Masa = "09:00AM"; }
+            else if (Time == "10")
+            { Masa = "10:00AM"; }
+            else if (Time == "11")
+            { Masa = "11:00AM"; }
+            else if (Time == "12")
+            { Masa = "12:00PM"; }
+            else if (Time == "13")
+            { Masa = "01:00PM"; }
+            else if (Time == "14")
+            { Masa = "02:00PM"; }
+            else if (Time == "15")
+            { Masa = "03:00PM"; }
+            else if (Time == "16")
+            { Masa = "04:00PM"; }
+            else if (Time == "17")
+            { Masa = "05:00PM"; }
+            else if (Time == "18")
+            { Masa = "06:00PM"; }
+            else if (Time == "19")
+            { Masa = "07:00PM"; }
+            else if (Time == "20")
+            { Masa = "08:00PM"; }
+            else if (Time == "21")
+            { Masa = "09:00PM"; }
+            else if (Time == "22")
+            { Masa = "10:00PM"; }
+            else if (Time == "23")
+            { Masa = "11:0PM"; }
+            else if (Time == "24")
+            { Masa = "12:00AM"; }
+           return Masa;
 
         }
     }

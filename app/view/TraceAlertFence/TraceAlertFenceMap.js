@@ -3,7 +3,9 @@ var dialogboxHistoryTimeset;
 var _traceAlertFenceMap;
 var flightPlanCoordinatess = new Array();
 var ttpoint;
-
+var traceAlertMapGeocode_Lat;
+var traceAlertMapGeocode_Long;
+var geocoderTraceAlertFenceMap;
 Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
     extend: 'Ext.Panel',
     xtype: 'TraceAlertFenceMap',
@@ -30,15 +32,16 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
          // center: new google.maps.LatLng(5.4445234, 101.91246603),
          zoom: 6,
          //mapTypeId: google.maps.MapTypeId.HYBRID,
+         fullscreenControl:false,
          mapTypeId: google.maps.MapTypeId.ROADMAP,
-         streetViewControl: true,
+         streetViewControl: false,
          streetViewControlOptions: {
              position: google.maps.ControlPosition.TOP_RIGHT,
          },
          mapTypeControl: true,
          mapTypeControlOptions: {
              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-             position: google.maps.ControlPosition.TOP_RIGHT
+             position: google.maps.ControlPosition.TOP_LEFT
          },
        
      },
@@ -47,6 +50,7 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
          maprender: function (comp, map) {
 
              _traceAlertFenceMap = map;
+             geocoderTraceAlertFenceMap = new google.maps.Geocoder();
 
          }
      },
@@ -125,7 +129,7 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
                       
                    
                       xtype: 'button',
-                      id: 'backButtonhistoryploting',
+                      id: 'btnTraceAlertMapBack',
                       height: 40,
                       width: 40,
                       html: '<div ><img src="resources/icons/WhiteBackIcon.png" width="30" height="30" alt="Company Name"></div>',
@@ -141,14 +145,22 @@ Ext.define('MyGPS.view.TraceAlertFence.TraceAlertFenceMap', {
 
                   {
                    
-                      ui: 'action',
+                     // ui: 'action',
                       xtype: 'button',
-                      id: 'testButtonhistoryploting',
-                      text: 'Show Info',
+                      height: 43,
+                      width: 43,
+                      id: 'btnTraceAlertMapShowInfo',
+                      html: '<div ><img src="resources/icons/WhiteExpendIcon.png" width="33" height="33" alt="Company Name"></div>',
+                      ui: 'plain',
+                      //id: 'testButtonhistoryploting',
+                      //text: 'Show Info',
                       handler: function () {
 
                           TraceAlertFenceHistoryInfoShow();
-                         
+                          TraceAlertFenceHistoryInfoSetDetails();
+                        //  Ext.getCmp('TraceAlertFenceHistoryInfoSummaryID').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdata">Kid Name:' + TrackItemAlert + '</td> <td class="tdgpsdata">-</td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">V.B Area</td> <td class="tdgpslabel">' + FenceAreaName + '</td></tr><tr> <td class="tdgpslabel">Date</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Time Alert Started</td> <td class="tdgpslabel">' + TimeAlert + '</td></tr><tr> <td class="tdgpslabel">Length</td> <td class="tdgpslabel">' + travellengthkm.toFixed(1) + '(KM) | Point: ' + traceAlertCountPoint + '</td></tr></table>');
+
+
                       }
                   },
              ]
@@ -210,8 +222,8 @@ var draw_polygonTraceAlertDrawFence;
 var draw_circleTraceAlertDrawFence;
 var polyLengthInMeters;
 var isrecenter;
-
-
+var travellengthkm;
+var traceAlertCountPoint;
 
 
 function removeLine() {
@@ -311,7 +323,7 @@ function TraceAlertFencePlotingHistoryXypath(TrackIDAlert, DateAlert, DateAlert,
                 Xarr[ii] = modelRecordHH.get('Longituded');
                 Yarr[ii] = modelRecordHH.get('Latituded');
                 DTarr[ii] = modelRecordHH.get('AlertDate');
-
+               
                 //  console.log("Count:" + ii + '' + modelRecordHH.get('AlertDate'));
 
             }
@@ -417,8 +429,14 @@ function TraceAlertFenceDrawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateA
                 polyLengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath().getArray());
                 var travellength = parseInt(polyLengthInMeters);
                 travellength = +Math.floor(polyLengthInMeters);
+                travellengthkm = travellength / 1000;
+                traceAlertCountPoint = i;
+                TraceAlertFenceHistoryInfoSetDetails();
+            //    Ext.getCmp('Infotrackedhistory').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdatahistory"><u>Tracking ID :  ' + TrackIDAlert + '</u></td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">Date From</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Date To</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Travel range(KM)</td> <td class="tdgpslabel">' + travellength.toFixed(1) + " M" + "| Point:" + pointCount + '</td></tr><tr> <td class="tdgpslabel">Tracking Item</td> <td class="tdgpslabel">' + TrackItemAlert + '</td></tr></table>');
+             
+                //Ext.getCmp('TraceAlertFenceHistoryInfoSummaryID').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdata">Kid Name:' + TrackItemAlert + '</td> <td class="tdgpsdata">-</td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">V.B Area</td> <td class="tdgpslabel">' + FenceAreaName + '</td></tr><tr> <td class="tdgpslabel">Date</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Time Alert Started</td> <td class="tdgpslabel">' + TimeAlert + '</td></tr><tr> <td class="tdgpslabel">Length</td> <td class="tdgpslabel">' + travellengthkm.toFixed(1) + '(KM) | Point: ' + traceAlertCountPoint + '</td></tr></table>');
 
-                Ext.getCmp('Infotrackedhistory').setHtml('<table class="tblheadetrackedhistory"><tr > <td class="tdgpsdatahistory"><u>Tracking ID :  ' + TrackIDAlert + '</u></td></tr></table>                           <br>   <table class="tblmasterhistory"> <tr> <td class="tdgpslabel">Date From</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Date To</td> <td class="tdgpslabel">' + DateAlert + '</td></tr><tr> <td class="tdgpslabel">Travel range(KM)</td> <td class="tdgpslabel">' + travellength.toFixed(1) + " M" + "| Point:" + pointCount + '</td></tr><tr> <td class="tdgpslabel">Tracking Item</td> <td class="tdgpslabel">' + TrackItemAlert + '</td></tr></table>');
+
                 google.maps.event.addListener(marker, 'mousedown', (function (marker, i) {
 
 
@@ -440,7 +458,7 @@ function TraceAlertFenceDrawlinexypathhistory(XYhistoryPath, TrackIDAlert, DateA
 
             _traceAlertFenceMap.fitBounds(bounds);
             //  travellengthkm = travellength / 1000;
-
+         
         }, 200);
 
         Ext.Viewport.unmask();
@@ -477,6 +495,8 @@ function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
         var globalFileTypeId = pathxy.split(',');
         var b = parseInt(pathlenght);
         var ctr = new google.maps.LatLng(globalFileTypeId[0], globalFileTypeId[1]);
+        traceAlertMapGeocode_Lat = globalFileTypeId[0];
+        traceAlertMapGeocode_Long = globalFileTypeId[1];
          draw_circleTraceAlertDrawFence = new google.maps.Circle({
             center: ctr,
             radius: b,
@@ -487,7 +507,18 @@ function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
             fillOpacity: 0.35,
             map: _traceAlertFenceMap
         });
-
+         //var bounds = new google.maps.LatLngBounds();
+         //bounds.extend(ctr);
+        _traceAlertFenceMap.panTo(ctr);
+        // _traceAlertFenceMap.fitBounds(bounds);
+         _traceAlertFenceMap.setZoom(13);
+       
+         //Ext.Viewport.mask({ xtype: 'loadmask', message: 'Generate Virtual fence...' });
+         //var task = Ext.create('Ext.util.DelayedTask', function () {
+            
+         //    Ext.Viewport.unmask();
+         //});
+         //task.delay(1500);
      
 
     }
@@ -500,6 +531,8 @@ function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
 
         var index, len;
         var a = polysplit;
+        var polyX;
+        var polyY;
         for (index = 0, len = a.length; index < len; ++index) {
             //alert(a[index] + ')');
 
@@ -508,13 +541,11 @@ function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
             var pathpoly = text.split(',');
 
             arrTraceAlertDrawFence.push(new google.maps.LatLng(pathpoly[0], pathpoly[1]));
-            //  arraygeofenceSettinggeofencePolygonBounds.push(text);
-
-
-           
-
+            polyY = pathpoly[0];
+            polyX = pathpoly[1];
         }
-     
+        traceAlertMapGeocode_Lat = polyY;
+        traceAlertMapGeocode_Long = polyX;
          draw_polygonTraceAlertDrawFence = new google.maps.Polygon({
             paths: arrTraceAlertDrawFence,
             strokeColor: "#FF0000",
@@ -530,13 +561,29 @@ function TraceAlertDrawFence(typeshape, pathxy, pathlenght) {
         });
         draw_polygonTraceAlertDrawFence.setMap(_traceAlertFenceMap);
 
+        var ctr = new google.maps.LatLng(polyY, polyX);
+        _traceAlertFenceMap.panTo(ctr);
+        var shapeLength = parseInt(pathlenght);
+        console.log(shapeLength);
+        if (shapeLength <= 1)
+        {
+            _traceAlertFenceMap.setZoom(18);
+        } if (shapeLength > 1 && shapeLength <= 10)
+        {
+            _traceAlertFenceMap.setZoom(16);
+        } if (shapeLength > 10 && shapeLength <= 100) {
+            _traceAlertFenceMap.setZoom(14);
+        } if (shapeLength > 100 && shapeLength <= 500) {
+            _traceAlertFenceMap.setZoom(11);
+        } if (shapeLength > 500) {
+            _traceAlertFenceMap.setZoom(8);
+        }
        
-
 
 
 
     }
 
-
+    
 
 }

@@ -20,7 +20,8 @@
             { name: 'CreatedGeofenceID' },
              { name: 'TrackingItem_Alert' },
                   { name: 'TimeAlert' },
-             
+              { name: 'TimeFrom' },
+                  { name: 'TimeTo' },
         ]
     }
 });

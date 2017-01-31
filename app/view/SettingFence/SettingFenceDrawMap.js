@@ -1,6 +1,6 @@
 ﻿
 
-
+//TAK PAKAI
 Ext.define('MyGPS.view.SettingFence.SettingFenceDrawMap', {
     extend: 'Ext.Panel',
     requires: "MyGPS.view.SettingFence.Settinggeofence",
