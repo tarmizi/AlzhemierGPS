@@ -12,8 +12,8 @@ function SingleTrackingWPSListButton() {
       width: 1,
       id: 'SingleTrackingWPSListButtonID',
       draggable: false,
-      left: -12,
-      bottom: 200,
+      left: -14,
+      bottom: 60,
       zIndex:10,
      // bottom: 71,
 
@@ -66,12 +66,14 @@ function SingleTrackingWPSListButton() {
                      {
                          xtype: 'button',
                          id: 'btnSingleTrackingWPSListButtonIcon',
-                         height: 40,
+                         height: 75,
                          width: 180,
-                         html: '<div ><img src="resources/icons/wps-button1.png" width="170" height="30" alt="Company Name"></div>',
+                         html: '<div ><img src="resources/icons/wps-button1.png" width="170" height="65" alt="Company Name"></div>',
                          //   html: '<div ><img src="resources/icons/DetailsPoint.png" width="45" height="45" alt="Company Name"></div>',
                          ui: 'plain',
                          handler: function () {
+                             SingleTrackingWPSListButtonHide();
+                             SingleTrackingWPSListShow();
                          }
                      },
               
@@ -87,14 +89,14 @@ function SingleTrackingWPSListButton() {
 }
 
 
-function SingleTrackingWPSListHide()
+function SingleTrackingWPSListButtonHide()
 {
     _singleTrackingWPSListButton.hide();
 }
 
 
 
-function SingleTrackingWPSListShow() {
+function SingleTrackingWPSListButtonShow() {
     Ext.Viewport.remove(_singleTrackingWPSListButton);
     this.overlay = Ext.Viewport.add(SingleTrackingWPSListButton()); // _GeofenceInfoPanel place in Geofence_fencingstatusAlert class.                   
     this.overlay.show();

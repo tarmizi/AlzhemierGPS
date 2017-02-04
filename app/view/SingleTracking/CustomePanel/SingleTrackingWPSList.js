@@ -17,12 +17,12 @@ function SingleTrackingWPSList() {
       zIndex:10,
      // bottom: 71,
 
-      //showAnimation: {
-      //    type: 'slide',
-      //    direction: 'up',
-      //    duration: 450,
-      //    easing: 'ease-out'
-      //},
+      showAnimation: {
+          type: 'slide',
+          direction: 'up',
+          duration: 450,
+          easing: 'ease-out'
+      },
       //hideAnimation: {
       //    type: null,
       //    direction: null,
@@ -32,11 +32,11 @@ function SingleTrackingWPSList() {
 
 
 
-      showAnimation: {
-          type: 'popIn',
-          duration: 250,
-          easing: 'ease-out'
-      },
+      //showAnimation: {
+      //    type: 'popIn',
+      //    duration: 250,
+      //    easing: 'ease-out'
+      //},
       hideAnimation: {
           type: null,
           direction: null,
@@ -72,6 +72,8 @@ function SingleTrackingWPSList() {
                          //   html: '<div ><img src="resources/icons/DetailsPoint.png" width="45" height="45" alt="Company Name"></div>',
                          ui: 'plain',
                          handler: function () {
+                             SingleTrackingWPSListHide();
+                             SingleTrackingWPSListButtonShow();
                          }
                      },
                      //{
@@ -93,11 +95,13 @@ function SingleTrackingWPSList() {
                            id: 'btnSingleTrackingWPSListAPNdetected',
                            height: 180,
                            width: 210,
-                           margin: '-200 0 0 1',
-                           html: '<font size="1.5" color="red"><b>BitGuestWifi-263nbhd-3eyry73-d773b<br>FeldaWifi-8374js-uej-273-jjbgvvvg000<br>PufyBuffyRestorent-374-sj4-iii37-sh</b></font>',
+                           margin: '-190 0 0 -15',
+                           html: '<font size="1.5" color="red"><b>BitGuestWifi<br>FeldaWifi<br>PufyBuffyRestorent<br>Che Mat Restorent Wifi</b></font>',
                            //   html: '<div ><img src="resources/icons/DetailsPoint.png" width="45" height="45" alt="Company Name"></div>',
                            ui: 'plain',
                            handler: function () {
+                               SingleTrackingWPSListHide();
+                               SingleTrackingWPSListButtonShow();
                            }
                        },
 

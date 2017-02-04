@@ -1,7 +1,7 @@
 ﻿
 var _singleTrackingMapVirtualFence_Menu;
 var _isSingleTrackingMapVirtualFence_MenuInitialized = 'no';
-Ext.define('MyGPS.view.SingleTracking.CustomPanel.SingleTrackingMapVirtualFence_Menu', {
+Ext.define('MyGPS.view.SingleTracking.SingleTrackingMapVirtualFence_Menus', {
 
 });
 
@@ -17,8 +17,8 @@ function SingleTrackingMapVirtualFence_Menu() {
       id: '_SingleTrackingMapVirtualFence_MenuID',
       draggable: false,
       right: -5,
-      bottom: 301,
-      zIndex:10,
+      bottom: 362,
+      zIndex: 10,
       // bottom: 165,
 
       showAnimation: {
@@ -59,7 +59,7 @@ function SingleTrackingMapVirtualFence_Menu() {
                       ui: 'plain',
                       handler: function () {
 
-                          SingleTrackingMap_MenuHide();
+                          SingleTrackingMapVirtualFenceMenuHide();
                           _isSingleTrackingMapVirtualFence_MenuInitialized = 'yes';
                           ////  Ext.Viewport.remove(_SingleTrackingMap_Menu);
 
@@ -89,7 +89,7 @@ function SingleTrackingMapVirtualFence_Menu() {
                               countMapChange = 0;
                           }
                           SingleTrackingMapVirtualFence_BurgerMenuShow();
-                     
+
                           Ext.Viewport.mask({ xtype: 'loadmask', message: changeMsg });
                           var task = Ext.create('Ext.util.DelayedTask', function () {
 
@@ -109,9 +109,9 @@ function SingleTrackingMapVirtualFence_Menu() {
                     html: '<div ><img src="resources/icons/StreetViewRound.png" width="55" height="55" alt="Company Name"></div>',
                     ui: 'plain',
                     handler: function () {
-                     
+
                         SingleTrackingMapVirtualFenceMenuHide();
-                  
+
                         stopClocksingleTrackingMaps();
                         Ext.getCmp('mainView').setActiveItem(9);
 
@@ -187,7 +187,7 @@ function SingleTrackingMapVirtualFence_Menu() {
                        SingleTrackingMapVirtualFenceMenuHide();
                        SingleTrackingMapVirtualFence_BurgerMenuShow();
                        _isSingleTrackingMapVirtualFence_MenuInitialized = 'yes';
-                    
+
 
                    }
                },
@@ -226,7 +226,7 @@ function SingleTrackingMapVirtualFence_Menu() {
                     },
 
 
-           
+
               {
                   // [top, right, bottom, and left]
                   xtype: 'button',
@@ -234,26 +234,27 @@ function SingleTrackingMapVirtualFence_Menu() {
                   id: 'btnSingleTrackingMapVirtualFence_MenuBack',
                   height: 62,
                   width: 65,
-                  margin: '-61 63 0 0',
+                  margin: '-62 63 0 0',
                   //  html: '<div ><img src="resources/icons/OverViewMapRound.png" width="55" height="55" alt="Company Name"></div>',
-                //  html: '<div ><img src="resources/icons/GPSListRound.png" width="55" height="55" alt="Company Name"></div>',
+                  //  html: '<div ><img src="resources/icons/GPSListRound.png" width="55" height="55" alt="Company Name"></div>',
 
                   html: '<div ><img src="resources/icons/BackStreetViewRound.png" width="55" height="55" alt="Company Name"></div>',
-                  
+
                   ui: 'plain',
                   handler: function (btn) {
-                      SingleTrackingMapVirtualFence_BurgerMenuHide();
+                   //   SingleTrackingMapVirtualFence_BurgerMenuHide();
+                      SingleTrackingMapVirtualFenceMenuHide();
                       //SingleTrackingMap_MillageCountHide();
                       //SingleTrackingMap_SpeedMeterHide();                      
                       trackingid.length = 0;
                       DeselectMultipleTrackingList();
                       stopClocksingleTrackingMaps();
                       markersingleTrackingMap.setMap(null);
-                 
+
                       Ext.getCmp('mainView').setActiveItem(7);
 
 
-                    //  SingleTrackingWPSListShow();
+                      //  SingleTrackingWPSListShow();
 
 
 
@@ -290,8 +291,7 @@ function SingleTrackingMapVirtualFenceMenuShow() {
 }
 
 
-function SingleTrackingMapVirtualFenceMenuHide()
-{
+function SingleTrackingMapVirtualFenceMenuHide() {
     _singleTrackingMapVirtualFence_Menu.hide();
 
 }

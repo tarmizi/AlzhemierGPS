@@ -95,10 +95,12 @@ Ext.define('MyGPS.view.MultipleTracking.multiTrackingItemsList', {
                                    return;
                                } if (trackingid.length == 1)
                                {
-                                   SingleTrackingWPSListShow();
+                                   SingleTrackingWPSListButtonShow();
                                    loadmarkerSingleTrackingMap(strDeviceIDModified);
                                    Ext.getCmp('mainView').setActiveItem(2);
-                                   SettingFenceDrawFenceMenuShow();
+                                   SingleTrackingMapVirtualFenceMenuShow();
+
+
                                    //disable for alzheimer project
                                    ////Ext.Viewport.remove(_singleTrackingMap_Menu);
                                    ////this.overlay = Ext.Viewport.add(SingleTrackingMap_Menu());
