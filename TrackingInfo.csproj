@@ -460,6 +460,10 @@
     <Content Include="app\view\Setting\SettingResponderAlert.js" />
     <Content Include="app\view\Setting\SettingTrackingItemList.js" />
     <Content Include="app\view\SingleTrackingStreetView\SingleTrackingStreetViewMap.js" />
+    <Content Include="app\view\SingleTracking\CustomePanel\SingleTrackingMapVirtualFence_BurgerMenu.js" />
+    <Content Include="app\view\SingleTracking\CustomePanel\SingleTrackingMapVirtualFence_Menu.js" />
+    <Content Include="app\view\SingleTracking\CustomePanel\SingleTrackingWPSListButton.js" />
+    <Content Include="app\view\SingleTracking\CustomePanel\SingleTrackingWPSList.js" />
     <Content Include="app\view\SingleTracking\holderSingleTrackingitem.js" />
     <Content Include="app\view\SingleTracking\listSingleTrackingitem.js" />
     <Content Include="app\view\SingleTracking\singleTrackingMap.js" />

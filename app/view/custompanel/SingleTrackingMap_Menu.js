@@ -304,20 +304,18 @@ function SingleTrackingMap_Menu() {
                   
                   ui: 'plain',
                   handler: function (btn) {
-                      SingleTrackingMap_MenuHide();
-                      // Ext.Viewport.remove(_SingleTrackingMap_Menu);
-                      SingleTrackingMap_MillageCountHide();
-                      SingleTrackingMap_SpeedMeterHide();
-                      //  Ext.Viewport.remove(_singleTrackingMap_MillageCount);
-                      trackingid.length = 0;
-                      DeselectMultipleTrackingList();
-                      stopClocksingleTrackingMaps();
-                      markersingleTrackingMap.setMap(null);
-                      markersingleTrackingMapTop.setMap(null);
-                      Ext.getCmp('mainView').setActiveItem(7);
+                      //SingleTrackingMap_MenuHide();                     
+                      //SingleTrackingMap_MillageCountHide();
+                      //SingleTrackingMap_SpeedMeterHide();                      
+                      //trackingid.length = 0;
+                      //DeselectMultipleTrackingList();
+                      //stopClocksingleTrackingMaps();
+                      //markersingleTrackingMap.setMap(null);
+                      //markersingleTrackingMapTop.setMap(null);
+                      //Ext.getCmp('mainView').setActiveItem(7);
 
 
-
+                      SingleTrackingWPSListShow();
 
 
 

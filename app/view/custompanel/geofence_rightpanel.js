@@ -1,9 +1,4 @@
-﻿var countMapChange = 0;
-var changeMsg;
-var drawCircleCount = 0;
-var drawPolygonCount = 0;
-var btnGeofenceDrawCircleEvent;
-var btnGeofenceDrawPolygonEvent;
+﻿
 Ext.define('MyGPS.view.custompanel.geofence_rightpanel', {
  
 });

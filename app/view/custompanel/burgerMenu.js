@@ -177,10 +177,6 @@ function SingleTrackingMapStreetView_BurgeMenu() {
     return _singleTrackingMapStreetView_BurgeMenu;
 }
 
-function SingleTrackingMap_BurgeMenuHide()
-{
-    _singleTrackingMap_BurgeMenu.hide();
-}
 
 
 

@@ -43,7 +43,8 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingOverViewMap', {
                 title: 'Live Tracking',
                 docked: 'top',
                 id: 'toolbarMultiTrackingTop',
-                //  hidden:true,
+                //hidden for alzhimer project
+                 hidden:true,
                 items:
                        [
 

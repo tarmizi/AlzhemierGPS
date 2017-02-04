@@ -28,14 +28,13 @@ var boundstatus;
 var geoFenceStatus;
 var geoFenceDate;
 
-var gFenceAlertResponder;
-var gFenceAlertResponder2;
-var gFenceAlertResponder3;
-var gFenceAlertResponder4;
-var gFenceAlertResponderRelations;
-var gFenceAlertResponderRelations2;
-var gFenceAlertResponderRelations3;
-var gFenceAlertResponderRelations4;
+var countMapChange = 0;
+var changeMsg;
+var drawCircleCount = 0;
+var drawPolygonCount = 0;
+var btnGeofenceDrawCircleEvent;
+var btnGeofenceDrawPolygonEvent;
+
 var gFencelenght;
 var gCreateddate;
 var gFenceName;
@@ -228,8 +227,10 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingMap', {
 
 function loadmarkerSingleTrackingMap(SingleTrackID) {
     singleTrackingMapchecklong = '000';
-    SingleTrackingMap_SpeedMeterShow();
-    SingleTrackingMap_MillageCountShow();
+
+    //Disabled for Alzhemier Project
+  //  SingleTrackingMap_SpeedMeterShow();
+   // SingleTrackingMap_MillageCountShow();
 
     Ext.getStore('singlesignalTrackingstore').getProxy().setExtraParams({
         TrackID: SingleTrackID,
@@ -420,7 +421,25 @@ function startsingleTrackingMaps(val, SingleTrackID) {
 
                             if (AttachedLabelOnMarker == '1') {
 
-                                markersingleTrackingMapTop = new google.maps.Marker({
+                                //markersingleTrackingMapTop = new google.maps.Marker({
+                                //    position: boundreboundlatlongsingleTrackingMap,
+                                //    icon: image,
+                                //    flat: true,
+                                //    // labelAnchor: new google.maps.Point(20, 27),
+
+                                //    draggable: false,
+                                //    optimized: false,
+                                //    //  labelClass: "labelsMark",// the CSS class for the label
+                                //    map: singleTrackingMap,
+                                //    title: valSingleTrackID
+                                //});
+
+                              
+
+
+
+                                markersingleTrackingMap = new MarkerWithLabel({
+                                    position: boundreboundlatlongsingleTrackingMap,
                                     position: boundreboundlatlongsingleTrackingMap,
                                     icon: image,
                                     flat: true,
@@ -430,44 +449,28 @@ function startsingleTrackingMaps(val, SingleTrackID) {
                                     optimized: false,
                                     //  labelClass: "labelsMark",// the CSS class for the label
                                     map: singleTrackingMap,
-                                    title: valSingleTrackID
-                                });
-
-                                //markersingleTrackingMapTop = new google.maps.Marker();
-                                //markersingleTrackingMapTop.setPosition(boundreboundlatlongsingleTrackingMap);
-                                //markersingleTrackingMapTop.setIcon(image);
-                                //markersingleTrackingMapTop.setZIndex(0);
-                                //markersingleTrackingMapTop.setMap(singleTrackingMap);
-                                //markersingleTrackingMapTop
-
-
-
-                                markersingleTrackingMap = new MarkerWithLabel({
-                                    position: boundreboundlatlongsingleTrackingMap,
-                                    //  icon: image,
-                                    flat: true,
-                                    icon: {
-                                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                                        scale: 10,
-                                        // rotation: 16.86,
-                                        rotation: Direction,
-                                        // rotation: 0.0,
-                                        // strokeColor: '#F6358A',
-                                        strokeColor: '#FFFFFF',
-                                        fillColor: '#57A0DC',
-                                        fillOpacity: 1,
-                                        strokeWeight: 4
-                                    },
-                                    //  optimized: false,
-                                    //  icon: image,
-                                    draggable: false,
-                                    //labelStyle: { opacity: 0.75 },
-                                    // labelContent: "<div style=background-color:Black;width:auto;border:2px solid white;padding:15px;><font size=3 color=white>" + trackingItems + "</font></div>",
-                                    labelContent: TrackID,
+                                  
+                                    ////  icon: image,
+                                    //flat: true,
+                                    //icon: {
+                                    //    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                    //    scale: 10,
+                                    //    // rotation: 16.86,
+                                    //    rotation: Direction,
+                                    //    // rotation: 0.0,
+                                    //    // strokeColor: '#F6358A',
+                                    //    strokeColor: '#FFFFFF',
+                                    //    fillColor: '#57A0DC',
+                                    //    fillOpacity: 1,
+                                    //    strokeWeight: 4
+                                    //},
+                                   
+                                    //draggable: false,
+                                  //  labelContent: TrackID,
                                     labelAnchor: new google.maps.Point(70, 13),
                                     labelClass: "labelsMark",// the CSS class for the label
                                     map: singleTrackingMap,
-                                    title: valSingleTrackID
+                                   // title: valSingleTrackID
                                 });
 
 
@@ -505,17 +508,17 @@ function startsingleTrackingMaps(val, SingleTrackID) {
                       
                         singleTrackingMapchecklong = Longitude;
                         markersingleTrackingMap.id = uniqueId;
-                        markersingleTrackingMapTop.id = uniqueId;
+                     //   markersingleTrackingMapTop.id = uniqueId;
                         if (uniqueId > 1) {
                             DeleteMarkersingleTrackingMap(markersingleTrackingMap.id - 1);
-                            DeleteMarkersingleTrackingMap(markersingleTrackingMapTop.id - 1);
+                         //   DeleteMarkersingleTrackingMap(markersingleTrackingMapTop.id - 1);
                         }
 
                         uniqueId++;
 
 
                         markers.push(markersingleTrackingMap);
-                        markers.push(markersingleTrackingMapTop);
+                    //    markers.push(markersingleTrackingMapTop);
                         checkingimgMarker = SelectedMarker;
                         checkingAttachedLblOnMarker = AttachedLabelOnMarker;
 

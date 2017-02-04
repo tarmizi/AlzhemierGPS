@@ -120,8 +120,7 @@ Ext.define('MyGPS.view.SingleTracking.listSingleTrackingitem', {
                                 Ext.getCmp('singleTrackingOverViewMapPanelOverViewMapbottomsPhoneView').setHidden(true);
 
                                 setTimeout(function () {
-                                  //  alert('xxxccc');
-                                   // if (!this.overlay) {
+                                 
                                     this.overlay = Ext.Viewport.add(_GeofenceInfopanelMillage); // _GeofenceInfoPanel place in Geofence_fencingstatusAlert class.                         
                                    // }
                                     this.overlay.show();
