@@ -110,7 +110,7 @@ function SingleTrackingMapStreetView_MiniMap() {
                 mapOptions: {
                     disableDefaultUI: true,
                     panControl: false,
-                    zoomControl: true,
+                    zoomControl: false,
                     mapTypeControl: false,
                     scaleControl: false,
                     streetViewControl: false,
@@ -172,50 +172,52 @@ function SetStreetViewMiniMap(Latitude, Longitude, DirectionStreetView)
           
         });
 
-      var markerStreetviewMiniMapBottom = new MarkerWithLabel({
-          position: streetviewMiniMapPosition,
-            //  icon: image,
-            flat: true,
-            icon: {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                scale: 8,
-                // rotation: 16.86,
-                rotation: DirectionStreetView,
-                // rotation: 0.0,
-                // strokeColor: '#F6358A',
-                strokeColor: '#FFFFFF',
-                fillColor: '#57A0DC',
-                fillOpacity: 1,
-                strokeWeight: 2
-            },
-            //  optimized: false,
-            //  icon: image,
-            draggable: false,
-            //labelStyle: { opacity: 0.75 },
-            // labelContent: "<div style=background-color:Black;width:auto;border:2px solid white;padding:15px;><font size=3 color=white>" + trackingItems + "</font></div>",
+
+    //DISABLED TEMP
+      ////var markerStreetviewMiniMapBottom = new MarkerWithLabel({
+      ////    position: streetviewMiniMapPosition,
+      ////      //  icon: image,
+      ////      flat: true,
+      ////      icon: {
+      ////          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      ////          scale: 8,
+      ////          // rotation: 16.86,
+      ////          rotation: DirectionStreetView,
+      ////          // rotation: 0.0,
+      ////          // strokeColor: '#F6358A',
+      ////          strokeColor: '#FFFFFF',
+      ////          fillColor: '#57A0DC',
+      ////          fillOpacity: 1,
+      ////          strokeWeight: 2
+      ////      },
+      ////      //  optimized: false,
+      ////      //  icon: image,
+      ////      draggable: false,
+      ////      //labelStyle: { opacity: 0.75 },
+      ////      // labelContent: "<div style=background-color:Black;width:auto;border:2px solid white;padding:15px;><font size=3 color=white>" + trackingItems + "</font></div>",
        
-            labelAnchor: new google.maps.Point(70, 13),
+      ////      labelAnchor: new google.maps.Point(70, 13),
           
-            map: SingleTrackingMapStreetViewMiniMap,
+      ////      map: SingleTrackingMapStreetViewMiniMap,
        
-        });
+      ////  });
 
       
 
 
       SingleTrackingMapStreetViewMiniMaplatlongCheck = Longitude;
       markerStreetviewMiniMapTop.id = MiniMapuniqueId;
-      markerStreetviewMiniMapBottom.id = MiniMapuniqueId;
+   //   markerStreetviewMiniMapBottom.id = MiniMapuniqueId;
       if (MiniMapuniqueId > 1) {
           DeleteMarkersingleTrackingStreetviewMiniMap(markerStreetviewMiniMapTop.id - 1);
-          DeleteMarkersingleTrackingStreetviewMiniMap(markerStreetviewMiniMapBottom.id - 1);
+        //  DeleteMarkersingleTrackingStreetviewMiniMap(markerStreetviewMiniMapBottom.id - 1);
       }
 
       MiniMapuniqueId++;
 
 
       MiniMapmarkersArray.push(markerStreetviewMiniMapTop);
-      MiniMapmarkersArray.push(markerStreetviewMiniMapBottom);
+   //   MiniMapmarkersArray.push(markerStreetviewMiniMapBottom);
 
 
 }

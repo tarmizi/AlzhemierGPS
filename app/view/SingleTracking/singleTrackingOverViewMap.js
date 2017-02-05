@@ -44,7 +44,7 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingOverViewMap', {
                 docked: 'top',
                 id: 'toolbarMultiTrackingTop',
                 //hidden for alzhimer project
-                 hidden:true,
+                // hidden:true,
                 items:
                        [
 
@@ -72,6 +72,7 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingOverViewMap', {
                                xtype: 'button',
                                //right: -7,
                                //top: 1,
+                               hidden: true,
                                id: 'btnbtnSingleTrackingTopAccInfo',
                                html: '<div ><img src="resources/icons/MainMenuPictureProfile.png" width="45" height="45" alt="Company Name"></div>',
                                //  html: '<div ><img src="resources/icons/hideGeofence.png" width="30" height="20" alt="Company Name"></div>',
@@ -243,7 +244,7 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingOverViewMap', {
                             margin: '-2 0 0 -20',
                             //  html: '<table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: #57A0DC;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">No 42 Parit Hussin,<br>34300 Bagan Serai<br> Perak</td> </tr><tr> <td colspan="2" style="background-color: #57A0DC;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">Geocode Address</td> </tr>    <tr > <td class="tdspeedmax">{Speed}</td> <td class="tdspeedmax">120km/h</td></tr> <tr > <td class="tdspeed">Curr. Speed</td> <td class="tdspeed">Max Speed</td></tr> <tr> <td colspan="2" class="tdspeedmax">10/13/2015 2:06:56AM</td> </tr>  </table>',
                             //  html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">{TrackID}</td> </tr><tr> <td colspan="2" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">{TrackItem}</td> </tr>    <tr > <td class="tdstreetViewTblInfo" >{Speed}</td> <td class="tdstreetViewTblInfo">120km/h</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Max Speed</td></tr> <tr> <td colspan="2" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr>  </table></div>',
-                            html: '<div class="transbox"><p><font size="2">No 42 Parit Hussin,34300 Bagan Serai<br> Perak</font></p></div>',
+                            html: '<div class="transbox"><p><font size="2">4809, Persiaran Flora, Cyberjaya, 63000 Cyberjaya,Selangor.</font></p></div>',
 
 
 
@@ -319,7 +320,19 @@ Ext.define('MyGPS.view.SingleTracking.singleTrackingOverViewMap', {
 
                           //   html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="3" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">WTP 2681</td> <td colspan="3" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr><tr> <td colspan="3" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">PROTON PERSONA</td> <td colspan="3"  class="tdstreetViewTblInfo1">Signal Time</td> </tr>   <tr > <td class="tdstreetViewTblInfo">10.25KM/H</td> <td class="tdstreetViewTblInfo">10(s)</td><td class="tdstreetViewTblInfo">100(M)</td> <td class="tdstreetViewTblInfo">My Work Place-BIT</td><td class="tdstreetViewTblInfo3">Enabled</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Interval</td><td class="tdstreetViewTblInfo1">Altitude</td> <td class="tdstreetViewTblInfo1">V/Boundary Name</td><td class="tdstreetViewTblInfo2">V/Boundary Status</td></tr>  </table></div>',
 
-                             html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="3" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">WTP 2681</td> <td colspan="3" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr><tr> <td colspan="3" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">PROTON PERSONA</td> <td colspan="3"  class="tdstreetViewTblInfo1">Signal Time</td> </tr>   <tr > <td class="tdstreetViewTblInfo">10.25KM/H</td> <td class="tdstreetViewTblInfo">100(M)</td> <td class="tdstreetViewTblInfo">Work Place</td><td class="tdstreetViewTblInfo3">Enabled</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Altitude</td> <td class="tdstreetViewTblInfo1">V/Boundary Name</td><td class="tdstreetViewTblInfo2">V/Boundary Status</td></tr>  </table></div>',
+
+                             //alzzhemir
+                             //html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="3" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">WTP 2681</td> <td colspan="3" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr><tr> <td colspan="3" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">PROTON PERSONA</td> <td colspan="3"  class="tdstreetViewTblInfo1">Signal Time</td> </tr>   <tr > <td class="tdstreetViewTblInfo">10.25KM/H</td> <td class="tdstreetViewTblInfo">100(M)</td> <td class="tdstreetViewTblInfo">Work Place</td><td class="tdstreetViewTblInfo3">Enabled</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Altitude</td> <td class="tdstreetViewTblInfo1">V/Boundary Name</td><td class="tdstreetViewTblInfo2">V/Boundary Status</td></tr>  </table></div>',
+
+                           //  html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="4" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">WTP 2681</td> </tr><tr> <td colspan="4" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">Signal Time: 10/13/2015 2:06:56AM</td>  </tr>   <tr > <td class="tdstreetViewTblInfo">10.25KM/H</td> <td class="tdstreetViewTblInfo">100(M)</td> <td class="tdstreetViewTblInfo">Work Place</td><td class="tdstreetViewTblInfo3">Enabled</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Altitude</td> <td class="tdstreetViewTblInfo1">V/Boundary Name</td><td class="tdstreetViewTblInfo1">V/Boundary Status&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>  </table></div>',
+
+
+                             html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: transparent;  font-size: 12px; color: #fff; text-align: center;  valign:top; height:20%">NUR ANIS AQILAH</td><td  style="background-color: transparent;  font-size: 12px; color: #fff; text-align: center;  valign:top; height:20%">10/13/2015 2:06:56AM</td> <td  style="background-color: transparent;  font-size: 12px; color: #fff; text-align: center;  valign:top; height:20%">WPS</td></tr><tr> <td colspan="2" style="background-color: transparent;  font-size: 9px; color: #fff; text-align: center;  valign:top;  height:20% ">6005041949</td> <td  style="background-color: transparent;  font-size: 9px; color: #fff; text-align: center;  valign:top; height:20%">Signal Time</td>   <td  style="background-color: transparent;  font-size: 9px; color: #fff; text-align: center;  valign:top; height:20%">Point Mode</td>   </tr>   <tr > <td class="tdstreetViewTblInfo">10.25KM/H</td> <td class="tdstreetViewTblInfo">100(M)</td> <td class="tdstreetViewTblInfo">Work Place</td><td class="tdstreetViewTblInfo3">Enabled</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Altitude</td> <td class="tdstreetViewTblInfo1">V/Boundary Name</td><td class="tdstreetViewTblInfo1">V/Boundary Status&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>  </table></div>',
+
+
+
+
+
 
                              //   html: '<div class="transbox"><table class="tblgpssummary">  <tr> <td colspan="2" style="background-color: transparent;  font-size: 13px; color: #fff; text-align: center;  valign:top; height:20%">{TrackID}</td> </tr><tr> <td colspan="2" style="background-color: transparent;  font-size: 10px; color: #fff; text-align: center;  valign:top;  height:20% ">{TrackItem}</td> </tr>    <tr > <td class="tdstreetViewTblInfo" >{Speed}</td> <td class="tdstreetViewTblInfo">120km/h</td></tr> <tr > <td class="tdstreetViewTblInfo1">Curr. Speed</td> <td class="tdstreetViewTblInfo1">Max Speed</td></tr> <tr> <td colspan="2" class="tdstreetViewTblInfo">10/13/2015 2:06:56AM</td> </tr>  </table></div>',
                              //  ui:'round'
